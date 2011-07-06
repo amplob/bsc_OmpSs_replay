@@ -13,7 +13,13 @@ echo '------------------------------ending test_taskname_coder'
 echo '----------------------------starting test_dep_calculator'
 ./test_dep_calculator > output.test_dep_calculator
 diff output.test_dep_calculator default.test_dep_calculator
-echo '------------------------------ending test_taskname_coder'
+echo '------------------------------ending test_dep_calculator'
+
+
+echo '----------------------------starting test_ssvalgrindcc_interface'
+./test_ssvalgrindcc_interface > output.test_ssvalgrindcc_interface
+diff output.test_ssvalgrindcc_interface default.test_ssvalgrindcc_interface
+echo '------------------------------ending test_ssvalgrindcc_interface'
 
 
 # export MPTRACE_CONFIG_FILE=./mpitrace.xml

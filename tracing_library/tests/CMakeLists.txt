@@ -26,6 +26,11 @@ add_executable (test_dep_calculator test_dep_calculator.c)
 # Link the executable to the rb_tree library.
 target_link_libraries (test_dep_calculator mpissTrace)
 
+# create executable test_taskname_coder
+add_executable (test_ssvalgrindcc_interface test_ssvalgrindcc_interface.c)
+# Link the executable to the rb_tree library.
+target_link_libraries (test_ssvalgrindcc_interface mpissTrace)
+
 
 
 # # create executable test_taskname_coder
