@@ -21,18 +21,11 @@ target_link_libraries (test_dep_calculator mpissTrace)
 
 
 
-add_library(libmpitrace STATIC IMPORTED)
-set_property(TARGET libmpitrace PROPERTY
-                IMPORTED_LOCATION /home/vladimir/work/mpitrace-install/lib/libmpitrace.a)
-
-# create executable test_taskname_coder
-add_executable (mpi_probe mpi_probe.c)
-
-# mpitrace library linking
-include_directories(/gpfs/apps/CEPBATOOLS/extrae/latest/mpich/64/include)
-# target_link_libraries(mpi_probe /home/vladimir/work/mpitrace-install/lib/libmpitrace.a)
-# Link the executable to the rb_tree library.
-target_link_libraries (mpi_probe mpissTrace /gpfs/apps/CEPBATOOLS/extrae/latest/mpich/64/lib/libmpitrace.so)  
+# # create executable test_taskname_coder
+# add_executable (mpi_probe mpi_probe.c)
+# # mpitrace library linking
+# include_directories(/gpfs/apps/CEPBATOOLS/extrae/latest/mpich/64/include)
+# target_link_libraries (mpi_probe mpissTrace /gpfs/apps/CEPBATOOLS/extrae/latest/mpich/64/lib/libmpitrace.so)  
 
 
 
