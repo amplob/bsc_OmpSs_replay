@@ -87,7 +87,7 @@ static void record_write (t_Addr addr, t_taskId taskId) {
    t_Addr *newAddr;
    t_taskId *newTaskId;
    
-#ifdef TESTING   
+#if library_TESTING
    /* make sure there is NOT already present taskname  */
    rb_red_blk_node *newNode;
    newNode = RBExactQuery( all_dependent_memory_references, &addr);

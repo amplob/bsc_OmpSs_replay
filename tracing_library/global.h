@@ -1,7 +1,7 @@
-#include "rb_tree/red_black_tree.h"
-
 #ifndef GLOBAL_H
 
+#include "rb_tree/red_black_tree.h"
+#include "Config.h"
 #define MAX_TASKNAME_LEN  128
 
 typedef unsigned int t_taskcode;

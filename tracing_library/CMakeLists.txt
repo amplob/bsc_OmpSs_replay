@@ -2,6 +2,18 @@ cmake_minimum_required(VERSION 2.8)
 
 project (mpisstrace)
 
+# is the testing code ON/OFF
+set (library_TESTING 1)
+# configure a header file to pass this testing switch
+# to the source code
+configure_file (
+  "${PROJECT_SOURCE_DIR}/Config.h.in"
+  "${PROJECT_BINARY_DIR}/Config.h"
+  )
+
+
+
+
 #link_directories (${HELLO_BINARY_DIR}/Hello)
 set(CMAKE_C_COMPILER "mpicc")
 set(CMAKE_CXX_COMPILER "mpicc")

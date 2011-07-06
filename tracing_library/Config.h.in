@@ -1,0 +1,4 @@
+
+
+// the configured options and settings for the library
+#define library_TESTING @library_TESTING@

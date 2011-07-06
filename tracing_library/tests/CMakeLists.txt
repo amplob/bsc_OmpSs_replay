@@ -1,4 +1,11 @@
 
+#link_directories (${HELLO_BINARY_DIR}/Hello)
+set(CMAKE_C_COMPILER "ssvalgrindcc")
+set(CMAKE_CXX_COMPILER "ssvalgrindcc")
+
+# flags
+add_definitions("-Wall -rdynamic -k")
+
 # include header files from this folder
 include_directories(${mpisstrace_SOURCE_DIR}/tests)
 
