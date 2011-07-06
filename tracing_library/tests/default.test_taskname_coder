@@ -1,0 +1,50 @@
+start empty_name TEST
+collection of tasknames and the corresponding codes is 
+  taskname=  taskname_code=1
+
+
+WARNING !!!! 
+
+collection of NONSPECIFIED tasknames and the corresponding codes is 
+  taskname=  taskname_code=1
+
+end empty_name TEST
+
+
+start tens_of_transactions TEST
+collection of tasknames and the corresponding codes is 
+  taskname=task1  taskname_code=1
+  taskname=task2  taskname_code=2
+  taskname=task3  taskname_code=3
+  taskname=task4  taskname_code=4
+  taskname=task5  taskname_code=5
+  taskname=task6  taskname_code=6
+  taskname=task7  taskname_code=7
+  taskname=task8  taskname_code=8
+  taskname=task9  taskname_code=9
+
+
+WARNING !!!! 
+
+collection of NONSPECIFIED tasknames and the corresponding codes is 
+  taskname=task8  taskname_code=8
+  taskname=task9  taskname_code=9
+
+end tens_of_transactions TEST
+
+
+start reading file TEST
+
+
+collection of tasknames and the corresponding codes is 
+  taskname=task1  taskname_code=1
+  taskname=task2  taskname_code=2
+  taskname=task3  taskname_code=3
+  taskname=task4  taskname_code=4
+  taskname=task5  taskname_code=5
+  taskname=task6  taskname_code=6
+  taskname=task7  taskname_code=7
+
+end reading file TEST
+
+

@@ -1,0 +1,12 @@
+LEVEL CPU SIZE 4
+1.s34c1b07-gigabit1
+2.s34c1b09-gigabit1
+3.s34c1b10-gigabit1
+4.s35c2b14-gigabit1
+
+
+LEVEL NODE SIZE 4
+s34c1b07-gigabit1
+s34c1b09-gigabit1
+s34c1b10-gigabit1
+s35c2b14-gigabit1

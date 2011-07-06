@@ -1,0 +1,24 @@
+start simple_raw_dependency  TEST 
+collection of dependencies 
+  Address=0x64  lastWrite taskId=1
+  Address=0x65  lastWrite taskId=3
+
+end simple_raw_dependency  TEST 
+
+
+start bigger_dep_collection  TEST 
+collection of dependencies 
+  Address=0x64  lastWrite taskId=0
+  Address=0x65  lastWrite taskId=1
+  Address=0x66  lastWrite taskId=2
+  Address=0x67  lastWrite taskId=3
+  Address=0x68  lastWrite taskId=4
+  Address=0x69  lastWrite taskId=25
+  Address=0x6a  lastWrite taskId=26
+  Address=0x6b  lastWrite taskId=27
+  Address=0x6c  lastWrite taskId=28
+  Address=0x6d  lastWrite taskId=29
+
+end bigger_dep_collection  TEST 
+
+
