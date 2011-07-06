@@ -1,5 +1,6 @@
 #ifndef GLOBAL_H
 
+#include <assert.h>
 #include "rb_tree/red_black_tree.h"
 #include "Config.h"
 #define MAX_TASKNAME_LEN  128

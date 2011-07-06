@@ -1,6 +1,7 @@
 
 
 #include "dep_calculator.h"
+#include "ssvalgrindcc_interface.h"
 #include<stdio.h>
 #include<ctype.h>
 #include<string.h>
@@ -51,12 +52,32 @@ static void test_interactive() {
    
 }
 
+#pragma css task input(A)
+static void input_compute(float A[200]) {
+   A[1] = 0;
+}
+
+#pragma css task output(A)
+static void output_compute(float A[200]) {
+   A[1] = 0;
+}
+
+#pragma css task inout(A)
+static void inout_compute(float A[200]) {
+   A[1] = 0;
+}
 
 static void test_automatic() {
    
 #pragma css start
+   float buff[1000];
+   input_compute(buff);
+   output_compute(buff);
+   inout_compute(buff);
 
-
+#pragma css barrier
+   
+#pragma css wait on buff
 
 #pragma css finish
 }

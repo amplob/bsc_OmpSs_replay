@@ -1,2 +1,11 @@
 start_css_valgrind      
+starting task with name input_compute with stack pointer 
+task_input_valgrind parName A    ptr ,  element_size 4,   elements  200      
+ending task 
+starting task with name output_compute with stack pointer 
+task_output_valgrind parName A    ptr ,  element_size 4,   elements  200      
+ending task 
+starting task with name inout_compute with stack pointer 
+task_inout_valgrind parName A  ptr ,  element_size 4,   elements  200      
+ending task 
 end_css_valgrind      

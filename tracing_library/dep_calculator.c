@@ -4,7 +4,6 @@
 #include<stdio.h>
 #include<ctype.h>
 #include<string.h>
-#include<assert.h>
 
 
 /* track if the library is correctly initialized and destructed */
