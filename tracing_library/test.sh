@@ -22,6 +22,13 @@ diff output.test_ssvalgrindcc_interface default.test_ssvalgrindcc_interface
 echo '------------------------------ending test_ssvalgrindcc_interface'
 
 
+
+echo '----------------------------starting test_integration_no_tasks'
+./test_integration_no_tasks > output.test_integration_no_tasks
+diff output.test_integration_no_tasks default.test_integration_no_tasks
+echo '------------------------------ending test_integration_no_tasks'
+
+
 # export MPTRACE_CONFIG_FILE=./mpitrace.xml
 # export LD_PRELOAD=/home/vladimir/work/mpitrace-install/lib/
 # export MPITRACE_ON=1

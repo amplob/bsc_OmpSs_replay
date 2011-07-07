@@ -6,16 +6,18 @@
 #define MAX_TASKNAME_LEN  128
 
 #if library_TESTING
-#define TEST_PROGRESS(x...) \
-         {                  \
-            printf(x);      \
-         }
-#else   TEST_PROGRESS(x...) 
+   #define TEST_PROGRESS(x...) \
+            {                  \
+               printf(x);      \
+            }
+#else
+   #define TEST_PROGRESS(x...)  
 #endif
 
 typedef unsigned int t_taskcode;
 typedef void * t_Addr;
 typedef int t_taskId;
+typedef int t_taskNo;
 typedef unsigned int bool;
 typedef enum e_LibraryStatus { initialized, uninitialized } LibraryStatus;
 

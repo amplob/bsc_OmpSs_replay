@@ -6,7 +6,7 @@
 
 void start_task_valgrind(void *sp, const char * taskname)
 {
-   TEST_PROGRESS("starting task with name %s with stack pointer \n", type);
+   TEST_PROGRESS("starting task with name %s with stack pointer \n", taskname);
    event_start_task (taskname);
 }
 
@@ -18,10 +18,12 @@ void end_task_valgrind(void)
 
 void start_css_valgrind (void) {
    TEST_PROGRESS("start_css_valgrind      \n");
+   event_start_css();
 }
 
 void end_css_valgrind (void) {
    TEST_PROGRESS("end_css_valgrind      \n");
+   event_end_css();
 }
 
 void barrier_css_valgrind (void) {
