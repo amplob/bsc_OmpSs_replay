@@ -8,4 +8,6 @@ ending task
 starting task with name inout_compute with stack pointer 
 task_inout_valgrind parName A  ptr ,  element_size 4,   elements  200      
 ending task 
+barrier_css_valgrind      
+wait_on_valgrind      
 end_css_valgrind      

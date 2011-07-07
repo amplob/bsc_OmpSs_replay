@@ -5,6 +5,14 @@
 #include "Config.h"
 #define MAX_TASKNAME_LEN  128
 
+#if library_TESTING
+#define TEST_PROGRESS(x...) \
+         {                  \
+            printf(x);      \
+         }
+#else   TEST_PROGRESS(x...) 
+#endif
+
 typedef unsigned int t_taskcode;
 typedef void * t_Addr;
 typedef int t_taskId;

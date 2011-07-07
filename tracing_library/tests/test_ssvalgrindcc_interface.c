@@ -77,7 +77,7 @@ static void test_automatic() {
 
 #pragma css barrier
    
-#pragma css wait on buff
+#pragma css wait on (buff)
 
 #pragma css finish
 }
