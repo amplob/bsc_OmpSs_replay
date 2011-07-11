@@ -103,7 +103,7 @@ void event_end_css(void) {
 }
                   
 
-void event_start_task (const char * taskname) {
+void event_start_task (char * taskname) {
    t_taskcode task_code;
    t_taskId task_number;
    
@@ -115,26 +115,28 @@ void event_start_task (const char * taskname) {
    task_number = get_actual_task_number() + 1;
    set_actual_task_number(task_number);
    
-   /* code the name of the task */
+   /* change the code of the actual task from 1(main) to something (working task) */
    task_code = find_taskcode(taskname);
+   set_actual_task_code(task_code);
    TEST_PROGRESS("starting task number %d  name is %s which is coded into %d \n", 
                  get_actual_task_number(),
                  taskname,
                  task_code);
+   
+   /* emit event for starting task */
 }
 
 void event_end_task (void) {
    t_taskcode task_code;
    t_taskId task_number;
-   /* update the state of the main structure */   
    
-   /* entering working task */   
+   /* leaving working task and entering main task */   
    assert (get_actual_smpss_status() == inWorkingTask);
    set_actual_smpss_status(inMainTask);
    
-   /* count number is not changing here */
+   /* count of executed tasks remains the same */
    
-   /* code is switched to 0 - code of the main Task */   
+   /* code is switched to 1 - code of the main Task */   
    
 }
 

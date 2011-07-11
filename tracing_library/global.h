@@ -20,6 +20,7 @@ typedef int t_taskId;
 typedef unsigned int bool;
 typedef enum e_LibraryStatus { initialized, uninitialized } LibraryStatus;
 
+
 #define NO_NODE_FOUND NULL
 /* const rb_red_blk_node *noNode = (rb_red_blk_node*) NULL;   */
 

@@ -20,6 +20,7 @@ static t_taskcode actual_code;
 static rb_red_blk_tree* all_tasknames;
 static rb_red_blk_tree* nonspecified_tasknames;
 
+static char *main_task_name = "Main_task";
 
 /* -------------------------------------------
  * functions to initialize the trees
@@ -189,8 +190,8 @@ void import_tasknames_from_file(char *filename) {
    char task_name[MAX_TASKNAME_LEN];
    
    /* put that main task is 1  */
-   add_taskname("Main_task");
-   code = find_taskcode("Main_task");
+   add_taskname(main_task_name);
+   code = find_taskcode(main_task_name);
    assert (code == 1);
    
    /* each new task name gets a new identificator  */   

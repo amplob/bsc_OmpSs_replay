@@ -4,7 +4,7 @@
 #include "ssvalgrindcc_interface.h"
 #include "tracing_main.h"
 
-void start_task_valgrind(void *sp, const char * taskname)
+void start_task_valgrind(void *sp, char * taskname)
 {
    TEST_PROGRESS("starting task with name %s with stack pointer \n", taskname);
    event_start_task (taskname);
