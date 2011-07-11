@@ -11,10 +11,13 @@
 
 typedef enum e_SMPSsStatus { not_started, inMainTask, inWorkingTask, finished } SMPSsStatus;
 
+typedef int t_phaseID;                  
+
 typedef struct execution_state {
    SMPSsStatus smpss_status;
-   t_taskcode    taskCode;
+   t_taskcode  taskCode;
    t_taskId    tasksExecutedSoFar;
+   t_phaseID   phaseID;
 } Execution_state;
 
 /* STATE OF THE LIBRARY */
@@ -22,8 +25,10 @@ static Execution_state f_execution_state =
                   {  .smpss_status = not_started,
                      .taskCode = 0,
                      .tasksExecutedSoFar   = 0,
+                     .phaseID = 0,
                   };
-                  
+       
+
 /* access functions for f_execution_state  */                  
 static inline SMPSsStatus get_actual_smpss_status (void) {
    return f_execution_state.smpss_status;
@@ -49,7 +54,13 @@ static inline void set_actual_task_number (t_taskId task_number) {
    f_execution_state.tasksExecutedSoFar = task_number;
 }
    
+static inline void set_actual_phaseID (t_phaseID phaseID) {
+   f_execution_state.phaseID = phaseID;
+}
 
+static inline t_phaseID get_actual_phaseID (void) {
+   return f_execution_state.phaseID;
+}
 
 
 /**************************************************************************
@@ -142,6 +153,19 @@ void event_end_task (void) {
    set_actual_task_code(code);   
    
    /* emit event for ending task and starting main task again */
+   
+}
+
+
+void event_new_phase(void) {
+   t_phaseID phaseID;
+   phaseID = get_actual_phaseID();
+   TEST_PROGRESS("ending phase %d and starting phase %d\n",
+                  phaseID, phaseID + 1);
+   phaseID++;
+   set_actual_phaseID(phaseID);
+   
+   /* emit event for marking start of new phase */
    
 }
 

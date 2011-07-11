@@ -53,3 +53,8 @@ void task_inout_valgrind(const char *parName, void *ptr, unsigned long element_s
 void task_unspecified_dir_valgrind(const char *parName, void *ptr, unsigned long element_size, unsigned long elements) {
    PANIC("UNSPECIFIED DIRECTIONALITY OF PARAMETER!! parameter name %s\n", parName );
 }
+
+void start_new_phase_valgrind(void) {
+   TEST_PROGRESS("new_phase()      \n");
+   event_new_phase();   
+}

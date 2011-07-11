@@ -17,6 +17,8 @@ starting task number 1  name is compute_input which is coded into 9
 task_input_valgrind parName A    ptr ,  element_size 4,   elements  200      
 ending task 
 ending task number 1
+new_phase()      
+ending phase 0 and starting phase 1
 starting task with name compute_output with stack pointer 
 find_taskcode ALREADY SPECIFIED,  compute_output  -->  10
 starting task number 2  name is compute_output which is coded into 10 
@@ -29,6 +31,8 @@ starting task number 3  name is input_compute which is coded into 11
 task_input_valgrind parName A    ptr ,  element_size 4,   elements  200      
 ending task 
 ending task number 3
+new_phase()      
+ending phase 1 and starting phase 2
 starting task with name output_compute with stack pointer 
 find_taskcode NOT YET SPECIFIED,  output_compute  -->  12
 starting task number 4  name is output_compute which is coded into 12 

@@ -22,4 +22,6 @@ void task_inout_valgrind(const char *parName, void *ptr, unsigned long element_s
 void task_unspecified_dir_valgrind(const char *parName, void *ptr, unsigned long element_size, unsigned long elements);
 
 
+void start_new_phase_valgrind(void);
+
 #endif // SS_VALGRIND_H

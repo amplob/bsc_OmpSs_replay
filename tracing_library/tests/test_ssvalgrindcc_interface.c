@@ -82,8 +82,10 @@ static void test_automatic() {
 #pragma css start
    float buff[1000];
    compute_input(buff);
+   start_new_phase_valgrind();
    compute_output(buff);
    input_compute(buff);
+   start_new_phase_valgrind();   
    output_compute(buff);
    inout_compute(buff);
    
