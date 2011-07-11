@@ -27,6 +27,7 @@ starting task with name compute_input with stack pointer
 find_taskcode ALREADY SPECIFIED,  compute_input  -->  9
 starting task number 3  name is compute_input which is coded into 9 
 task_input_valgrind parName A    ptr ,  element_size 4,   elements  1000      
+there is dependency tasks:  2  ->   3 (INPUT) 
 ending task 
 ending task number 3
 barrier_css_valgrind      

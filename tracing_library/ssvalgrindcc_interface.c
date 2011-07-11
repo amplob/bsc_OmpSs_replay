@@ -37,22 +37,31 @@ void wait_on_valgrind(void *ptr) {
 }
 
 void task_input_value_valgrind(const char *parName, int value, unsigned long element_size, unsigned long elements){
-   TEST_PROGRESS("task_input_value_valgrind parName %s   value %d,  element_size %lu,   elements  %lu      \n", parName, value, element_size, elements);
+   TEST_PROGRESS("task_input_value_valgrind parName %s   value %d,  element_size %lu,   elements  %lu      \n",
+                 parName, value, element_size, elements);
+   /* do nothing on this one */
 }
 
 void task_input_valgrind(const char *parName, void *ptr, unsigned long element_size, unsigned long elements) {
-   TEST_PROGRESS("task_input_valgrind parName %s    ptr ,  element_size %lu,   elements  %lu      \n", parName,  element_size, elements);
+   TEST_PROGRESS("task_input_valgrind parName %s    ptr ,  element_size %lu,   elements  %lu      \n",
+                 parName,  element_size, elements);
+   event_input_parameter(ptr);
 }
 void task_output_valgrind(const char *parName, void *ptr, unsigned long element_size, unsigned long elements){
-   TEST_PROGRESS("task_output_valgrind parName %s    ptr ,  element_size %lu,   elements  %lu      \n", parName, element_size, elements);
+   TEST_PROGRESS("task_output_valgrind parName %s    ptr ,  element_size %lu,   elements  %lu      \n",
+                 parName, element_size, elements);
+   event_output_parameter(ptr);
 }
 void task_inout_valgrind(const char *parName, void *ptr, unsigned long element_size, unsigned long elements){
-   TEST_PROGRESS("task_inout_valgrind parName %s  ptr ,  element_size %lu,   elements  %lu      \n", parName, element_size, elements);
+   TEST_PROGRESS("task_inout_valgrind parName %s  ptr ,  element_size %lu,   elements  %lu      \n",
+                 parName, element_size, elements);
+   event_inout_parameter(ptr);   
 }
 
 
 void task_unspecified_dir_valgrind(const char *parName, void *ptr, unsigned long element_size, unsigned long elements) {
    PANIC("UNSPECIFIED DIRECTIONALITY OF PARAMETER!! parameter name %s\n", parName );
+   /* ABORT IS ENOUGH */
 }
 
 void start_new_phase_valgrind(void) {
