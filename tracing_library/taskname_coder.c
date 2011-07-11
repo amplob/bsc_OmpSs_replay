@@ -124,6 +124,10 @@ void init_tasknames_collection(void) {
 /* destroy tasknames collection */
 void dest_tasknames_collection(void) {
    assert(libraryStatus == initialized);
+#if (library_TESTING)
+   printout_all_tasknames();
+   printout_nonspecified_tasknames();
+#endif   
    RBTreeDestroy(all_tasknames);
    RBTreeDestroy(nonspecified_tasknames);     
    libraryStatus = uninitialized;
@@ -136,6 +140,7 @@ void add_taskname(char* task_name) {
    assert(libraryStatus == initialized);      
    task_code = get_new_taskname_code();
    add_taskname_to_tree(task_name, task_code, all_tasknames);
+   TEST_PROGRESS("add taskname %s\n", task_name);
 }
 
 /* code the taskname */
@@ -145,6 +150,7 @@ t_taskcode find_taskcode(char *task_name) {
    
    if ( ( newNode = RBExactQuery( all_tasknames, task_name) ) ) {
       /* if already present in the collection */
+      TEST_PROGRESS("find_taskcode ALREADY SPECIFIED,  %s  -->  %d\n", task_name, *(t_taskcode*) newNode->info);
       return *(t_taskcode*) (newNode->info);
    } else {
       /* still not present in the collection */
@@ -161,6 +167,7 @@ t_taskcode find_taskcode(char *task_name) {
       /* now it is already present in the tree */      
       newNode = RBExactQuery( all_tasknames, task_name);
       assert(newNode);
+      TEST_PROGRESS("find_taskcode NOT YET SPECIFIED,  %s  -->  %d\n", task_name, *(t_taskcode*) newNode->info);
       return *(t_taskcode*) (newNode->info);
    }
 }
@@ -183,8 +190,4 @@ void printout_nonspecified_tasknames(void) {
       printf("\n");      
    }
 }
-
-
-
-
 

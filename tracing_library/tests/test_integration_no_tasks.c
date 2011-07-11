@@ -52,20 +52,6 @@ static void test_interactive() {
    
 }
 
-#pragma css task input(A)
-static void input_compute(float A[200]) {
-   A[1] = 0;
-}
-
-#pragma css task output(A)
-static void output_compute(float A[200]) {
-   A[1] = 0;
-}
-
-#pragma css task inout(A)
-static void inout_compute(float A[200]) {
-   A[1] = 0;
-}
 
 static void test_automatic() {
    

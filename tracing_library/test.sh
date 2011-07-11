@@ -4,9 +4,10 @@ cd tests
 
 echo '----------------------------starting test_taskname_coder'
 ./test_taskname_coder > output.test_taskname_coder
-if [ $(diff output.test_taskname_coder default.test_taskname_coder | wc -l) -gt 0 ]; then
-  echo "test failed"
-fi
+diff output.test_taskname_coder default.test_taskname_coder
+#if [ $(diff output.test_taskname_coder default.test_taskname_coder | wc -l) -gt 0 ]; then
+#  echo "test failed"
+#fi
 echo '------------------------------ending test_taskname_coder'
 
 
@@ -27,6 +28,7 @@ echo '----------------------------starting test_integration_no_tasks'
 ./test_integration_no_tasks > output.test_integration_no_tasks
 diff output.test_integration_no_tasks default.test_integration_no_tasks
 echo '------------------------------ending test_integration_no_tasks'
+
 
 
 # export MPTRACE_CONFIG_FILE=./mpitrace.xml

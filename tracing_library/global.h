@@ -17,7 +17,6 @@
 typedef unsigned int t_taskcode;
 typedef void * t_Addr;
 typedef int t_taskId;
-typedef int t_taskNo;
 typedef unsigned int bool;
 typedef enum e_LibraryStatus { initialized, uninitialized } LibraryStatus;
 
