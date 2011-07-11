@@ -21,6 +21,7 @@ static rb_red_blk_tree* all_tasknames;
 static rb_red_blk_tree* nonspecified_tasknames;
 
 static char *main_task_name = "Main_task";
+static t_taskcode code_of_mainTask = 1;
 
 /* -------------------------------------------
  * functions to initialize the trees
@@ -64,8 +65,7 @@ static void print_pcf_format (FILE *file, rb_red_blk_node *coding) {
 
 
 inline static t_taskcode get_new_taskname_code(void) {
-   actual_code++;
-   return actual_code;
+   return actual_code++;
 }
 
 /* allocate new memory and copy the content there */
@@ -118,7 +118,7 @@ static void add_taskname_to_tree(const char* task_name, t_taskcode task_code, rb
 /* initialize tasknames collection */
 void init_tasknames_collection(void) {
    assert(libraryStatus == uninitialized);
-   actual_code = 0;
+   actual_code = code_of_mainTask;
    exist_nonspecified_tasknames = False;
    libraryStatus = initialized;
    all_tasknames = RBTreeCreate ( "taskname", "taskname_code",
@@ -189,10 +189,10 @@ void import_tasknames_from_file(char *filename) {
    t_taskcode code;
    char task_name[MAX_TASKNAME_LEN];
    
-   /* put that main task is 1  */
+   /* put the main task  */
    add_taskname(main_task_name);
    code = find_taskcode(main_task_name);
-   assert (code == 1);
+   assert (code == code_of_mainTask);
    
    /* each new task name gets a new identificator  */   
    file = fopen(filename, "r");
@@ -239,5 +239,9 @@ void flush_tasknames_pcf(char *filename) {
    RBTreeFunction(all_tasknames, file, print_pcf_format);
    fclose(file);
    
+}
+
+inline t_taskcode get_code_of_main_task () {
+   return code_of_mainTask;
 }
 

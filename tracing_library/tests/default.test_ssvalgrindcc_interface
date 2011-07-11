@@ -16,26 +16,31 @@ find_taskcode ALREADY SPECIFIED,  compute_input  -->  9
 starting task number 1  name is compute_input which is coded into 9 
 task_input_valgrind parName A    ptr ,  element_size 4,   elements  200      
 ending task 
+ending task number 1
 starting task with name compute_output with stack pointer 
 find_taskcode ALREADY SPECIFIED,  compute_output  -->  10
 starting task number 2  name is compute_output which is coded into 10 
 task_output_valgrind parName A    ptr ,  element_size 4,   elements  200      
 ending task 
+ending task number 2
 starting task with name input_compute with stack pointer 
 find_taskcode NOT YET SPECIFIED,  input_compute  -->  11
 starting task number 3  name is input_compute which is coded into 11 
 task_input_valgrind parName A    ptr ,  element_size 4,   elements  200      
 ending task 
+ending task number 3
 starting task with name output_compute with stack pointer 
 find_taskcode NOT YET SPECIFIED,  output_compute  -->  12
 starting task number 4  name is output_compute which is coded into 12 
 task_output_valgrind parName A    ptr ,  element_size 4,   elements  200      
 ending task 
+ending task number 4
 starting task with name inout_compute with stack pointer 
 find_taskcode NOT YET SPECIFIED,  inout_compute  -->  13
 starting task number 5  name is inout_compute which is coded into 13 
 task_inout_valgrind parName A  ptr ,  element_size 4,   elements  200      
 ending task 
+ending task number 5
 barrier_css_valgrind      
 wait_on_valgrind      
 end_css_valgrind      

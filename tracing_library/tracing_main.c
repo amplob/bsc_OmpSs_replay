@@ -127,6 +127,7 @@ void event_start_task (const char * taskname) {
 }
 
 void event_end_task (void) {
+   t_taskcode code;
    
    /* leaving working task and entering main task */   
    assert (get_actual_smpss_status() == inWorkingTask);
@@ -134,7 +135,13 @@ void event_end_task (void) {
    
    /* count of executed tasks remains the same */
    
-   /* code is switched to 1 - code of the main Task */   
+   /* code is switched to the code of the main Task */   
+   TEST_PROGRESS("ending task number %d\n", 
+                 get_actual_task_number());   
+   code = get_code_of_main_task();
+   set_actual_task_code(code);   
+   
+   /* emit event for ending task and starting main task again */
    
 }
 

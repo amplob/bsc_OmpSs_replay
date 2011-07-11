@@ -12,3 +12,5 @@ void flush_tasknames_pcf(char *filename);
 
 void printout_all_tasknames(void);
 void printout_nonspecified_tasknames(void);
+
+t_taskcode get_code_of_main_task ();
