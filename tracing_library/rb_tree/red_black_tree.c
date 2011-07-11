@@ -520,7 +520,7 @@ void RBTreeFunction(rb_red_blk_tree* tree, FILE *file, void(*f)(FILE*, rb_red_bl
 /**/
 /***********************************************************************/
   
-rb_red_blk_node* RBExactQuery(rb_red_blk_tree* tree, void* q) {
+rb_red_blk_node* RBExactQuery(rb_red_blk_tree* tree, const void* q) {
   rb_red_blk_node* x=tree->root->left;
   rb_red_blk_node* nil=tree->nil;
   int compVal;

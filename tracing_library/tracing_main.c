@@ -103,7 +103,7 @@ void event_end_css(void) {
 }
                   
 
-void event_start_task (char * taskname) {
+void event_start_task (const char * taskname) {
    t_taskcode task_code;
    t_taskId task_number;
    
@@ -127,8 +127,6 @@ void event_start_task (char * taskname) {
 }
 
 void event_end_task (void) {
-   t_taskcode task_code;
-   t_taskId task_number;
    
    /* leaving working task and entering main task */   
    assert (get_actual_smpss_status() == inWorkingTask);

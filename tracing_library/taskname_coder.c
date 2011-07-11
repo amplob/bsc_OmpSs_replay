@@ -77,7 +77,7 @@ inline static t_taskcode* make_persistant_taskcode (t_taskcode code){
 }
 
 /* allocate new memory and copy the content there */
-inline static char* make_persistant_taskname(char *task_name) {
+inline static char* make_persistant_taskname(const char *task_name) {
    char *newName;
    newName=(char*) malloc(sizeof(char) * MAX_TASKNAME_LEN);
    strncpy(newName, task_name, MAX_TASKNAME_LEN);
@@ -87,7 +87,7 @@ inline static char* make_persistant_taskname(char *task_name) {
 /* add taskname [task_name, task_code] to tree  
  * check that there is no repetition of task names
  */
-static void add_taskname_to_tree(char* task_name, t_taskcode task_code, rb_red_blk_tree* tree) {
+static void add_taskname_to_tree(const char* task_name, t_taskcode task_code, rb_red_blk_tree* tree) {
    char *newName;
    t_taskcode *newCode;
    
@@ -152,7 +152,7 @@ void add_taskname(char* task_name) {
 }
 
 /* code the taskname */
-t_taskcode find_taskcode(char *task_name) {
+t_taskcode find_taskcode(const char *task_name) {
    rb_red_blk_node *newNode;
    assert(libraryStatus == initialized);      
    

@@ -6,7 +6,7 @@
 #include "global.h"
 
 
-void start_task_valgrind(void *sp, char *type);
+void start_task_valgrind(void *sp, const char *type);
 void end_task_valgrind(void);
 void start_css_valgrind (void);
 void end_css_valgrind (void);
