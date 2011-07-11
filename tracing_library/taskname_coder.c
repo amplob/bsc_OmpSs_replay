@@ -1,5 +1,5 @@
 #include "taskname_coder.h"
-
+#include "common-global.h"
 
 #include<stdio.h>
 #include<ctype.h>
@@ -54,6 +54,13 @@ void taskcodeDest(void *a){
 /* -------------------------------------------
  * internal logic of the library
  * ------------------------------------------- */
+
+static void print_pcf_format (FILE *file, rb_red_blk_node *coding) {
+   fprintf(file, "%d\t\t%s\n",
+                  *(t_taskcode*)(coding->info),
+                   (char*)(coding->key));
+}
+
 
 inline static t_taskcode get_new_taskname_code(void) {
    actual_code++;
@@ -213,5 +220,23 @@ void printout_nonspecified_tasknames(void) {
       RBTreePrint(nonspecified_tasknames);
       printf("\n");      
    }
+}
+
+/* flush in the format of paraver configuration file (.pcf)
+ */   
+void flush_tasknames_pcf(char *filename) {
+   FILE *file;
+  
+   file = fopen(filename, "w+");
+   
+   /* print the header for the MPI Trace event - TYPE OF THE EVENT */
+   fprintf (file, "EVENT_TYPE\n");
+   fprintf (file, "0      %d       running task\n", COMMON_EVENT_TYPE_TASKNAME);
+
+   /* all codes and the corresponding tasknames */   
+   fprintf (file, "VALUES\n");      
+   RBTreeFunction(all_tasknames, file, print_pcf_format);
+   fclose(file);
+   
 }
 

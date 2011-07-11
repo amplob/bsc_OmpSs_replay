@@ -26,6 +26,7 @@ add_definitions("-Wall -rdynamic")
 
 # include header file from this folder
 include_directories(${mpisstrace_SOURCE_DIR})
+include_directories(${mpisstrace_SOURCE_DIR}/../common-files)
 
 # Recurse into the "rb_tree" subdirectory. This does not actually
 # cause another cmake executable to run. The same process will walk through

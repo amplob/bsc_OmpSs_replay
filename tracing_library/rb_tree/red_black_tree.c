@@ -1,5 +1,6 @@
 #include "red_black_tree.h"
 #include<string.h>
+#include<stdio.h>
 
 /***********************************************************************/
 /*  FUNCTION:  RBTreeCreate */
@@ -378,10 +379,10 @@ void InorderTreePrint(rb_red_blk_tree* tree, rb_red_blk_node* x) {
   rb_red_blk_node* root=tree->root;*/
   if (x != tree->nil) {
     InorderTreePrint(tree,x->left);
-    printf("  %s=", tree->key_name); 
-    tree->PrintKey(x->key);    
-    printf("  %s=", tree->info_name);
-    tree->PrintInfo(x->info);
+    printf("  %s=", tree->key_name);
+    tree->PrintKey(x->key);        
+    printf("  %s=", tree->info_name);    
+    tree->PrintInfo(x->info);            
     printf("\n");     
 /*    printf("  l->key=");
     if( x->left == nil) printf("NULL"); else tree->PrintKey(x->left->key);
@@ -394,6 +395,32 @@ void InorderTreePrint(rb_red_blk_tree* tree, rb_red_blk_node* x) {
   }
 }
 
+
+
+
+/***********************************************************************/
+/*  FUNCTION:  InorderTreeWalkFunction */
+/**/
+/*    INPUTS:  tree is the tree to be operated on and x is the current inorder node */
+/**/
+/*    OUTPUT:  none  */
+/**/
+/*    EFFECTS:  Operates function of each node of the tree  */
+/**/
+/*    Modifies Input: none */
+/**/
+/*    Note:    This function is used to do some operation on each element of the tree */
+/***********************************************************************/
+
+void InorderTreeWalkFunction(rb_red_blk_tree* tree, rb_red_blk_node* x, FILE *file, void(*f)(FILE*, rb_red_blk_node*)) {
+/*  rb_red_blk_node* nil=tree->nil;
+  rb_red_blk_node* root=tree->root;*/
+  if (x != tree->nil) {
+    InorderTreeWalkFunction(tree,x->left, file, f);
+    f(file, x);
+    InorderTreeWalkFunction(tree,x->right, file, f);
+  }
+}
 
 /***********************************************************************/
 /*  FUNCTION:  TreeDestHelper */
@@ -461,6 +488,23 @@ void RBTreePrint(rb_red_blk_tree* tree) {
   InorderTreePrint(tree,tree->root->left);
 }
 
+
+/***********************************************************************/
+/*  FUNCTION:  RBTreeFunction */
+/**/
+/*    INPUTS:  tree is the tree to do the function on */
+/**/
+/*    OUTPUT:  none */
+/**/
+/*    EFFECT:  This function recursively does function f on all nodes */
+/**/
+/*    Modifies Input: none */
+/**/
+/***********************************************************************/
+
+void RBTreeFunction(rb_red_blk_tree* tree, FILE *file, void(*f)(FILE*, rb_red_blk_node*)) {
+  InorderTreeWalkFunction(tree,tree->root->left, file, f);
+}
 
 /***********************************************************************/
 /*  FUNCTION:  RBExactQuery */

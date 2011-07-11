@@ -80,3 +80,7 @@ void NullFunction(void*);
 void* RBTreeGetInfo(rb_red_blk_tree *tree, void *record);
 
 void RBTreeSetInfo(rb_red_blk_tree *tree, void *record, void *newInfo);
+
+
+/*    DO FUNCTION f on each node in the tree */
+void RBTreeFunction(rb_red_blk_tree* tree, FILE *file, void(*f)(FILE*, rb_red_blk_node*));

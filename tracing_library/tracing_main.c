@@ -90,6 +90,9 @@ void event_end_css(void) {
    else 
       printf ("total number of tasks in this rank is %d\n",
                   get_actual_task_number());
+
+   /* make pcf file with tasknames*/
+   flush_tasknames_pcf("tasknames.pcf");
    
    /* inform if there were some task names that are not specified */
    printout_nonspecified_tasknames();
