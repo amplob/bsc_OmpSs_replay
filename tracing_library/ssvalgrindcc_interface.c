@@ -28,6 +28,7 @@ void end_css_valgrind (void) {
 
 void barrier_css_valgrind (void) {
    TEST_PROGRESS("barrier_css_valgrind      \n");
+   event_barrier();
 }
 
 void wait_on_valgrind(void *ptr) {

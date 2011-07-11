@@ -83,7 +83,7 @@ void event_start_css(void) {
    tasknames_filename = getenv ("TASKNAMES");
    TEST_PROGRESS("to read task names from the file    %s\n", tasknames_filename);
    if (tasknames_filename == NULL) {
-      printf(  "Warning: not specified file with names of the tasks: use export TASKNAMES=/path\n"
+      printf(  "Warning: not specified file with names of the tasks: use export TASKNAMES=<path>\n"
                "The names of the tasks may be corrupted!!!!\n");
    } else {
       import_tasknames_from_file(tasknames_filename);
@@ -180,6 +180,15 @@ void event_new_phase(void) {
    
    /* emit event for marking start of new phase */
    
+}
+
+void event_barrier(void) {
+   
+   /* could empty the dependency graph */   
+   dest_dependencies_collection();
+   init_dependencies_collection();
+   
+   /* emit event for marking barrier */   
 }
 
 

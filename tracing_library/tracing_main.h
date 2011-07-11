@@ -8,3 +8,5 @@ void event_start_css(void);
 void event_end_css(void);
 
 void event_new_phase(void);
+
+void event_barrier(void);
