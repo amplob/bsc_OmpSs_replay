@@ -18,4 +18,4 @@ t_taskId mark_inout (t_taskId actual_task, t_Addr addr);
 
 void printout_all_dependencies_collection (void);
    
-   
+extern const t_taskId no_dependency_task;

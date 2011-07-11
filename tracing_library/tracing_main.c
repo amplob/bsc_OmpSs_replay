@@ -11,7 +11,7 @@
 
 typedef enum e_SMPSsStatus { not_started, inMainTask, inWorkingTask, finished } SMPSsStatus;
 
-typedef int t_phaseID;                  
+typedef int t_phaseID;
 
 typedef struct execution_state {
    SMPSsStatus smpss_status;
@@ -87,8 +87,7 @@ void event_start_css(void) {
                "The names of the tasks may be corrupted!!!!\n");
    } else {
       import_tasknames_from_file(tasknames_filename);
-   }
-   
+   }  
 }
 
 
@@ -184,7 +183,8 @@ void event_new_phase(void) {
 
 void event_barrier(void) {
    
-   /* could empty the dependency graph */   
+   /* could restart the dependency graph */
+   /* because with barrier all dependencies are reseted */
    dest_dependencies_collection();
    init_dependencies_collection();
    
@@ -193,58 +193,58 @@ void event_barrier(void) {
 
 
 void event_input_parameter(void *addr) {
-   t_taskId actual_task, previous_task;
+   t_taskId actual_task, depending_task;
 
    /* check sanity */
    assert(get_actual_smpss_status() == inWorkingTask);
    
    /* mark access   */
    actual_task = get_actual_task_number();
-   previous_task = mark_input(actual_task, addr);
+   depending_task = mark_input(actual_task, addr);
    
-   if (previous_task != -1) {
+   if (depending_task != no_dependency_task) {
       TEST_PROGRESS("there is dependency tasks:  %d  ->   %d (INPUT) \n",
-                     previous_task, actual_task);
+                     depending_task, actual_task);
       /* if there is dependency - emit it to the trace */      
    }
 }
 
 
 void event_output_parameter(void *addr) {
-   t_taskId actual_task, previous_task;
+   t_taskId actual_task, depending_task;
 
    /* check sanity */
    assert(get_actual_smpss_status() == inWorkingTask);
    
    /* mark access   */
    actual_task = get_actual_task_number();
-   previous_task = mark_output(actual_task, addr);
+   depending_task = mark_output(actual_task, addr);
    
    /* now WA* dependencies */
-   assert (previous_task == -1);
+   assert (depending_task == no_dependency_task);
 }
 
 
 void event_inout_parameter(void *addr) {
-   t_taskId actual_task, previous_task;
+   t_taskId actual_task, depending_task;
 
    /* check sanity */
    assert(get_actual_smpss_status() == inWorkingTask);
    
    /* mark access   */
    actual_task = get_actual_task_number();
-   previous_task = mark_inout(actual_task, addr);
+   depending_task = mark_inout(actual_task, addr);
    
-   if (previous_task != -1) {
+   if (depending_task != no_dependency_task) {
       TEST_PROGRESS("there is dependency tasks:  %d  ->   %d (INOUT) \n",
-                     previous_task, actual_task);
+                     depending_task, actual_task);
       /* if there is dependency - emit it to the trace */      
    }
 }
 
 
 void event_wait_on(void *addr) {
-   t_taskId actual_task, previous_task;
+   t_taskId actual_task, depending_task;
 
    /* check sanity */
    assert(get_actual_smpss_status() == inMainTask);
@@ -253,11 +253,11 @@ void event_wait_on(void *addr) {
    /* this is FAKE, bacause mark_input will not mark any access */
    /* it will just detect dependency, so actual_task is irrelevant */
    actual_task = 0;
-   previous_task = mark_input(actual_task, addr);
+   depending_task = mark_input(actual_task, addr);
    
-   if (previous_task != -1) {
+   if (depending_task != no_dependency_task) {
       TEST_PROGRESS("there is dependency tasks:  %d  ->   %d (WAIT-ON) \n",
-                     previous_task, actual_task);
+                     depending_task, actual_task);
       /* if there is dependency - emit it to the trace */      
    }   
 }

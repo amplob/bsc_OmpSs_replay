@@ -12,7 +12,7 @@ static LibraryStatus libraryStatus = uninitialized;
 /* trees to store tasknames and their codes */
 static rb_red_blk_tree* all_dependent_memory_references;
 
-static const t_taskId no_dependency_task = -1;
+const t_taskId no_dependency_task = -1;
 
 /* -------------------------------------------
  * functions to initialize the trees
