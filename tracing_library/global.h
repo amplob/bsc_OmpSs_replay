@@ -19,7 +19,7 @@ typedef void * t_Addr;
 typedef int t_taskId;
 typedef unsigned int bool;
 typedef enum e_LibraryStatus { initialized, uninitialized } LibraryStatus;
-
+typedef int t_phaseID;
 
 #define NO_NODE_FOUND NULL
 /* const rb_red_blk_node *noNode = (rb_red_blk_node*) NULL;   */

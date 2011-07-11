@@ -2,6 +2,7 @@
 #include "tracing_main.h"
 #include "taskname_coder.h"
 #include "dep_calculator.h"
+#include "emit_records.h"
 
 
 /* The global structure of this file is Execution_state f_execution_state
@@ -10,8 +11,6 @@
  */
 
 typedef enum e_SMPSsStatus { not_started, inMainTask, inWorkingTask, finished } SMPSsStatus;
-
-typedef int t_phaseID;
 
 typedef struct execution_state {
    SMPSsStatus smpss_status;
@@ -87,6 +86,9 @@ void event_start_css(void) {
    } else {
       import_tasknames_from_file(tasknames_filename);
    }  
+   
+   /* emit trace record for start of the trace */
+   emit_css_start();
 }
 
 
@@ -122,6 +124,9 @@ void event_end_css(void) {
    /* destroy collections */
    dest_dependencies_collection();   
    dest_tasknames_collection(); 
+   
+   /* emit trace record for start of the trace */
+   emit_css_finish();   
 }
                   
 
@@ -146,6 +151,7 @@ void event_start_task (const char * taskname) {
                  task_code);
    
    /* emit event for starting task */
+   emit_task_start(task_code, task_number);
 }
 
 void event_end_task (void) {
@@ -164,7 +170,7 @@ void event_end_task (void) {
    set_actual_task_code(code);   
    
    /* emit event for ending task and starting main task again */
-   
+   emit_task_end();   
 }
 
 
@@ -177,7 +183,7 @@ void event_new_phase(void) {
    set_actual_phaseID(phaseID);
    
    /* emit event for marking start of new phase */
-   
+   emit_phase_start(phaseID);      
 }
 
 void event_barrier(void) {
@@ -188,6 +194,7 @@ void event_barrier(void) {
    init_dependencies_collection();
    
    /* emit event for marking barrier */   
+   emit_css_barrier(); 
 }
 
 

@@ -10,40 +10,52 @@ add taskname task6
 add taskname task7
 add taskname compute_input
 add taskname compute_output
+emit css start 
 starting task with name compute_input with stack pointer 
 find_taskcode ALREADY SPECIFIED,  compute_input  -->  9
 starting task number 1  name is compute_input which is coded into 9 
+emit task start code 9, number 1
 task_input_valgrind parName A    ptr ,  element_size 4,   elements  1000      
 ending task 
 ending task number 1
+emit task end
 starting task with name compute_output with stack pointer 
 find_taskcode ALREADY SPECIFIED,  compute_output  -->  10
 starting task number 2  name is compute_output which is coded into 10 
+emit task start code 10, number 2
 task_output_valgrind parName A    ptr ,  element_size 4,   elements  1000      
 ending task 
 ending task number 2
+emit task end
 starting task with name compute_input with stack pointer 
 find_taskcode ALREADY SPECIFIED,  compute_input  -->  9
 starting task number 3  name is compute_input which is coded into 9 
+emit task start code 9, number 3
 task_input_valgrind parName A    ptr ,  element_size 4,   elements  1000      
 there is dependency tasks:  2  ->   3 (INPUT) 
 ending task 
 ending task number 3
+emit task end
 starting task with name compute_output with stack pointer 
 find_taskcode ALREADY SPECIFIED,  compute_output  -->  10
 starting task number 4  name is compute_output which is coded into 10 
+emit task start code 10, number 4
 task_output_valgrind parName A    ptr ,  element_size 4,   elements  1000      
 ending task 
 ending task number 4
+emit task end
 wait_on_valgrind      
 there is dependency tasks:  4  ->   0 (WAIT-ON) 
 barrier_css_valgrind      
+emit css barrier
 starting task with name compute_input with stack pointer 
 find_taskcode ALREADY SPECIFIED,  compute_input  -->  9
 starting task number 5  name is compute_input which is coded into 9 
+emit task start code 9, number 5
 task_input_valgrind parName A    ptr ,  element_size 4,   elements  1000      
 ending task 
 ending task number 5
+emit task end
 end_css_valgrind      
 
 -----------------------------------------------------------------------------------
@@ -65,3 +77,4 @@ collection of tasknames and the corresponding codes is
   taskname=task6  taskname_code=7
   taskname=task7  taskname_code=8
 
+emit css finish 

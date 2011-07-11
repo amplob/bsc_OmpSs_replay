@@ -1,8 +1,8 @@
 #! /bin/bash
 
 # here are the names that are going to be used in the tests
-#export TASKNAMES=/home/vladimir/work/codes/MPISSTrace/MPISSTrace/tracing_library/tests/tasknames.txt
-export TASKNAMES=/home/bsc18/bsc18422/MPISSTrace/tracing_library/tests/tasknames.txt
+export TASKNAMES=/home/vladimir/work/codes/MPISSTrace/MPISSTrace/tracing_library/tests/tasknames.txt
+#export TASKNAMES=/home/bsc18/bsc18422/MPISSTrace/tracing_library/tests/tasknames.txt
 
 cd tests
 

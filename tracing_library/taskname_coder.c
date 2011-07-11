@@ -233,7 +233,7 @@ void flush_tasknames_pcf(char *filename) {
    
    /* print the header for the MPI Trace event - TYPE OF THE EVENT */
    fprintf (file, "EVENT_TYPE\n");
-   fprintf (file, "0      %d       running task\n", COMMON_EVENT_TYPE_TASKNAME);
+   fprintf (file, "0      %d       running task\n", COMMON_EVENT_TYPE_TASKNAME_CODED);
 
    /* all codes and the corresponding tasknames */   
    fprintf (file, "VALUES\n");      

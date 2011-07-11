@@ -10,7 +10,9 @@ add taskname task6
 add taskname task7
 add taskname compute_input
 add taskname compute_output
+emit css start 
 barrier_css_valgrind      
+emit css barrier
 wait_on_valgrind      
 end_css_valgrind      
 
@@ -33,3 +35,4 @@ collection of tasknames and the corresponding codes is
   taskname=task6  taskname_code=7
   taskname=task7  taskname_code=8
 
+emit css finish 

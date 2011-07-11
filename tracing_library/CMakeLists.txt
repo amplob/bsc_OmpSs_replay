@@ -38,7 +38,7 @@ add_subdirectory (tests)
 include_directories(${mpisstrace_SOURCE_DIR}/rb_tree)
 
 # compile the library
-add_library(mpissTrace taskname_coder.c dep_calculator.c ssvalgrindcc_interface.c tracing_main.c)
+add_library(mpissTrace taskname_coder.c dep_calculator.c ssvalgrindcc_interface.c emit_records.c tracing_main.c)
 # Link the executable to the rb_trees library.
 target_link_libraries (mpissTrace rb_trees) 
 
