@@ -81,7 +81,6 @@ void event_start_css(void) {
    
    /* if there is a specified file with tasknames, READ IT and put into the collection */
    tasknames_filename = getenv ("TASKNAMES");
-   TEST_PROGRESS("to read task names from the file    %s\n", tasknames_filename);
    if (tasknames_filename == NULL) {
       printf(  "Warning: not specified file with names of the tasks: use export TASKNAMES=<path>\n"
                "The names of the tasks may be corrupted!!!!\n");

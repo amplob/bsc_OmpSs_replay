@@ -1,5 +1,4 @@
 start_css_valgrind      
-to read task names from the file    /home/vladimir/work/codes/MPISSTrace/MPISSTrace/tracing_library/tests/tasknames.txt
 add taskname Main_task
 find_taskcode ALREADY SPECIFIED,  Main_task  -->  1
 add taskname task1
