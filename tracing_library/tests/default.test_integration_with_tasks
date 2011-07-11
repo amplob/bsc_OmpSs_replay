@@ -32,7 +32,14 @@ ending task number 3
 barrier_css_valgrind      
 wait_on_valgrind      
 end_css_valgrind      
+
+-----------------------------------------------------------------------------------
+----------------------MPISs tracing completed--------------------------------------
+-----------------------------------------------------------------------------------
 total number of tasks in this rank is 3
+WARNING: you marked no phases?!
+-----------------------------------------------------------------------------------
+
 collection of tasknames and the corresponding codes is 
   taskname=Main_task  taskname_code=1
   taskname=compute_input  taskname_code=9

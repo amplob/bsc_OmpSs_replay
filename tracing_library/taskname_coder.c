@@ -216,10 +216,11 @@ void printout_all_tasknames(void) {
 void printout_nonspecified_tasknames(void) {
    assert(libraryStatus == initialized);   
    if (exist_nonspecified_tasknames) {
-      printf("\nWARNING !!!! \n\n");
-      printf("collection of NONSPECIFIED tasknames and the corresponding codes is \n");   
+      printf("\nWARNING: there are NONSPECIFIED task names\n");
+      printf("the coding for these task names in this MPI process is following\n");   
       RBTreePrint(nonspecified_tasknames);
       printf("\n");      
+      printf("\nWARNING: coding in other MPI processes may differ from this one!!!\n\n");
    }
 }
 

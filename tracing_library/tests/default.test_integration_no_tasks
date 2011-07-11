@@ -14,7 +14,14 @@ add taskname compute_output
 barrier_css_valgrind      
 wait_on_valgrind      
 end_css_valgrind      
+
+-----------------------------------------------------------------------------------
+----------------------MPISs tracing completed--------------------------------------
+-----------------------------------------------------------------------------------
 WARNING: ending css section, total number of tasks in this rank is 0
+WARNING: you marked no phases?!
+-----------------------------------------------------------------------------------
+
 collection of tasknames and the corresponding codes is 
   taskname=Main_task  taskname_code=1
   taskname=compute_input  taskname_code=9

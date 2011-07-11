@@ -96,17 +96,30 @@ void event_end_css(void) {
    /* change the state of the main structure */
    assert (get_actual_smpss_status() == inMainTask);
    set_actual_smpss_status(finished);
+   
+   /* some statistics of the execution */
+   printf("\n");
+   printf("-----------------------------------------------------------------------------------\n");
+   printf("----------------------MPISs tracing completed--------------------------------------\n");
+   printf("-----------------------------------------------------------------------------------\n");
    if (get_actual_task_number() == 0)
       printf ("WARNING: ending css section, total number of tasks in this rank is 0\n");
    else 
       printf ("total number of tasks in this rank is %d\n",
                   get_actual_task_number());
-
+      
+   if (get_actual_phaseID() == 0) {
+      printf("WARNING: you marked no phases?!\n");
+   } else {
+      printf("availible phases [0 - %d]\n", get_actual_phaseID());
+   }
+   /* inform if there were some task names that are not specified */
+   printout_nonspecified_tasknames();   
+   printf("-----------------------------------------------------------------------------------\n");      
+   printf("\n");
+   
    /* make pcf file with tasknames*/
    flush_tasknames_pcf("tasknames.pcf");
-   
-   /* inform if there were some task names that are not specified */
-   printout_nonspecified_tasknames();
    
    /* destroy collections */
    dest_dependencies_collection();   

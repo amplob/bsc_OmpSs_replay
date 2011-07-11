@@ -48,14 +48,23 @@ ending task number 5
 barrier_css_valgrind      
 wait_on_valgrind      
 end_css_valgrind      
+
+-----------------------------------------------------------------------------------
+----------------------MPISs tracing completed--------------------------------------
+-----------------------------------------------------------------------------------
 total number of tasks in this rank is 5
+availible phases [0 - 2]
 
-WARNING !!!! 
-
-collection of NONSPECIFIED tasknames and the corresponding codes is 
+WARNING: there are NONSPECIFIED task names
+the coding for these task names in this MPI process is following
   taskname=inout_compute  taskname_code=13
   taskname=input_compute  taskname_code=11
   taskname=output_compute  taskname_code=12
+
+
+WARNING: coding in other MPI processes may differ from this one!!!
+
+-----------------------------------------------------------------------------------
 
 collection of tasknames and the corresponding codes is 
   taskname=Main_task  taskname_code=1
@@ -73,10 +82,12 @@ collection of tasknames and the corresponding codes is
   taskname=task7  taskname_code=8
 
 
-WARNING !!!! 
-
-collection of NONSPECIFIED tasknames and the corresponding codes is 
+WARNING: there are NONSPECIFIED task names
+the coding for these task names in this MPI process is following
   taskname=inout_compute  taskname_code=13
   taskname=input_compute  taskname_code=11
   taskname=output_compute  taskname_code=12
+
+
+WARNING: coding in other MPI processes may differ from this one!!!
 

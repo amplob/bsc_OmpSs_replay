@@ -4,19 +4,23 @@ collection of tasknames and the corresponding codes is
   taskname=  taskname_code=1
 
 
-WARNING !!!! 
-
-collection of NONSPECIFIED tasknames and the corresponding codes is 
+WARNING: there are NONSPECIFIED task names
+the coding for these task names in this MPI process is following
   taskname=  taskname_code=1
+
+
+WARNING: coding in other MPI processes may differ from this one!!!
 
 collection of tasknames and the corresponding codes is 
   taskname=  taskname_code=1
 
 
-WARNING !!!! 
-
-collection of NONSPECIFIED tasknames and the corresponding codes is 
+WARNING: there are NONSPECIFIED task names
+the coding for these task names in this MPI process is following
   taskname=  taskname_code=1
+
+
+WARNING: coding in other MPI processes may differ from this one!!!
 
 end empty_name TEST
 
@@ -46,11 +50,13 @@ collection of tasknames and the corresponding codes is
   taskname=task9  taskname_code=9
 
 
-WARNING !!!! 
-
-collection of NONSPECIFIED tasknames and the corresponding codes is 
+WARNING: there are NONSPECIFIED task names
+the coding for these task names in this MPI process is following
   taskname=task8  taskname_code=8
   taskname=task9  taskname_code=9
+
+
+WARNING: coding in other MPI processes may differ from this one!!!
 
 collection of tasknames and the corresponding codes is 
   taskname=task1  taskname_code=1
@@ -64,11 +70,13 @@ collection of tasknames and the corresponding codes is
   taskname=task9  taskname_code=9
 
 
-WARNING !!!! 
-
-collection of NONSPECIFIED tasknames and the corresponding codes is 
+WARNING: there are NONSPECIFIED task names
+the coding for these task names in this MPI process is following
   taskname=task8  taskname_code=8
   taskname=task9  taskname_code=9
+
+
+WARNING: coding in other MPI processes may differ from this one!!!
 
 end tens_of_transactions TEST
 
