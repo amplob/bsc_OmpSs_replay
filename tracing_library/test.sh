@@ -1,5 +1,8 @@
 #! /bin/bash
 
+# here are the names that are going to be used in the tests
+export TASKNAMES=/home/vladimir/work/codes/MPISSTrace/MPISSTrace/tracing_library/tests/tasknames.txt
+
 cd tests
 
 echo '----------------------------starting test_taskname_coder'
@@ -30,6 +33,10 @@ diff output.test_integration_no_tasks default.test_integration_no_tasks
 echo '------------------------------ending test_integration_no_tasks'
 
 
+echo '----------------------------starting test_integration_with_tasks'
+./test_integration_with_tasks > output.test_integration_with_tasks
+diff output.test_integration_with_tasks default.test_integration_with_tasks
+echo '------------------------------ending test_integration_with_tasks'
 
 # export MPTRACE_CONFIG_FILE=./mpitrace.xml
 # export LD_PRELOAD=/home/vladimir/work/mpitrace-install/lib/

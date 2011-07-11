@@ -49,15 +49,19 @@ static inline void set_actual_task_number (t_taskId task_number) {
    f_execution_state.tasksExecutedSoFar = task_number;
 }
    
-   
 
 
 
+/**************************************************************************
+ *    FUNCTIONS THAT ARE INTERFACE TO ssvalgrindcc_interface module
+ **************************************************************************/
 void event_start_css(void) {
+   char *tasknames_filename;
+   
    /* change the state of the main structure */
    assert (get_actual_smpss_status() == not_started);
    set_actual_smpss_status(inMainTask);
-   assert (get_actual_task_code() == 0);  /* because it is in main task for sure */
+   assert (get_actual_task_code() == 0);      /* because it is in main task for sure */
    assert (get_actual_task_number() == 0);
    
    /* initialize collections */
@@ -65,6 +69,15 @@ void event_start_css(void) {
    init_dependencies_collection();
    
    /* if there is a specified file with tasknames, READ IT and put into the collection */
+   tasknames_filename = getenv ("TASKNAMES");
+   TEST_PROGRESS("to read task names from the file    %s\n", tasknames_filename);
+   if (tasknames_filename == NULL) {
+      printf(  "Warning: not specified file with names of the tasks: use export TASKNAMES=/path\n"
+               "The names of the tasks may be corrupted!!!!\n");
+   } else {
+      import_tasknames_from_file(tasknames_filename);
+   }
+   
 }
 
 
@@ -84,13 +97,12 @@ void event_end_css(void) {
    /* destroy collections */
    dest_dependencies_collection();   
    dest_tasknames_collection(); 
-   }
+}
                   
 
 void event_start_task (const char * taskname) {
    t_taskcode task_code;
    t_taskId task_number;
-   /* update the state of the main structure */   
    
    /* entering working task */   
    assert (get_actual_smpss_status() == inMainTask);
@@ -101,7 +113,11 @@ void event_start_task (const char * taskname) {
    set_actual_task_number(task_number);
    
    /* code the name of the task */
-   
+   task_code = find_taskcode(taskname);
+   TEST_PROGRESS("starting task number %d  name is %s which is coded into %d \n", 
+                 get_actual_task_number(),
+                 taskname,
+                 task_code);
 }
 
 void event_end_task (void) {
@@ -114,8 +130,6 @@ void event_end_task (void) {
    set_actual_smpss_status(inMainTask);
    
    /* count number is not changing here */
-   task_number = get_actual_task_number() + 1;
-   set_actual_task_number(task_number);
    
    /* code is switched to 0 - code of the main Task */   
    

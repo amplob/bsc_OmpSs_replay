@@ -11,10 +11,25 @@ add taskname task6
 add taskname task7
 add taskname compute_input
 add taskname compute_output
+starting task with name compute_input with stack pointer 
+find_taskcode ALREADY SPECIFIED,  compute_input  -->  9
+starting task number 1  name is compute_input which is coded into 9 
+task_input_valgrind parName A    ptr ,  element_size 4,   elements  1000      
+ending task 
+starting task with name compute_output with stack pointer 
+find_taskcode ALREADY SPECIFIED,  compute_output  -->  10
+starting task number 2  name is compute_output which is coded into 10 
+task_output_valgrind parName A    ptr ,  element_size 4,   elements  1000      
+ending task 
+starting task with name compute_input with stack pointer 
+find_taskcode ALREADY SPECIFIED,  compute_input  -->  9
+starting task number 3  name is compute_input which is coded into 9 
+task_input_valgrind parName A    ptr ,  element_size 4,   elements  1000      
+ending task 
 barrier_css_valgrind      
 wait_on_valgrind      
 end_css_valgrind      
-WARNING: ending css section, total number of tasks in this rank is 0
+total number of tasks in this rank is 3
 collection of tasknames and the corresponding codes is 
   taskname=Main_task  taskname_code=1
   taskname=compute_input  taskname_code=9

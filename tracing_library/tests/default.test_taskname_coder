@@ -83,7 +83,11 @@ add taskname task4
 add taskname task5
 add taskname task6
 add taskname task7
+add taskname compute_input
+add taskname compute_output
 collection of tasknames and the corresponding codes is 
+  taskname=compute_input  taskname_code=8
+  taskname=compute_output  taskname_code=9
   taskname=task1  taskname_code=1
   taskname=task2  taskname_code=2
   taskname=task3  taskname_code=3
@@ -93,6 +97,8 @@ collection of tasknames and the corresponding codes is
   taskname=task7  taskname_code=7
 
 collection of tasknames and the corresponding codes is 
+  taskname=compute_input  taskname_code=8
+  taskname=compute_output  taskname_code=9
   taskname=task1  taskname_code=1
   taskname=task2  taskname_code=2
   taskname=task3  taskname_code=3

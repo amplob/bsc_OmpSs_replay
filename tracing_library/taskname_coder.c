@@ -172,6 +172,30 @@ t_taskcode find_taskcode(char *task_name) {
    }
 }
 
+
+/* read the file and make the table for translating tasknames into codes
+ * all MPI processes read the same file so the translations can be the same
+ */   
+void import_tasknames_from_file(char *filename) {
+   FILE *file;
+   t_taskcode code;
+   char task_name[MAX_TASKNAME_LEN];
+   
+   /* put that main task is 1  */
+   add_taskname("Main_task");
+   code = find_taskcode("Main_task");
+   assert (code == 1);
+   
+   /* each new task name gets a new identificator  */   
+   file = fopen(filename, "r");
+   while(! feof(file))   {
+      fscanf(file, "\n%[^\n]", task_name);
+      add_taskname(task_name);
+   }
+   fclose(file);
+   
+}
+
 /* print out all tasknames */
 void printout_all_tasknames(void) {
    assert(libraryStatus == initialized);   

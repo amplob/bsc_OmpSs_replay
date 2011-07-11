@@ -36,6 +36,11 @@ add_executable (test_integration_no_tasks test_integration_no_tasks.c)
 # Link the executable to the library.
 target_link_libraries (test_integration_no_tasks mpissTrace)
 
+# create executable test_integration_with_tasks
+add_executable (test_integration_with_tasks test_integration_with_tasks.c)
+# Link the executable to the library.
+target_link_libraries (test_integration_with_tasks mpissTrace)
+
 
 # # create executable test_taskname_coder
 # add_executable (mpi_probe mpi_probe.c)

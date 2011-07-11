@@ -1,16 +1,73 @@
 start_css_valgrind      
+to read task names from the file    /home/vladimir/work/codes/MPISSTrace/MPISSTrace/tracing_library/tests/tasknames.txt
+add taskname Main_task
+find_taskcode ALREADY SPECIFIED,  Main_task  -->  1
+add taskname task1
+add taskname task2
+add taskname task3
+add taskname task4
+add taskname task5
+add taskname task6
+add taskname task7
+add taskname compute_input
+add taskname compute_output
+starting task with name compute_input with stack pointer 
+find_taskcode ALREADY SPECIFIED,  compute_input  -->  9
+starting task number 1  name is compute_input which is coded into 9 
+task_input_valgrind parName A    ptr ,  element_size 4,   elements  200      
+ending task 
+starting task with name compute_output with stack pointer 
+find_taskcode ALREADY SPECIFIED,  compute_output  -->  10
+starting task number 2  name is compute_output which is coded into 10 
+task_output_valgrind parName A    ptr ,  element_size 4,   elements  200      
+ending task 
 starting task with name input_compute with stack pointer 
+find_taskcode NOT YET SPECIFIED,  input_compute  -->  11
+starting task number 3  name is input_compute which is coded into 11 
 task_input_valgrind parName A    ptr ,  element_size 4,   elements  200      
 ending task 
 starting task with name output_compute with stack pointer 
+find_taskcode NOT YET SPECIFIED,  output_compute  -->  12
+starting task number 4  name is output_compute which is coded into 12 
 task_output_valgrind parName A    ptr ,  element_size 4,   elements  200      
 ending task 
 starting task with name inout_compute with stack pointer 
+find_taskcode NOT YET SPECIFIED,  inout_compute  -->  13
+starting task number 5  name is inout_compute which is coded into 13 
 task_inout_valgrind parName A  ptr ,  element_size 4,   elements  200      
 ending task 
 barrier_css_valgrind      
 wait_on_valgrind      
 end_css_valgrind      
-total number of tasks in this rank is 6
+total number of tasks in this rank is 5
+
+WARNING !!!! 
+
+collection of NONSPECIFIED tasknames and the corresponding codes is 
+  taskname=inout_compute  taskname_code=13
+  taskname=input_compute  taskname_code=11
+  taskname=output_compute  taskname_code=12
+
 collection of tasknames and the corresponding codes is 
+  taskname=Main_task  taskname_code=1
+  taskname=compute_input  taskname_code=9
+  taskname=compute_output  taskname_code=10
+  taskname=inout_compute  taskname_code=13
+  taskname=input_compute  taskname_code=11
+  taskname=output_compute  taskname_code=12
+  taskname=task1  taskname_code=2
+  taskname=task2  taskname_code=3
+  taskname=task3  taskname_code=4
+  taskname=task4  taskname_code=5
+  taskname=task5  taskname_code=6
+  taskname=task6  taskname_code=7
+  taskname=task7  taskname_code=8
+
+
+WARNING !!!! 
+
+collection of NONSPECIFIED tasknames and the corresponding codes is 
+  taskname=inout_compute  taskname_code=13
+  taskname=input_compute  taskname_code=11
+  taskname=output_compute  taskname_code=12
 

@@ -5,3 +5,5 @@ task4
 task5
 task6
 task7
+compute_input
+compute_output

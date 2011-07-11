@@ -48,45 +48,31 @@ segfaultHandler(int sigtype)
 /*  signal(SIGSEGV, segfaultHandler);  */
 
 
+#pragma css task input(A) 
+void compute_input (float A[1000]) {
+   A[0] = 0;
+}
+
+
+#pragma css task output(A) 
+void compute_output (float A[1000]) {
+   A[0] = 0;
+}
+
+
 static void test_interactive() {
    
 }
 
-#pragma css task input(A)
-static void input_compute(float A[200]) {
-   A[1] = 0;
-}
-
-#pragma css task input(A)
-static void compute_input(float A[200]) {
-   A[1] = 0;
-}
-
-#pragma css task output(A)
-static void output_compute(float A[200]) {
-   A[1] = 0;
-}
-
-#pragma css task output(A)
-static void compute_output(float A[200]) {
-   A[1] = 0;
-}
-
-#pragma css task inout(A)
-static void inout_compute(float A[200]) {
-   A[1] = 0;
-}
 
 static void test_automatic() {
    
 #pragma css start
    float buff[1000];
+   
    compute_input(buff);
    compute_output(buff);
-   input_compute(buff);
-   output_compute(buff);
-   inout_compute(buff);
-   
+   compute_input(buff);
 
 #pragma css barrier
    
