@@ -192,7 +192,7 @@ void event_barrier(void) {
 }
 
 
-void event_input_parameter(void *ptr) {
+void event_input_parameter(void *addr) {
    t_taskId actual_task, previous_task;
 
    /* check sanity */
@@ -200,7 +200,7 @@ void event_input_parameter(void *ptr) {
    
    /* mark access   */
    actual_task = get_actual_task_number();
-   previous_task = mark_input(actual_task, ptr);
+   previous_task = mark_input(actual_task, addr);
    
    if (previous_task != -1) {
       TEST_PROGRESS("there is dependency tasks:  %d  ->   %d (INPUT) \n",
@@ -210,7 +210,7 @@ void event_input_parameter(void *ptr) {
 }
 
 
-void event_output_parameter(void *ptr) {
+void event_output_parameter(void *addr) {
    t_taskId actual_task, previous_task;
 
    /* check sanity */
@@ -218,14 +218,14 @@ void event_output_parameter(void *ptr) {
    
    /* mark access   */
    actual_task = get_actual_task_number();
-   previous_task = mark_output(actual_task, ptr);
+   previous_task = mark_output(actual_task, addr);
    
    /* now WA* dependencies */
    assert (previous_task == -1);
 }
 
 
-void event_inout_parameter(void *ptr) {
+void event_inout_parameter(void *addr) {
    t_taskId actual_task, previous_task;
 
    /* check sanity */
@@ -233,7 +233,7 @@ void event_inout_parameter(void *ptr) {
    
    /* mark access   */
    actual_task = get_actual_task_number();
-   previous_task = mark_inout(actual_task, ptr);
+   previous_task = mark_inout(actual_task, addr);
    
    if (previous_task != -1) {
       TEST_PROGRESS("there is dependency tasks:  %d  ->   %d (INOUT) \n",
@@ -242,3 +242,22 @@ void event_inout_parameter(void *ptr) {
    }
 }
 
+
+void event_wait_on(void *addr) {
+   t_taskId actual_task, previous_task;
+
+   /* check sanity */
+   assert(get_actual_smpss_status() == inMainTask);
+   
+   /* mark access from main */
+   /* this is FAKE, bacause mark_input will not mark any access */
+   /* it will just detect dependency, so actual_task is irrelevant */
+   actual_task = 0;
+   previous_task = mark_input(actual_task, addr);
+   
+   if (previous_task != -1) {
+      TEST_PROGRESS("there is dependency tasks:  %d  ->   %d (WAIT-ON) \n",
+                     previous_task, actual_task);
+      /* if there is dependency - emit it to the trace */      
+   }   
+}

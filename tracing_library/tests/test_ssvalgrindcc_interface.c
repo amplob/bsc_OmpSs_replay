@@ -93,10 +93,10 @@ static void test_automatic() {
    output_compute(buff);
    inout_compute(buff);
    
+   
+#pragma css wait on (buff)   
 
 #pragma css barrier
-   
-#pragma css wait on (buff)
 
 #pragma css finish
 }

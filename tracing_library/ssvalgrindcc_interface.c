@@ -33,7 +33,7 @@ void barrier_css_valgrind (void) {
 
 void wait_on_valgrind(void *ptr) {
    TEST_PROGRESS("wait_on_valgrind      \n");
-   
+   event_wait_on(ptr);
 }
 
 void task_input_value_valgrind(const char *parName, int value, unsigned long element_size, unsigned long elements){

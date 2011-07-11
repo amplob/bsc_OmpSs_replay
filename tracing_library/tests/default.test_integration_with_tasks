@@ -30,14 +30,27 @@ task_input_valgrind parName A    ptr ,  element_size 4,   elements  1000
 there is dependency tasks:  2  ->   3 (INPUT) 
 ending task 
 ending task number 3
-barrier_css_valgrind      
+starting task with name compute_output with stack pointer 
+find_taskcode ALREADY SPECIFIED,  compute_output  -->  10
+starting task number 4  name is compute_output which is coded into 10 
+task_output_valgrind parName A    ptr ,  element_size 4,   elements  1000      
+ending task 
+ending task number 4
 wait_on_valgrind      
+there is dependency tasks:  4  ->   0 (WAIT-ON) 
+barrier_css_valgrind      
+starting task with name compute_input with stack pointer 
+find_taskcode ALREADY SPECIFIED,  compute_input  -->  9
+starting task number 5  name is compute_input which is coded into 9 
+task_input_valgrind parName A    ptr ,  element_size 4,   elements  1000      
+ending task 
+ending task number 5
 end_css_valgrind      
 
 -----------------------------------------------------------------------------------
 ----------------------MPISs tracing completed--------------------------------------
 -----------------------------------------------------------------------------------
-total number of tasks in this rank is 3
+total number of tasks in this rank is 5
 WARNING: you marked no phases?!
 -----------------------------------------------------------------------------------
 

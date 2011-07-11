@@ -73,10 +73,13 @@ static void test_automatic() {
    compute_input(buff);
    compute_output(buff);
    compute_input(buff);
+   compute_output(buff);
+#pragma css wait on (buff)         
+#pragma css barrier   
+   compute_input(buff);
 
-#pragma css barrier
-   
-#pragma css wait on (buff)
+
+
 
 #pragma css finish
 }

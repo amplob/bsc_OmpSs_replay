@@ -47,8 +47,9 @@ task_inout_valgrind parName A  ptr ,  element_size 4,   elements  200
 there is dependency tasks:  4  ->   5 (INOUT) 
 ending task 
 ending task number 5
-barrier_css_valgrind      
 wait_on_valgrind      
+there is dependency tasks:  5  ->   0 (WAIT-ON) 
+barrier_css_valgrind      
 end_css_valgrind      
 
 -----------------------------------------------------------------------------------
