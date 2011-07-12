@@ -91,12 +91,12 @@ static void add_taskname_to_tree(const char* task_name, t_taskcode task_code, rb
    char *newName;
    t_taskcode *newCode;
    
-#ifdef TESTING   
+#if library_TESTING   
    /* make sure there is NOT already present taskname  */
    rb_red_blk_node *newNode;
    newNode = RBExactQuery( tree, task_name);
    if (newNode != NULL) 
-      PANIC("duplication of tasknames, repeated taskname: new->%s and old->%s\n",
+      PANIC("duplication of tasknames, repeated taskname: new -> %s    and old -> %s\n",
             task_name,  (char *)(newNode->key));
 #endif   
    
@@ -188,6 +188,7 @@ void import_tasknames_from_file(char *filename) {
    FILE *file;
    t_taskcode code;
    char task_name[MAX_TASKNAME_LEN];
+   int tasknames_read;
    
    /* put the main task  */
    add_taskname(main_task_name);
@@ -197,8 +198,13 @@ void import_tasknames_from_file(char *filename) {
    /* each new task name gets a new identificator  */   
    file = fopen(filename, "r");
    while(! feof(file))   {
-      fscanf(file, "\n%[^\n]", task_name);
-      add_taskname(task_name);
+      tasknames_read = fscanf(file, "%s", task_name);
+      TEST_PROGRESS("tasknames_read = %d   taskname %s\n", tasknames_read, task_name );
+      if ((tasknames_read) > 0) {
+         add_taskname(task_name);
+      } else {
+         task_name[0] = 0;
+      }
    }
    fclose(file);
    
