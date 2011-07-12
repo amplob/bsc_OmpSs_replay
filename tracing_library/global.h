@@ -5,6 +5,10 @@
 #include "Config.h"
 #define MAX_TASKNAME_LEN  128
 
+#if PARALLEL_LIBRARY
+#include "mpi.h"
+#endif
+
 #if library_TESTING
    #define TEST_PROGRESS(x...) \
             {                  \

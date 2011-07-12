@@ -233,7 +233,15 @@ void printout_nonspecified_tasknames(void) {
  */   
 void flush_tasknames_pcf(char *filename) {
    FILE *file;
-  
+   
+#if PARALLEL_LIBRARY   
+   /* only rank 0 prints the message */ 
+   int my_rank = 0;
+   MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
+   if (my_rank != 0)
+      return;
+#endif
+   
    file = fopen(filename, "w+");
    
    /* print the header for the MPI Trace event - TYPE OF THE EVENT */
@@ -244,7 +252,6 @@ void flush_tasknames_pcf(char *filename) {
    fprintf (file, "VALUES\n");      
    RBTreeFunction(all_tasknames, file, print_pcf_format);
    fclose(file);
-   
 }
 
 inline t_taskcode get_code_of_main_task () {
