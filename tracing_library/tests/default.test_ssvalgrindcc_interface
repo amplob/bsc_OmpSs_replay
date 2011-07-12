@@ -36,6 +36,7 @@ starting task number 3  name is input_compute which is coded into 11
 emit task start code 11, number 3
 task_input_valgrind parName A    ptr ,  element_size 4,   elements  200      
 there is dependency tasks:  2  ->   3 (INPUT) 
+emit dependency from the previous task no: 2
 ending task 
 ending task number 3
 emit task end
@@ -56,11 +57,13 @@ starting task number 5  name is inout_compute which is coded into 13
 emit task start code 13, number 5
 task_inout_valgrind parName A  ptr ,  element_size 4,   elements  200      
 there is dependency tasks:  4  ->   5 (INOUT) 
+emit dependency from the previous task no: 4
 ending task 
 ending task number 5
 emit task end
 wait_on_valgrind      
 there is dependency tasks:  5  ->   0 (WAIT-ON) 
+emit dependency from the previous task no: 5
 barrier_css_valgrind      
 emit css barrier
 end_css_valgrind      

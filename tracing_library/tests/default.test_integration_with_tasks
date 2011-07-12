@@ -33,6 +33,7 @@ starting task number 3  name is compute_input which is coded into 9
 emit task start code 9, number 3
 task_input_valgrind parName A    ptr ,  element_size 4,   elements  1000      
 there is dependency tasks:  2  ->   3 (INPUT) 
+emit dependency from the previous task no: 2
 ending task 
 ending task number 3
 emit task end
@@ -46,6 +47,7 @@ ending task number 4
 emit task end
 wait_on_valgrind      
 there is dependency tasks:  4  ->   0 (WAIT-ON) 
+emit dependency from the previous task no: 4
 barrier_css_valgrind      
 emit css barrier
 starting task with name compute_input with stack pointer 

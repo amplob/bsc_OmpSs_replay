@@ -1,14 +1,5 @@
 #include "emit_records.h"
 
-
-
-
-
-
-
-
-
-
 /**************************************************************************
  *    FUNCTIONS THAT ARE INTERFACE TO tracing_main module
  **************************************************************************/
@@ -65,3 +56,13 @@ void emit_css_barrier(void) {
    MPItrace_event(COMMON_EVENT_TYPE_CSS_BARRIER, 0);
 #endif
 }
+
+
+void emit_dependency(t_taskId depending_task) {
+   
+   TEST_PROGRESS("emit dependency from the previous task no: %d\n", depending_task);
+#if (!library_TESTING)
+   MPItrace_event(COMMON_EVENT_TYPE_DEPENDENCY, depending_task);
+#endif
+}
+   

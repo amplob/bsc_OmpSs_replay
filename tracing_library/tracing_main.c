@@ -212,6 +212,7 @@ void event_input_parameter(void *addr) {
       TEST_PROGRESS("there is dependency tasks:  %d  ->   %d (INPUT) \n",
                      depending_task, actual_task);
       /* if there is dependency - emit it to the trace */      
+      emit_dependency(depending_task); 
    }
 }
 
@@ -226,7 +227,7 @@ void event_output_parameter(void *addr) {
    actual_task = get_actual_task_number();
    depending_task = mark_output(actual_task, addr);
    
-   /* now WA* dependencies */
+   /* now write-after-something dependencies */
    assert (depending_task == no_dependency_task);
 }
 
@@ -244,7 +245,8 @@ void event_inout_parameter(void *addr) {
    if (depending_task != no_dependency_task) {
       TEST_PROGRESS("there is dependency tasks:  %d  ->   %d (INOUT) \n",
                      depending_task, actual_task);
-      /* if there is dependency - emit it to the trace */      
+      /* if there is dependency - emit it to the trace */   
+      emit_dependency(depending_task); 
    }
 }
 
@@ -265,5 +267,6 @@ void event_wait_on(void *addr) {
       TEST_PROGRESS("there is dependency tasks:  %d  ->   %d (WAIT-ON) \n",
                      depending_task, actual_task);
       /* if there is dependency - emit it to the trace */      
+      emit_dependency(depending_task); 
    }   
 }
