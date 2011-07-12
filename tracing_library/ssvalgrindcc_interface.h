@@ -3,7 +3,7 @@
 #ifndef SS_VALGRIND_H
 #define SS_VALGRIND_H
 
-#include "global.h"
+
 
 
 void start_task_valgrind(void *sp, const char *type);

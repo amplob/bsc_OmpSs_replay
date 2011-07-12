@@ -1,4 +1,5 @@
 #include "emit_records.h"
+#include "mpitrace_user_events.h"
 
 /**************************************************************************
  *    FUNCTIONS THAT ARE INTERFACE TO tracing_main module
