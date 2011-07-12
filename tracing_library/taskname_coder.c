@@ -218,9 +218,8 @@ void printout_nonspecified_tasknames(void) {
    if (exist_nonspecified_tasknames) {
       printf("\nWARNING: there are NONSPECIFIED task names\n");
       printf("the coding for these task names in this MPI process is following\n");   
-      RBTreePrint(nonspecified_tasknames);
-      printf("\n");      
-      printf("\nWARNING: coding in other MPI processes may differ from this one!!!\n\n");
+      RBTreePrint(nonspecified_tasknames);  
+      printf("WARNING: coding in other MPI processes may differ from this one!!!\n");
    }
 }
 

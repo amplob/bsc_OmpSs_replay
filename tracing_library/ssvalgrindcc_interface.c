@@ -1,5 +1,5 @@
 
-
+#include "global.h"
 #include <stdio.h>
 #include "ssvalgrindcc_interface.h"
 #include "tracing_main.h"
