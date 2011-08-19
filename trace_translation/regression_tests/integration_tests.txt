@@ -1,5 +1,6 @@
 
 ../translate_to_mpismpss_trace.py  -s SPEC.all_input_traces -d APPROP.output_trace
+#../translate_to_mpismpss_trace.py  -s SPEC.all_input_traces -d APPROP.output_trace -b 2 -e 3
 #../translate_to_mpismpss_trace.py  -s SPEC.all_input_traces -d APPROP.output_trace -b 2 -e 6
 #../translate_to_mpismpss_trace.py  -s SPEC.all_input_traces -d APPROP.output_trace -b 222 -e 633
 

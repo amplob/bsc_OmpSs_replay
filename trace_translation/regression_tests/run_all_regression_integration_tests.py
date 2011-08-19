@@ -85,11 +85,14 @@ def create_MN_file (trace_file):
       elif line.startswith('"node information" {0'):
          # lines with nodes information
          for node in range (0, MPI_processes):
-            new_line = ('"node information" {%d, 0, "", 4, 1, 1, 0.0, 0.0, 1.0, 0.0, 0.0};;\n' % node)
+            new_line = ('"node information" {0, %d, "", 4, 1, 1, 0.0, 0.0, 1.0, 0.0, 0.0};;\n' % node)
             MN_out.write (new_line)
       elif line.startswith('"mapping information" {"'):
          # mapping information -> change trace file to simulate
-         new_line = '"mapping information" {"%s", 1, [1] {0}};;\n' % trace_file
+         new_line = '"mapping information" {"%s", %d, [%d] {0' % (trace_file, MPI_processes, MPI_processes)
+         for proc in range (1, MPI_processes):
+            new_line = new_line +  (',%d' % proc)
+         new_line = new_line +  '}};;\n'
          MN_out.write (new_line)
       else:
          MN_out.write (line)
@@ -108,20 +111,6 @@ def test_correctness (test_command, output_file, output_trace):
    full_command = test_command + ' > ' + output_file
    os.system(full_command)
    
-
-   # check correctness of the output
-   correct_output_file = 'correct_outputs/%s' % (os.path.basename(output_file))
-   diff_output_command = 'diff %s %s > check.out 2> check.err' % (output_file, correct_output_file)
-   if (os.system(diff_output_command)):
-      test_passed = False
-      
-   # check correctness of the resulting trace
-   if (output_trace != None):
-      if (os.path.exists(output_trace)):
-         correct_output_trace_file = 'correct_translated_trf_files/%s' % (os.path.basename(output_trace))
-         diff_trace_command = 'diff %s %s > check.out 2> check.err' % (output_trace, correct_output_trace_file)
-         if (os.system(diff_trace_command)):
-            test_passed = False
             
    # check correctness of the Dimemas simulation
    if (output_trace != None):
@@ -165,6 +154,7 @@ if __name__ == '__main__':
    
    os.system('rm resulting_outputs/*')
    os.system('rm resulting_trf_files/*')
+   os.system('rm Dimemas_simulations/*')
    
    tests_file = open ("integration_tests.txt", 'r')
    all_unit_tests = tests_file.readlines()
@@ -227,62 +217,39 @@ if __name__ == '__main__':
          test_command_cut_options = test_command_cut_options + '  ' + '-e %s' % end
          cut_options = cut_options + '-e-%s' % end         
      
-      if (s_file != "SPEC.all_input_traces"):
+      assert (s_file == "SPEC.all_input_traces")
+      
+      # now passing through all traces
+      for in_trace in all_traces:
          
-         # not passing through all traces - use the specific names 
+         # skip commented traces
+         if (not process_all_tests):
+            if (in_trace.startswith('#')):
+               continue            
+            
+         in_trace = in_trace.lstrip('# ')               
+         in_trace = in_trace.strip('\n')
+         
          test_command = binary
-         basename = os.path.basename(os.path.splitext(binary)[0])
-         options = basename
-         if (s_file != None):
-            test_command = test_command + '  ' + '-s %s' % s_file
-            basename = os.path.basename(s_file)
-            basename = os.path.splitext(basename)[0] 
-            options = options + '-s-%s' % basename
-         if (d_file != None):
-            test_command = test_command + '  ' + '-d %s' % d_file
-            basename = os.path.basename(d_file)
-            basename = os.path.splitext(basename)[0]             
-            options = options + '-d-%s' % basename      
-    
+         bin_basename = os.path.basename(os.path.splitext(binary)[0])
+         options = bin_basename
+         
+         s_file = 'input_traces_folder/' + in_trace
+         test_command = test_command + '  ' + '-s %s' % s_file            
+         s_basename = os.path.basename(s_file)
+         s_basename = os.path.splitext(s_basename)[0]              
+         options = options + '-s-%s' % s_basename
+         
+         d_file = 'resulting_trf_files/' + bin_basename + '-' + s_basename + cut_options + '.trf'
+         test_command = test_command + '  ' + '-d %s' % d_file
+         basename = os.path.basename(d_file)
+         options = options + '-d-%s' % basename               
+         
          options = options + cut_options
          test_command = test_command + test_command_cut_options
-    
+      
          output_file = 'resulting_outputs/%s.out' % (options)
          
          test_correctness (test_command, output_file, d_file)
-         
-      else:
-         # now passing through all traces
-         for in_trace in all_traces:
-            
-            # skip commented traces
-            if (not process_all_tests):
-               if (in_trace.startswith('#')):
-                  continue            
-               
-            in_trace = in_trace.lstrip('# ')               
-            in_trace = in_trace.strip('\n')
-            
-            test_command = binary
-            bin_basename = os.path.basename(os.path.splitext(binary)[0])
-            options = bin_basename
-            
-            s_file = 'input_traces_folder/' + in_trace
-            test_command = test_command + '  ' + '-s %s' % s_file            
-            s_basename = os.path.basename(s_file)
-            s_basename = os.path.splitext(s_basename)[0]              
-            options = options + '-s-%s' % s_basename
-            
-            d_file = 'resulting_trf_files/' + bin_basename + '-' + s_basename + cut_options + '.trf'
-            test_command = test_command + '  ' + '-d %s' % d_file
-            basename = os.path.basename(d_file)
-            options = options + '-d-%s' % basename               
-            
-            options = options + cut_options
-            test_command = test_command + test_command_cut_options
-         
-            output_file = 'resulting_outputs/%s.out' % (options)
-            
-            test_correctness (test_command, output_file, d_file)
                         
    tests_summary.print_tests_summary()    

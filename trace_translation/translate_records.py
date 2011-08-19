@@ -13,10 +13,14 @@ import translate_worker_task
 import store_workers
 
 
-
+def start_main_task(trace, process):
+   trace.write ('"CPU burst" {%d, 0, 0.0};;\n' % process)
+   trace.write ('"user event" {%d, 0, %d, 1};;\n' % (process, utils.SMPSs_user_events.EVENT_TYPE_TASKID ))
+   trace.write ('"user event" {%d, 0, %d, 1};;\n' % (process, utils.SMPSs_user_events.EVENT_TYPE_TASKNAME_CODED))
 
 # restart all the modules and there local states
-def start_new_MPI_process(new_process):
+def start_new_MPI_process(out_trace, new_process):
+   start_main_task(out_trace, new_process)
    translate_main_task.start_new_MPI_process(new_process)
    translate_worker_task.start_new_MPI_process(new_process)
    store_workers.start_new_MPI_process(new_process)
@@ -51,13 +55,15 @@ def translate_all_records(input_file,
          # organize and flushout all the collected worker records for this MPI process
          flush_finalized_worker_task_records(output_file)
          current_MPI_process = current_MPI_process + 1
-         start_new_MPI_process(current_MPI_process)
+         start_new_MPI_process(output_file, current_MPI_process)
          sys.stdout.write ("\r")
          sys.stdout.write ("translating MPI process %d" % current_MPI_process)
          sys.stdout.flush()
          continue     
       
       # there is a useful record to process
+      if record.is_blocking_MPI():
+         print 'translate_all_records  -> MPI call  ' ,  str(record)
       
       # records for main task -> directly put them to the output trace
       new_main_task_records = translate_main_task.get_caused_main_task_records(record)
