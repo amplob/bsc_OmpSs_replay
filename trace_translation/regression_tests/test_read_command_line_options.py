@@ -3,7 +3,6 @@
 
 #from read_command_line_options import parse_command_line
 import read_command_line_options
-from read_command_line_options import command_line_options
 
 #######################################################
 #######################################################
@@ -12,9 +11,9 @@ from read_command_line_options import command_line_options
 #######################################################
 if __name__ == '__main__':
 
-   read_command_line_options.parse_command_line()
-   print 'src file is ', command_line_options.get_source_trace()
-   print 'dest file is ', command_line_options.get_destination_trace()  
-   print 'start phase is ', command_line_options.get_start_phase()
-   print 'end phase is ', command_line_options.get_end_phase()     
+   clo_options = read_command_line_options.parse_command_line()
+   print 'src file is ', clo_options.src_trace_name
+   print 'dest file is ', clo_options.dest_trace_name
+   print 'start phase is ', clo_options.begin_phase
+   print 'end phase is ', clo_options.end_phase
    

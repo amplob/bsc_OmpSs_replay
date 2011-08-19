@@ -1,8 +1,0 @@
-EVENT_TYPE
-0      7003       running task
-VALUES
-1		Main_task
-2		compute
-3		compute_strided
-4		my_MPI_Recv
-5		my_MPI_Send
