@@ -120,20 +120,7 @@ def get_outputs_to_compare(test):
    if (correct_d_file != None):
       print "correct trace file: " + correct_d_file
    else:
-      print "correct trace file: " + "NO OUTPUT TRACE FILE"
-      
-      
-   #if (d_file != None):
-      
-      #print "resulting simulation file: " + d_file
-   #else:
-      #print "resulting trace file: " + "NO OUTPUT TRACE FILE"
-   #if (d_file != None):
-      #correct_d_file = 'correct_translated_trf_files/' + os.path.basename(d_file) 
-   #if (correct_d_file != None):
-      #print "correct trace file: " + correct_d_file
-   #else:
-      #print "correct trace file: " + "NO OUTPUT TRACE FILE"      
+      print "correct trace file: " + "NO OUTPUT TRACE FILE"    
    
    return (output, correct_output, d_file, correct_d_file)
    
@@ -147,7 +134,7 @@ def get_outputs_to_compare(test):
 #######################################################
 if __name__ == '__main__':
    
-   regression_output = open ("regression_output", 'r')
+   regression_output = open ("regression_unit_tests_output", 'r')
    regression_output = regression_output.readlines()
    
    options = parse_command_line()

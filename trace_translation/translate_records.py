@@ -2,46 +2,76 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import time
+import os
 import utils
 import input_trf
 
-class TranslationState:
-   
-   def __init__(self):
-      current_MPI_process = utils.STARTING_MPI_PROCESS
-      tasks_executed_so_far = 0
-      tasks_waited_so_far = 0
-   
+import translate_main_task
+
+import translate_worker_task
+import store_workers
+
+
+
+
+# restart all the modules and there local states
+def start_new_MPI_process(new_process):
+   translate_main_task.start_new_MPI_process(new_process)
+   translate_worker_task.start_new_MPI_process(new_process)
+   store_workers.start_new_MPI_process(new_process)
+
+
+def flush_main_task_records(out_trace, records):
+   for record in records:
+      out_trace.write(str (record))
+      
+
+def store_worker_records(records):
+   for record in records:
+      store_workers.store_worker_record(record)
+
+def flush_finalized_worker_task_records(out_trace):
+   store_workers.finalize_worker_task_records()
+   store_workers.flushout_all_worker_records(out_trace)      
+
+
+# interface to other files
 
 def translate_all_records(input_file, 
                           begin_phase, end_phase, 
                           output_file):
 
-   EOF = False
+   current_MPI_process = utils.STARTING_MPI_PROCESS
    
-   translation_state = TranslationState()
-      
-      
    #for each record in the trace
    for (record, is_new_MPI_process) in input_trf.trf_file_reader (input_file, begin_phase, end_phase):
       #if starting new MPI process
       if is_new_MPI_process:
-         #flushout worker tasks collected for the actual process
-         
-         #start new MPI process (reset state)         
-         #record is None, the next record is taken in the next call to trf_file_reader
-         print "caught new_MPI_process in translate_all_records"
-         continue      
+         # organize and flushout all the collected worker records for this MPI process
+         flush_finalized_worker_task_records(output_file)
+         current_MPI_process = current_MPI_process + 1
+         start_new_MPI_process(current_MPI_process)
+         sys.stdout.write ("\r")
+         sys.stdout.write ("translating MPI process %d" % current_MPI_process)
+         sys.stdout.flush()
+         continue     
       
       # there is a useful record to process
-      #print_caused_main_task_records(record)
-      (new_main_task_records, translation_state) = get_caused_main_task_records(record, translation_state)
-      printout_final_records(new_main_task_records)
       
-      #store_caused_worker_task_records(record)
-      (new_worker_task_records, translation_state) = get_caused_main_task_records(record, translation_state)
-      store_final_worker_records(new_worker_task_records)
+      # records for main task -> directly put them to the output trace
+      new_main_task_records = translate_main_task.get_caused_main_task_records(record)
+      flush_main_task_records(output_file, new_main_task_records)
       
-   print "finished translate_all_records"
+      # records for worker tasks -> store them, and when the MPI process finished, orgranize them and flush to the output trace
+      new_worker_task_records = translate_worker_task.get_caused_worker_task_records(record)
+      store_worker_records(new_worker_task_records)   
+      
+      
+   # to organize and flushout worker tasks for the last MPI process
+   flush_finalized_worker_task_records(output_file)      
+      
+   sys.stdout.write ("\n")      
+   print "finished translation"
       
       

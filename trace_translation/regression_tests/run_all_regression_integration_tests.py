@@ -58,44 +58,44 @@ class TestsSummary:
 tests_summary = TestsSummary()
 
 
-#def create_MN_file (trace_file):
+def create_MN_file (trace_file):
    
-   ## generate the name of the MN file
-   #basename = os.path.basename(trace_file)
-   #basename = os.path.splitext(basename)[0]    
-   #MN_name = 'Dimemas_simulations/MN_' + basename + '.cfg'
-   #MN_out = open (MN_name, 'w')   
+   # generate the name of the MN file
+   basename = os.path.basename(trace_file)
+   basename = os.path.splitext(basename)[0]    
+   MN_name = 'Dimemas_simulations/MN_' + basename + '.cfg'
+   MN_out = open (MN_name, 'w')   
    
    
-   ## generate the content of the MN file
+   # generate the content of the MN file
    
-   ## how many MPI processes
-   #processes_re = re.compile(r'(\d+)MPI.*')
-   #matched = re.findall(processes_re, trace_file)
-   #if matched:
-      #MPI_processes = int ( matched[0])
+   # how many MPI processes
+   processes_re = re.compile(r'(\d+)MPI.*')
+   matched = re.findall(processes_re, trace_file)
+   if matched:
+      MPI_processes = int ( matched[0])
    
-   #base_MN = open ("MN_1_1cpu.cfg", 'r')
-   #lines = base_MN.readlines()
-   #for line in lines:
-      #if line.startswith('"environment information" {"'):
-         ## line for environment information - change number of MPI processes
-         #new_line = '"environment information" {"", 0, "", %d, 0.0, 0, 1};;\n' % MPI_processes
-         #MN_out.write (new_line)
-      #elif line.startswith('"node information" {0'):
-         ## lines with nodes information
-         #for node in range (0, MPI_processes):
-            #new_line = ('"node information" {%d, 0, "", 4, 1, 1, 0.0, 0.0, 1.0, 0.0, 0.0};;\n' % node)
-            #MN_out.write (new_line)
-      #elif line.startswith('"mapping information" {"'):
-         ## mapping information -> change trace file to simulate
-         #new_line = '"mapping information" {"%s", 1, [1] {0}};;\n' % trace_file
-         #MN_out.write (new_line)
-      #else:
-         #MN_out.write (line)
+   base_MN = open ("MN_1_1cpu.cfg", 'r')
+   lines = base_MN.readlines()
+   for line in lines:
+      if line.startswith('"environment information" {"'):
+         # line for environment information - change number of MPI processes
+         new_line = '"environment information" {"", 0, "", %d, 0.0, 0, 1};;\n' % MPI_processes
+         MN_out.write (new_line)
+      elif line.startswith('"node information" {0'):
+         # lines with nodes information
+         for node in range (0, MPI_processes):
+            new_line = ('"node information" {%d, 0, "", 4, 1, 1, 0.0, 0.0, 1.0, 0.0, 0.0};;\n' % node)
+            MN_out.write (new_line)
+      elif line.startswith('"mapping information" {"'):
+         # mapping information -> change trace file to simulate
+         new_line = '"mapping information" {"%s", 1, [1] {0}};;\n' % trace_file
+         MN_out.write (new_line)
+      else:
+         MN_out.write (line)
    
-   #MN_out.close()
-   #return MN_name
+   MN_out.close()
+   return MN_name
    
    
 
@@ -123,26 +123,26 @@ def test_correctness (test_command, output_file, output_trace):
          if (os.system(diff_trace_command)):
             test_passed = False
             
-   ## check correctness of the Dimemas simulation
-   #if (output_trace != None):
-      #if (os.path.exists(output_trace)):
+   # check correctness of the Dimemas simulation
+   if (output_trace != None):
+      if (os.path.exists(output_trace)):
          
-         ## make trace of the new format
-         #basename = os.path.basename(output_trace)
-         #trace_new_format = "Dimemas_simulations/new_format_" + basename
-         #os.system('trf2trf %s %s' % (output_trace, trace_new_format))
-         #MN_file_name = create_MN_file (trace_new_format)
-         #basename = os.path.basename(output_trace)
-         #prv_file = 'Dimemas_simulations/' + os.path.splitext(basename)[0] + '.prv'
-         #dimemas_output = 'Dimemas_simulations/' + os.path.splitext(basename)[0] + '.dim.out'
-         #simulation_command = 'Dimemas3 -S 32000  -pa %s %s > %s' % (prv_file, MN_file_name, dimemas_output)
-         #correct_dimemas_output = os.path.basename(dimemas_output)
-         #correct_dimemas_output = 'correct_Dimemas_simulations/' + correct_dimemas_output
+         # make trace of the new format
+         basename = os.path.basename(output_trace)
+         trace_new_format = "Dimemas_simulations/new_format_" + basename
+         os.system('trf2trf %s %s' % (output_trace, trace_new_format))
+         MN_file_name = create_MN_file (trace_new_format)
+         basename = os.path.basename(output_trace)
+         prv_file = 'Dimemas_simulations/' + os.path.splitext(basename)[0] + '.prv'
+         dimemas_output = 'Dimemas_simulations/' + os.path.splitext(basename)[0] + '.dim.out'
+         simulation_command = 'Dimemas3 -S 32000  -pa %s %s > %s' % (prv_file, MN_file_name, dimemas_output)
+         correct_dimemas_output = os.path.basename(dimemas_output)
+         correct_dimemas_output = 'correct_Dimemas_simulations/' + correct_dimemas_output
          
-         #os.system(simulation_command)
-         #diff_dimemas_output = 'diff %s %s > check.out 2> check.err' % (dimemas_output, correct_dimemas_output)
-         #if (os.system(diff_dimemas_output)):
-            #test_passed = False
+         os.system(simulation_command)
+         diff_dimemas_output = 'diff %s %s > check.out 2> check.err' % (dimemas_output, correct_dimemas_output)
+         if (os.system(diff_dimemas_output)):
+            test_passed = False
 
 
    if (test_passed):
@@ -166,7 +166,7 @@ if __name__ == '__main__':
    os.system('rm resulting_outputs/*')
    os.system('rm resulting_trf_files/*')
    
-   tests_file = open ("unit_tests.txt", 'r')
+   tests_file = open ("integration_tests.txt", 'r')
    all_unit_tests = tests_file.readlines()
    
    input_traces_file = open("input_traces_list.txt", 'r')

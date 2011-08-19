@@ -1,0 +1,41 @@
+TASK PRIORITIES:
+caught new_MPI_process in test_store_workers
+TASK PRIORITIES:
+task 1 -> priority 2 
+task 2 -> priority 2 
+task 3 -> priority 1 
+task 4 -> priority 2 
+task 5 -> priority 1 
+task 6 -> priority 2 
+task 7 -> priority 1 
+task 8 -> priority 1 
+caught new_MPI_process in test_store_workers
+TASK PRIORITIES:
+task 1 -> priority 2 
+task 2 -> priority 2 
+task 3 -> priority 1 
+task 4 -> priority 2 
+task 5 -> priority 1 
+task 6 -> priority 2 
+task 7 -> priority 1 
+task 8 -> priority 1 
+caught new_MPI_process in test_store_workers
+TASK PRIORITIES:
+task 1 -> priority 2 
+task 2 -> priority 2 
+task 3 -> priority 1 
+task 4 -> priority 2 
+task 5 -> priority 1 
+task 6 -> priority 2 
+task 7 -> priority 1 
+task 8 -> priority 1 
+caught new_MPI_process in test_store_workers
+TASK PRIORITIES:
+task 1 -> priority 2 
+task 2 -> priority 2 
+task 3 -> priority 1 
+task 4 -> priority 2 
+task 5 -> priority 1 
+task 6 -> priority 2 
+task 7 -> priority 1 
+task 8 -> priority 1 

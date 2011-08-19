@@ -27,10 +27,17 @@ def copy_header(input_file, output_file):
 if __name__ == '__main__':
 
    clo_options = parse_command_line()
-   print 'src file is ', clo_options.src_trace_name
-   print 'dest file is ', clo_options.dest_trace_name
-   print 'start phase is ', clo_options.begin_phase
-   print 'end phase is ', clo_options.end_phase
+   
+   print '----------------------------------------------------------------------------------------------------------'
+   print ' translating MPI trace to MPI/SMPSs trace'
+   print '----------------------------------------------------------------------------------------------------------'
+   print 'input MPI trace         :    ', clo_options.src_trace_name
+   print 'output MPI/SMPSs trace  :    ', clo_options.dest_trace_name
+   if (clo_options.begin_phase != -1): 
+      print 'start phase             :    ', clo_options.begin_phase
+   if (clo_options.end_phase != -1):
+      print 'end phase               :    ', clo_options.end_phase
+   print '----------------------------------------------------------------------------------------------------------'        
    
    
    try:
