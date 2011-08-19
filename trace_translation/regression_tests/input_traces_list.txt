@@ -5,5 +5,5 @@
 # trf_4MPI_no_SMPSs_no_COMM.trf
 # trf_4MPI_with_SMPSs_no_COMM.trf
 # trf_4MPI_with_SMPSs_with_COMM.trf
-# trf_4MPI_with_SMPSs_with_COMM-tasks.trf
-trf_4MPI_no_SMPSs_with_COMM.trf
+trf_4MPI_with_SMPSs_with_COMM-tasks.trf
+# trf_4MPI_no_SMPSs_with_COMM.trf

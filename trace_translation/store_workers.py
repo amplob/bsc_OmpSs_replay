@@ -220,6 +220,7 @@ def store_worker_record(record):
    elif record.is_blocking_MPI():
       record_taskid = record.get_taskid()
       workers_storage.mark_task_with_MPI_activity(record_taskid)
+      workers_storage.add_worker_record(record)
    else:
       workers_storage.add_worker_record(record)
    
