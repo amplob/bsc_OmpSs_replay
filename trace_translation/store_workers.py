@@ -43,6 +43,10 @@ class WorkerTaskTrace:
                                           utils.SMPSs_user_events.EVENT_TYPE_TASK_PRIORITY, priority)
       # put this record at the beginning of the trace of this task
       self._records.insert(0, priority_record)   
+      
+   def add_first_empty_cpu_burst(self):
+      burst_record = utils.TraceRecord.create_empty_CPU_burst(self._MPI_process, self._taskid)
+      self._records.insert(0, burst_record)
          
    def set_has_MPI_activity(self):
       self._has_MPI_activity = True
@@ -190,7 +194,9 @@ class WorkersStorage:
          
       
    def add_first_empty_cpu_bursts(self):
-      pass
+      for task in self._worker_tasks:
+         task.add_first_empty_cpu_burst()
+      
       
 workers_storage = WorkersStorage()
 
@@ -224,8 +230,6 @@ def finalize_worker_task_records():
    
 
 def flushout_all_worker_records(final_trace):
-   #workers_storage.calculate_tasks_priorities()
-   #workers_storage.add_first_empty_cpu_bursts()   
    workers_storage.flushout_all_worker_records(final_trace)
 
 

@@ -56,7 +56,7 @@ class TraceRecord(object):
       return UserEvent ('"user event"', MPI_process, threadid, event_type, event_value)
    @staticmethod      
    def create_empty_CPU_burst (MPI_process, threadid):
-      return UserEvent ('"CPU burst"', MPI_process, threadid, 0.0)      
+      return CPUBurst ('"CPU burst"', MPI_process, threadid, 0.0)      
       
       
    def __str__ (self):
