@@ -8,16 +8,41 @@ PRIORITY_CP_INCREMENT_MPI      = 1000
 OUTSTANDING_MPI_PRIORITY       = 0
 
 class WorkerTaskTrace:
-   def __init__(self, taskid):
-      self.taskid = taskid
-      self.records =  []
-      self.previous_dependencies = []
+   def __init__(self, MPI_process, taskid):
+      self._MPI_process = MPI_process
+      self._taskid = taskid
+      self._records =  []
+      self._previous_dependencies = []
       self._has_MPI_activity = False
       self._priority = 1    # the lowes one
+      
+   def MPI_process(self):
+      return self._MPI_process
+      
+   def get_taskid(self):
+      return self._taskid
+      
+   def get_records(self):
+      return self._records
+      
+   def get_previous_dependencies(self):
+      return self._previous_dependencies
+      
+   def get_priority(self):
+      return self._priority
+      
       
    def update_priority(self, priority):
       if (priority > self._priority) or (priority == OUTSTANDING_MPI_PRIORITY):
          self._priority = priority
+         
+   def mark_final_priority(self):
+      priority = self._priority
+      # make a user event representing the priority
+      priority_record = utils.TraceRecord.create_user_event(self._MPI_process, self._taskid,
+                                          utils.SMPSs_user_events.EVENT_TYPE_TASK_PRIORITY, priority)
+      # put this record at the beginning of the trace of this task
+      self._records.insert(0, priority_record)   
          
    def set_has_MPI_activity(self):
       self._has_MPI_activity = True
@@ -60,13 +85,13 @@ class WorkersStorage:
       # if needs enlargement of the list of worker tasks
       if (record_taskid > workers_list_len):
          assert (record_taskid == workers_list_len + 1)
-         new_worker_task = WorkerTaskTrace(record_taskid)
+         new_worker_task = WorkerTaskTrace(record_MPI_process, record_taskid)
          self._worker_tasks.append(new_worker_task)
       assert (record_taskid <= self._get_worker_tasks_len())
       
       # add record to the 
       this_task = self.get_worker_task(record_taskid)
-      records_for_this_task = this_task.records
+      records_for_this_task = this_task.get_records()
       records_for_this_task.append(record)
 
 
@@ -80,7 +105,7 @@ class WorkersStorage:
       
       # add this new dependency
       this_task = self.get_worker_task(task_after)
-      dependencies_for_this_task = this_task.previous_dependencies
+      dependencies_for_this_task = this_task.get_previous_dependencies()
       dependencies_for_this_task.append(task_before)      
       
 
@@ -92,10 +117,12 @@ class WorkersStorage:
       # if there is a previous task with MPI activity -> mark the implicit dependency
       if (self._last_task_with_MPI_activity != 0):
          # add the records to mark the implicit dependency among tasks with MPI activity
-         in_dependency = utils.TraceRecord.create_in_dependency(self._current_MPI_process, self._last_task_with_MPI_activity, taskid)
-         out_dependency = utils.TraceRecord.create_out_dependency(self._current_MPI_process, self._last_task_with_MPI_activity, taskid)
+         task_before = self._last_task_with_MPI_activity
+         in_dependency = utils.TraceRecord.create_in_dependency(self._current_MPI_process, task_before, taskid)
+         out_dependency = utils.TraceRecord.create_out_dependency(self._current_MPI_process, task_before, taskid)
          self.add_worker_record(in_dependency)
          self.add_worker_record(out_dependency)
+         self.add_dependency_among_workers(task_before, taskid)
 
       # mark that this task has MPI activity
       new_task_with_MPI = self.get_worker_task(taskid)
@@ -106,14 +133,15 @@ class WorkersStorage:
    def flushout_all_worker_records(self, final_trace):
       
       for task in self._worker_tasks:
-         for record in task.records:
+         this_task_records = task.get_records()
+         for record in this_task_records:
             final_trace.write ( str (record))
             
    def flushout_all_intertask_dependencies(self):
       
       for task in self._worker_tasks:
-         print "dependencies for task %d:" % task.taskid
-         for dep in task.previous_dependencies:
+         print "dependencies for task %d:" % task.get_taskid()
+         for dep in task.get_previous_dependencies():
             print dep
          
    def flushout_all_tasks_with_MPI(self):
@@ -121,47 +149,45 @@ class WorkersStorage:
       print "these tasks have MPI activity:"
       for task in self._worker_tasks:
          if (task.get_has_MPI_activity()):
-            print task.taskid
+            print task.get_taskid()
 
-   def flushout_task_priorities(self):
+   def flushout_tasks_priorities(self):
       
       print "TASK PRIORITIES:"
-      for task in range (0, len(self._task_priorities)):
-         print "task %d -> priority %d " % (task + 1, priority)
+      for task in self._worker_tasks:
+         priority = task.get_priority()
+         taskid = task.get_taskid()
+         print "task %d -> priority %d " % (taskid, priority)
 
-   # make a user event to specify priority and put it as the first record in the task
-   def _set_priority(self, taskid, priority):
-      priority_record = utils.TraceRecord.create_user_event(self._current_MPI_process, taskid,
-                                          utils.SMPSs_user_events.EVENT_TYPE_TASK_PRIORITY, priority)
-      worker_task = self.get_worker_task(taskid)
-      worker_task_records = worker_task.records
-      worker_task_records.insert(0, priority_record)
 
-   #def calculate_tasks_priorities(self):
+   def calculate_tasks_priorities(self):
       
-      #current_MPI_process = self._current_MPI_process
+      # go backwards through all tasks
+      for task in reversed (self._worker_tasks):
+         
+         # update priorities of the tasks that give dependency to the actual task
       
-      ##print "calculate_tasks_priorities"
-      #for taskid in reversed ( range (0 ,len (self._worker_tasks))):
+         # if actual task has MPI the increment is PRIORITY_CP_INCREMENT_MPI
+         # else the increment is PRIORITY_CP_INCREMENT_ORDINARY     
+         if task.get_has_MPI_activity():
+            priority_increment = PRIORITY_CP_INCREMENT_MPI
+         else:
+            priority_increment = PRIORITY_CP_INCREMENT_ORDINARY
+         this_task_priority = task.get_priority()
+         previous_task_priority = this_task_priority + priority_increment
+      
+         for dep_taskid in task.get_previous_dependencies():
+            dep_task = self.get_worker_task(dep_taskid)
+            dep_task.update_priority(previous_task_priority)
+      
+         # mark the final calculated priority of this task
+         if (task.get_has_MPI_activity()):
+            this_task_final_priority = OUTSTANDING_MPI_PRIORITY
+         else:
+            this_task_final_priority = this_task_priority
+         task.update_priority(this_task_final_priority)
+         task.mark_final_priority()
          
-         #print 'calculate_tasks_priorities for task ' , taskid
-         
-         #task = self._worker_tasks[taskid]
-         
-         #if (task.has_MPI_activity):
-            #print "priority is infinite (has_MPI_activity)"
-            #self._set_priority(taskid)
-            ## calculate_tasks_priorities based on critical path
-            #for dep_taskid in task.previous_dependencies:
-               #dep_task = self._worker_tasks[dep_taskid]
-               #dep_task.update_priority (task.priority, PRIORITY_CP_INCREMENT_ORDINARY)
-               #dep_task_current_priority = dep_task.priority
-               ##if (dep_task_current_priority < )
-               
-         
-         #print "priority is  ", task.priority
-         
-
       
    def add_first_empty_cpu_bursts(self):
       pass
@@ -178,7 +204,7 @@ def start_new_MPI_process(new_MPI_process):
    workers_storage.start_new_MPI_process(new_MPI_process)
 
 
-def store_worker_records(record):
+def store_worker_record(record):
 
    if record.is_dependency():
       # this is a depedency among tasks -> coded as user event -> so this user event I can omit
@@ -192,19 +218,25 @@ def store_worker_records(record):
       workers_storage.add_worker_record(record)
    
 
+def finalize_worker_task_records():
+   workers_storage.calculate_tasks_priorities()
+   workers_storage.add_first_empty_cpu_bursts()
+   
+
 def flushout_all_worker_records(final_trace):
    #workers_storage.calculate_tasks_priorities()
    #workers_storage.add_first_empty_cpu_bursts()   
    workers_storage.flushout_all_worker_records(final_trace)
 
+
+
+# these are just functions used by the testing scripts
 def flushout_all_intertask_dependencies():
    workers_storage.flushout_all_intertask_dependencies()
    
 def flushout_all_tasks_with_MPI():
    workers_storage.flushout_all_tasks_with_MPI()   
    
-def flushout_task_priorities():
-   workers_storage.flushout_task_priorities()      
-   
-   
+def flushout_tasks_priorities():
+   workers_storage.flushout_tasks_priorities()      
          

@@ -33,8 +33,9 @@ def start_new_MPI_process(new_process):
    translate_worker_task.start_new_MPI_process(new_process)
    store_workers.start_new_MPI_process(new_process)
 
-def flush_worker_task_records(out_trace):
-   store_workers.flushout_all_tasks_with_MPI()   
+def flush_finalized_worker_task_records(out_trace):
+   store_workers.finalize_worker_task_records()
+   store_workers.flushout_tasks_priorities()
    
 
 #######################################################
@@ -63,7 +64,7 @@ if __name__ == '__main__':
    for (record, is_new_MPI_process) in input_trf.trf_file_reader (input_file, begin_phase, end_phase):
       #if starting new MPI process
       if is_new_MPI_process:
-         flush_worker_task_records(output_file)
+         flush_finalized_worker_task_records(output_file)
          print "caught new_MPI_process in test_store_workers"
          current_MPI_process = current_MPI_process + 1
          start_new_MPI_process(current_MPI_process)
@@ -72,10 +73,11 @@ if __name__ == '__main__':
       new_worker_task_records = translate_worker_task.get_caused_worker_task_records(record)
       for new_record in new_worker_task_records:
          store_workers.store_worker_record (new_record)
+
          
    
    # to flushout the last MPI process
-   flush_worker_task_records(output_file)
+   flush_finalized_worker_task_records(output_file)
 
       
    #store_workers.flush_worker_records ()
