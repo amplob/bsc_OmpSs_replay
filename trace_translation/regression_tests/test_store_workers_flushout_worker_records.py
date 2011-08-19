@@ -73,7 +73,6 @@ if __name__ == '__main__':
       new_worker_task_records = translate_worker_task.get_caused_worker_task_records(record)
       for new_record in new_worker_task_records:
          store_workers.store_worker_records (new_record)
-         print new_record
          
    
    # to flushout the last MPI process

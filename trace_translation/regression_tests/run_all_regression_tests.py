@@ -115,13 +115,13 @@ def test_correctness (test_command, output_file, output_trace):
    if (os.system(diff_output_command)):
       test_passed = False
       
-   ## check correctness of the resulting trace
-   #if (output_trace != None):
-      #if (os.path.exists(output_trace)):
-         #correct_output_trace_file = 'correct_translated_trf_files/%s' % (os.path.basename(output_trace))
-         #diff_trace_command = 'diff %s %s > check.out 2> check.err' % (output_trace, correct_output_trace_file)
-         #if (os.system(diff_trace_command)):
-            #test_passed = False
+   # check correctness of the resulting trace
+   if (output_trace != None):
+      if (os.path.exists(output_trace)):
+         correct_output_trace_file = 'correct_translated_trf_files/%s' % (os.path.basename(output_trace))
+         diff_trace_command = 'diff %s %s > check.out 2> check.err' % (output_trace, correct_output_trace_file)
+         if (os.system(diff_trace_command)):
+            test_passed = False
             
    ## check correctness of the Dimemas simulation
    #if (output_trace != None):

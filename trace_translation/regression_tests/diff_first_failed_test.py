@@ -111,16 +111,16 @@ def get_outputs_to_compare(test):
    else:
       print "correct output file: " +  "NO OUTPUT FILE"
    
-   #if (d_file != None):
-      #print "resulting trace file: " + d_file
-   #else:
-      #print "resulting trace file: " + "NO OUTPUT TRACE FILE"
-   #if (d_file != None):
-      #correct_d_file = 'correct_translated_trf_files/' + os.path.basename(d_file) 
-   #if (correct_d_file != None):
-      #print "correct trace file: " + correct_d_file
-   #else:
-      #print "correct trace file: " + "NO OUTPUT TRACE FILE"
+   if (d_file != None):
+      print "resulting trace file: " + d_file
+   else:
+      print "resulting trace file: " + "NO OUTPUT TRACE FILE"
+   if (d_file != None):
+      correct_d_file = 'correct_translated_trf_files/' + os.path.basename(d_file) 
+   if (correct_d_file != None):
+      print "correct trace file: " + correct_d_file
+   else:
+      print "correct trace file: " + "NO OUTPUT TRACE FILE"
       
       
    #if (d_file != None):
@@ -135,7 +135,7 @@ def get_outputs_to_compare(test):
    #else:
       #print "correct trace file: " + "NO OUTPUT TRACE FILE"      
    
-   return (output, correct_output)
+   return (output, correct_output, d_file, correct_d_file)
    
 
    
@@ -184,7 +184,7 @@ if __name__ == '__main__':
          print "first tests with error is :"
          print line 
          
-         (output, correct_output ) = get_outputs_to_compare(line)
+         (output, correct_output, output_trf, correct_trf ) = get_outputs_to_compare(line)
          
          if (output != None):
             print "diff of the output files"
@@ -195,14 +195,14 @@ if __name__ == '__main__':
                   os.system('cp %s %s'  % (output, correct_output))
                   print "commited"
          
-         #if (output_trf != None):
-            #print "diff of the traces"
-            #if (operate_on_traces):
-               #if (action_is_see):
-                  #os.system('diff %s %s' % (output_trf, correct_trf))
-               #else:
-                  #os.system('cp %s %s'  % (output_trf, correct_trf))
-                  #print "commited"
+         if (output_trf != None):
+            print "diff of the traces"
+            if (operate_on_traces):
+               if (action_is_see):
+                  os.system('diff %s %s' % (output_trf, correct_trf))
+               else:
+                  os.system('cp %s %s'  % (output_trf, correct_trf))
+                  print "commited"
          
          if (only_one_test):
             sys.exit(1)
