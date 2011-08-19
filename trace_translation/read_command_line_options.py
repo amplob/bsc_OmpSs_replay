@@ -6,52 +6,6 @@ import utils
 ###################################################
 from optparse import OptionParser
 
-class Command_line:
-   def __init__(self):
-      self.start_phase_defined = False
-      self.end_phase_defined = False
-      
-   def set_source_trace(self, file_name):
-      self.src_filename = file_name
-   def get_source_trace(self):
-      return self.src_filename
-   def set_destination_trace(self, file_name):
-      self.dest_filename = file_name
-   def get_destination_trace(self):
-      return self.dest_filename      
-      
-   def define_beginning_phase(self, phaseID):
-      assert (self.start_phase_defined == False)
-      assert (phaseID >= 0)
-      self.start_phase_defined = True
-      self.start_phase = phaseID
-   def define_ending_phase(self, phaseID):
-      assert (self.end_phase_defined == False)
-      assert (phaseID >= 0)
-      self.end_phase_defined = True
-      self.end_phase = phaseID   
-   def assure_cut_sanity(self):
-      if (self.start_phase_defined and self.end_phase_defined):
-         if (self.end_phase <= self.start_phase):
-            utils.panic('ERROR in phase selection:  end_phase <= begin_phase,  so the cut is empty')
-         
-   def is_start_phase_defined(self):
-      return self.start_phase_defined
-   def is_end_phase_defined(self):
-      return self.end_phase_defined      
-   def get_start_phase(self):
-      if (not self.start_phase_defined):
-         utils.panic("ERROR: cannot call command_line_options.get_start_phase because start phase is not defined")
-      return self.start_phase
-   def get_end_phase(self):
-      if (not self.end_phase_defined):
-         utils.panic("ERROR: cannot call command_line_options.get_end_phase because end phase is not defined")      
-      return self.end_phase      
-      
-command_line_options = Command_line()
-
-
-
 def parse_command_line():
    #parsing command line
    usage = "usage: %prog [options]"
@@ -73,16 +27,35 @@ def parse_command_line():
    # check the avalibility of the files
    if ((not options.src_trace_name) or (not options.dest_trace_name)):
       utils.panic ("incorrect usage (source or dest trace not specified), check:    %prog --help")
-   else:
-      command_line_options.set_source_trace(options.src_trace_name)
-      command_line_options.set_destination_trace(options.dest_trace_name)
      
-   
-       
-   if (options.begin_phase):
-      command_line_options.define_beginning_phase(int (options.begin_phase))
-   if (options.end_phase):
-      command_line_options.define_ending_phase(int (options.end_phase))
-   command_line_options.assure_cut_sanity()
+   # convert the phase numbers into integers
+   try:      
+      if options.begin_phase == None:
+         begin_phase = -1
+      else:
+         begin_phase = int (options.begin_phase)
       
+      if options.end_phase == None:
+         end_phase = -1
+      else:
+         end_phase = int (options.end_phase)   
+   except ValueError:
+      utils.panic ("Failed to convert begin or end phase into integer")
+      
+   #check sanity of the phase   
+   if (options.begin_phase and options.end_phase):
+      if (int (options.begin_phase) >= int (options.end_phase)):
+         utils.panic('ERROR in phase selection:  end_phase <= begin_phase,  so the cut is empty')
+         
+   if (options.begin_phase):
+      if (int (options.begin_phase) < 0):
+         utils.panic('ERROR in phase selection:  start_phase cannot be negative number')
+   if (options.end_phase):
+      if (int (options.end_phase) < 0):
+         utils.panic('ERROR in phase selection:  end_phase cannot be negative number')         
+   
+   #return phase in integer types, with -1 meaning that the phase is not specified
+   options.begin_phase = begin_phase
+   options.end_phase = end_phase
+            
    return options
