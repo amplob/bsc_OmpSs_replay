@@ -29,3 +29,7 @@
 #./test_store_workers_flushout_dependencies.py  -s SPEC.all_input_traces -d APPROP.output_trace -b 2 -e 6
 #./test_store_workers_flushout_dependencies.py  -s SPEC.all_input_traces -d APPROP.output_trace -b 222 -e 633
 
+./test_store_workers_flushout_tasks_with_MPI.py  -s SPEC.all_input_traces -d APPROP.output_trace
+./test_store_workers_flushout_tasks_with_MPI.py  -s SPEC.all_input_traces -d APPROP.output_trace -b 2 -e 6
+./test_store_workers_flushout_tasks_with_MPI.py  -s SPEC.all_input_traces -d APPROP.output_trace -b 222 -e 633
+

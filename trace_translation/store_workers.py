@@ -12,12 +12,18 @@ class WorkerTaskTrace:
       self.taskid = taskid
       self.records =  []
       self.previous_dependencies = []
-      self.has_MPI_activity = False
+      self._has_MPI_activity = False
       self._priority = 1    # the lowes one
       
    def update_priority(self, priority):
       if (priority > self._priority) or (priority == OUTSTANDING_MPI_PRIORITY):
          self._priority = priority
+         
+   def set_has_MPI_activity(self):
+      self._has_MPI_activity = True
+      
+   def get_has_MPI_activity(self):
+      return self._has_MPI_activity
          
       
       
@@ -93,7 +99,7 @@ class WorkersStorage:
 
       # mark that this task has MPI activity
       new_task_with_MPI = self.get_worker_task(taskid)
-      new_task_with_MPI.has_MPI_activity = True
+      new_task_with_MPI.set_has_MPI_activity()
       self._last_task_with_MPI_activity = taskid
             
       
@@ -114,7 +120,7 @@ class WorkersStorage:
       
       print "these tasks have MPI activity:"
       for task in self._worker_tasks:
-         if (task.has_MPI_activity):
+         if (task.get_has_MPI_activity()):
             print task.taskid
 
    def flushout_task_priorities(self):
