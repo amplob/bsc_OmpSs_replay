@@ -1,0 +1,177 @@
+caught new_MPI_process in translate_all_records
+"NX recv" { 0, 1, 0, 0, 1, 8000, 1, 2 };;
+
+"user event" { 0, 1, 7001, 1 };;
+
+"CPU burst" { 0, 1, 0.0 };;
+
+"user event" { 0, 1, 7003, 2 };;
+
+"CPU burst" { 0, 1, 0.002204 };;
+
+"user event" { 0, 1, 7003, 0 };;
+
+"CPU burst" { 0, 1, 0.0 };;
+
+"NX send" { 0, 1, 0, 0, 1, 8002, 1, 2 };;
+
+"user event" { 0, 1, 7001, 0 };;
+
+"NX recv" { 0, 2, 0, 0, 1, 8000, 1, 2 };;
+
+"user event" { 0, 2, 7001, 2 };;
+
+"CPU burst" { 0, 2, 0.0 };;
+
+"user event" { 0, 2, 7003, 3 };;
+
+"CPU burst" { 0, 2, 0.001602 };;
+
+"user event" { 0, 2, 7003, 0 };;
+
+"CPU burst" { 0, 2, 0.0 };;
+
+"NX send" { 0, 2, 0, 0, 1, 8002, 1, 2 };;
+
+"user event" { 0, 2, 7001, 0 };;
+
+"NX recv" { 0, 3, 0, 0, 1, 8000, 1, 2 };;
+
+"user event" { 0, 3, 7001, 3 };;
+
+"CPU burst" { 0, 3, 0.0 };;
+
+"user event" { 0, 3, 7003, 2 };;
+
+"CPU burst" { 0, 3, 3e-06 };;
+
+"user event" { 0, 3, 7001, 0 };;
+
+"user event" { 0, 3, 7003, 0 };;
+
+"NX recv" { 0, 3, 0, 2, 1, 8001, 1, 2 };;
+
+"user event" { 0, 3, 7001, 3 };;
+
+"user event" { 0, 3, 7003, 2 };;
+
+"NX send" { 0, 2, 0, 3, 1, 8001, 1, 2 };;
+
+"user event" { 0, 3, 7007, 2 };;
+
+"CPU burst" { 0, 3, 0.002257 };;
+
+"user event" { 0, 3, 7003, 0 };;
+
+"CPU burst" { 0, 3, 0.0 };;
+
+"NX send" { 0, 3, 0, 0, 1, 8002, 1, 2 };;
+
+"user event" { 0, 3, 7001, 0 };;
+
+"NX recv" { 0, 4, 0, 0, 1, 8000, 1, 2 };;
+
+"user event" { 0, 4, 7001, 4 };;
+
+"CPU burst" { 0, 4, 0.0 };;
+
+"user event" { 0, 4, 7003, 3 };;
+
+"CPU burst" { 0, 4, 0.001471 };;
+
+"user event" { 0, 4, 7003, 0 };;
+
+"CPU burst" { 0, 4, 0.0 };;
+
+"NX send" { 0, 4, 0, 0, 1, 8002, 1, 2 };;
+
+"user event" { 0, 4, 7001, 0 };;
+
+"NX recv" { 0, 5, 0, 0, 1, 8000, 1, 2 };;
+
+"user event" { 0, 5, 7001, 5 };;
+
+"CPU burst" { 0, 5, 0.0 };;
+
+"user event" { 0, 5, 7003, 2 };;
+
+"CPU burst" { 0, 5, 1e-06 };;
+
+"user event" { 0, 5, 7001, 0 };;
+
+"user event" { 0, 5, 7003, 0 };;
+
+"NX recv" { 0, 5, 0, 4, 1, 8001, 1, 2 };;
+
+"user event" { 0, 5, 7001, 5 };;
+
+"user event" { 0, 5, 7003, 2 };;
+
+"NX send" { 0, 4, 0, 5, 1, 8001, 1, 2 };;
+
+"user event" { 0, 5, 7007, 4 };;
+
+"CPU burst" { 0, 5, 0.002222 };;
+
+"user event" { 0, 5, 7003, 0 };;
+
+"CPU burst" { 0, 5, 0.0 };;
+
+"NX send" { 0, 5, 0, 0, 1, 8002, 1, 2 };;
+
+"user event" { 0, 5, 7001, 0 };;
+
+"NX recv" { 0, 6, 0, 0, 1, 8000, 1, 2 };;
+
+"user event" { 0, 6, 7001, 6 };;
+
+"CPU burst" { 0, 6, 0.0 };;
+
+"user event" { 0, 6, 7003, 3 };;
+
+"CPU burst" { 0, 6, 0.001528 };;
+
+"user event" { 0, 6, 7003, 0 };;
+
+"CPU burst" { 0, 6, 0.0 };;
+
+"NX send" { 0, 6, 0, 0, 1, 8002, 1, 2 };;
+
+"user event" { 0, 6, 7001, 0 };;
+
+"NX recv" { 0, 7, 0, 0, 1, 8000, 1, 2 };;
+
+"user event" { 0, 7, 7001, 7 };;
+
+"CPU burst" { 0, 7, 0.0 };;
+
+"user event" { 0, 7, 7003, 2 };;
+
+"CPU burst" { 0, 7, 0.002191 };;
+
+"user event" { 0, 7, 7003, 0 };;
+
+"CPU burst" { 0, 7, 0.0 };;
+
+"NX send" { 0, 7, 0, 0, 1, 8002, 1, 2 };;
+
+"user event" { 0, 7, 7001, 0 };;
+
+"NX recv" { 0, 8, 0, 0, 1, 8000, 1, 2 };;
+
+"user event" { 0, 8, 7001, 8 };;
+
+"CPU burst" { 0, 8, 0.0 };;
+
+"user event" { 0, 8, 7003, 3 };;
+
+"CPU burst" { 0, 8, 0.001493 };;
+
+"user event" { 0, 8, 7003, 0 };;
+
+"CPU burst" { 0, 8, 0.0 };;
+
+"NX send" { 0, 8, 0, 0, 1, 8002, 1, 2 };;
+
+"user event" { 0, 8, 7001, 0 };;
+

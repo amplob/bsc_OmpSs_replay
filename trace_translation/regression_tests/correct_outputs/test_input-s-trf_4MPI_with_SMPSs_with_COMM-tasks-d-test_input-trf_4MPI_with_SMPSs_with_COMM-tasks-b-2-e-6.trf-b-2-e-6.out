@@ -1,0 +1,12 @@
+caught new_MPI_process in translate_all_records
+first record in MPI process is  "user event" { 0, 0, 7005, 2 };;
+
+caught new_MPI_process in translate_all_records
+first record in MPI process is  "user event" { 1, 0, 7005, 2 };;
+
+caught new_MPI_process in translate_all_records
+first record in MPI process is  "user event" { 2, 0, 7005, 2 };;
+
+caught new_MPI_process in translate_all_records
+first record in MPI process is  "user event" { 3, 0, 7005, 2 };;
+
