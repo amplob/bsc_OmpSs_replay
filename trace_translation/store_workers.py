@@ -13,7 +13,14 @@ class WorkerTaskTrace:
       self.records =  []
       self.previous_dependencies = []
       self.has_MPI_activity = False
-      self.priority = 1    # the lowes one
+      self._priority = 1    # the lowes one
+      
+   def update_priority(self, priority):
+      if (priority > self._priority) or (priority == OUTSTANDING_MPI_PRIORITY):
+         self._priority = priority
+         
+      
+      
 
 class WorkersStorage:
    
@@ -27,6 +34,8 @@ class WorkersStorage:
       self._worker_tasks = []
       self._last_task_with_MPI_activity = 0
       
+   def get_worker_task(self, taskid):
+      return self._worker_tasks[taskid - 1]
    def get_current_MPI_process(self):
       return self._current_MPI_process
       
@@ -50,7 +59,7 @@ class WorkersStorage:
       assert (record_taskid <= self._get_worker_tasks_len())
       
       # add record to the 
-      this_task = self._worker_tasks[record_taskid - 1]
+      this_task = self.get_worker_task(record_taskid)
       records_for_this_task = this_task.records
       records_for_this_task.append(record)
 
@@ -64,7 +73,7 @@ class WorkersStorage:
       assert (task_after == self._get_worker_tasks_len())
       
       # add this new dependency
-      this_task = self._worker_tasks[task_after - 1]
+      this_task = self.get_worker_task(task_after)
       dependencies_for_this_task = this_task.previous_dependencies
       dependencies_for_this_task.append(task_before)      
       
@@ -83,7 +92,7 @@ class WorkersStorage:
          self.add_worker_record(out_dependency)
 
       # mark that this task has MPI activity
-      new_task_with_MPI = self._worker_tasks[taskid - 1]
+      new_task_with_MPI = self.get_worker_task(taskid)
       new_task_with_MPI.has_MPI_activity = True
       self._last_task_with_MPI_activity = taskid
             
@@ -118,7 +127,7 @@ class WorkersStorage:
    def _set_priority(self, taskid, priority):
       priority_record = utils.TraceRecord.create_user_event(self._current_MPI_process, taskid,
                                           utils.SMPSs_user_events.EVENT_TYPE_TASK_PRIORITY, priority)
-      worker_task = self._worker_tasks[taskid - 1]
+      worker_task = self.get_worker_task(taskid)
       worker_task_records = worker_task.records
       worker_task_records.insert(0, priority_record)
 
