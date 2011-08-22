@@ -26,8 +26,8 @@ void emit_task_start(t_taskcode task_code, t_taskId task_number) {
    TEST_PROGRESS("emit task start code %d, number %d\n",
                   task_code, task_number);
 #if (!library_TESTING)
-   MPItrace_event(COMMON_EVENT_TYPE_TASKNAME_CODED, task_code);
    MPItrace_event(COMMON_EVENT_TYPE_TASKID, task_number);
+   MPItrace_event(COMMON_EVENT_TYPE_TASKNAME_CODED, task_code);   
 #endif
 }
 
