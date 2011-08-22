@@ -195,8 +195,15 @@ void import_tasknames_from_file(char *filename) {
    code = find_taskcode(main_task_name);
    assert (code == code_of_mainTask);
    
-   /* each new task name gets a new identificator  */   
    file = fopen(filename, "r");
+   
+   /* check if the specified file with task names is valid */
+   if (file == NULL) {
+      printf("Warning: cannot open file with specified tasknames, file name:  %s \n", filename);
+      return;
+   }
+   
+   /* each new task name gets a new identificator  */      
    while(! feof(file))   {
       tasknames_read = fscanf(file, "%s", task_name);
       TEST_PROGRESS("tasknames_read = %d   taskname %s\n", tasknames_read, task_name );
