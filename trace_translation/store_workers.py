@@ -118,6 +118,10 @@ class WorkersStorage:
       
       assert (taskid > 0)
       
+      # this is already marked as a task with MPI activity
+      if self._last_task_with_MPI_activity == taskid:
+         return
+      
       # if there is a previous task with MPI activity -> mark the implicit dependency
       if (self._last_task_with_MPI_activity != 0):
          # add the records to mark the implicit dependency among tasks with MPI activity

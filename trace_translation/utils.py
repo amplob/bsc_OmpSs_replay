@@ -42,7 +42,9 @@ class TraceRecord(object):
       elif (tag == '"NX send"'):
          return NXSend(tag, *parameters)
       elif (tag == '"NX recv"'):
-         return NXRecv(tag, *parameters)         
+         return NXRecv(tag, *parameters)
+      elif (tag == '"global OP"'):
+         return GlobalOp(tag, *parameters)                  
       else:
          return None
    @staticmethod         
@@ -250,7 +252,28 @@ class NXRecv(TraceRecord):
              + ', ' + str(self.message_len) + ', ' + str(self.msg_tag) \
              + ', ' + str(self.communicator) + ', ' + str(self.synchronization)              
    def is_blocking_MPI(self):
-      return (True)                             
+      return (True)           
+      
+class GlobalOp(TraceRecord):
+   def __init__(self, tag = None, *parameters):
+      assert(len(parameters) == 8)
+      self._tag = tag
+      self.MPI_process = int (parameters[0])
+      self.threadid = int (parameters[1])
+      self.glop_id = int (parameters[2])
+      self.comm_id = int (parameters[3])
+      self.root_rank = int (parameters[4])
+      self.root_thid = int (parameters[5])
+      self.bytes_sent = int (parameters[6])
+      self.bytes_recvd = int (parameters[7])
+      
+   def _pars_string(self):
+      return str(self.MPI_process) + ', ' +  str(self.threadid) \
+             + ', ' + str(self.glop_id) + ', ' + str(self.comm_id) \
+             + ', ' + str(self.root_rank) + ', ' + str(self.root_thid) \
+             + ', ' + str(self.bytes_sent) + ', ' + str(self.bytes_recvd)              
+   def is_blocking_MPI(self):
+      return (True)         
    
 class OutDependency(TraceRecord):
    def __init__(self, MPI_process, src_threadid, dest_threadid):
