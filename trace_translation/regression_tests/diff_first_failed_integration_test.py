@@ -102,10 +102,8 @@ def get_outputs_to_compare(test):
    
    trace_basename = os.path.basename(d_file)   
    dimemas_output = 'Dimemas_simulations/' + os.path.splitext(trace_basename)[0] + '.dim.out'
-   print "resulting simulation file: " + dimemas_output
    
-   correct_dimemas_output = 'correct_translated_trf_files/' + os.path.basename(dimemas_output) 
-   print "correct trace file: " + correct_dimemas_output
+   correct_dimemas_output = 'correct_Dimemas_simulations/' + os.path.basename(dimemas_output) 
    
    return (dimemas_output, correct_dimemas_output)
    
@@ -119,7 +117,7 @@ def get_outputs_to_compare(test):
 #######################################################
 if __name__ == '__main__':
    
-   regression_output = open ("regression_output", 'r')
+   regression_output = open ("regression_integration_output", 'r')
    regression_output = regression_output.readlines()
    
    options = parse_command_line()

@@ -37,7 +37,7 @@ class TestsSummary:
       print "------summary of regression testing---------"
       print "--------------------------------------------"
       print ""
-      summary_file = open ("regression_output", 'w')
+      summary_file = open ("regression_integration_output", 'w')
       print " total tests:             ", self._total_tests
       summary_file.write (" total tests: %d\n" % self._total_tests)
 

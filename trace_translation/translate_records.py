@@ -47,7 +47,7 @@ def translate_all_records(input_file,
                           output_file):
 
    current_MPI_process = utils.STARTING_MPI_PROCESS
-   
+     
    #for each record in the trace
    for (record, is_new_MPI_process) in input_trf.trf_file_reader (input_file, begin_phase, end_phase):
       #if starting new MPI process
@@ -57,13 +57,9 @@ def translate_all_records(input_file,
          current_MPI_process = current_MPI_process + 1
          start_new_MPI_process(output_file, current_MPI_process)
          sys.stdout.write ("\r")
-         sys.stdout.write ("translating MPI process %d" % current_MPI_process)
+         sys.stdout.write ("translating MPI process number:  %d" % current_MPI_process)
          sys.stdout.flush()
          continue     
-      
-      # there is a useful record to process
-      if record.is_blocking_MPI():
-         print 'translate_all_records  -> MPI call  ' ,  str(record)
       
       # records for main task -> directly put them to the output trace
       new_main_task_records = translate_main_task.get_caused_main_task_records(record)

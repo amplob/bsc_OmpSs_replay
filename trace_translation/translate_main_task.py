@@ -4,13 +4,6 @@
 import utils
 
 
-#def assure_record_in_main_task(record):
-   #if (record.get_taskid() != 0 ):
-      #panic_message = "\n\n\nerror in translate_main_task_record of record:\n"
-      #panic_message = panic_message + ("%s\n" % record)
-      #panic_message = panic_message + "-> it is not a record of the main task\n\n\n" 
-      #utils.panic(panic_message)   
-
 class TranslationState:
    
    def __init__(self):

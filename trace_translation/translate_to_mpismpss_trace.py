@@ -3,7 +3,6 @@
 
 import os
 import sys
-import utils
 from read_command_line_options import parse_command_line
 from translate_records import translate_all_records
 
@@ -46,10 +45,10 @@ if __name__ == '__main__':
    except IOError:
       print "Failed to open source or destination file"
    
+   
    copy_header(input_file, output_file)
    
    translate_all_records(input_file, 
                          clo_options.begin_phase, clo_options.end_phase, 
                          output_file)
-   
 

@@ -11,14 +11,15 @@ class SMPSsState:
       self._end_phase = end_phase
       self._current_MPI_process = utils.STARTING_MPI_PROCESS
    def __str__(self):
-      line = 'current SMPSs state is :\n'
-      line = '---------------------------------------------------\n'
-      line = line + 'MPI_process is          ' + str(self._current_MPI_process) + '\n'
-      line = line + 'is in cut               ' + str(self._currently_in_cut) + '\n'
-      line = line + 'first task in the cut   ' + str(self._first_task_in_cut) + '\n'
-      line = line + 'is currently in task    ' + str(self._currently_in_task) + '\n'
-      line = line + 'current absolute task   ' + str(self._current_absolute_task) + '\n'
-      line = line + '---------------------------------------------------\n'
+      line = (
+               'current SMPSs state is :\n'
+               '---------------------------------------------------\n'
+               'MPI_process is          ' + str(self._current_MPI_process) + '\n'
+               'is in cut               ' + str(self._currently_in_cut) + '\n'
+               'first task in the cut   ' + str(self._first_task_in_cut) + '\n'
+               'is currently in task    ' + str(self._currently_in_task) + '\n'
+               'current absolute task   ' + str(self._current_absolute_task) + '\n'
+               '---------------------------------------------------\n')
       return line
    # initialization of starting a new MPI process
    def start_new_MPI_process(self, new_MPI):
