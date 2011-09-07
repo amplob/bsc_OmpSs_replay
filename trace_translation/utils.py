@@ -58,6 +58,9 @@ class TraceRecord(object):
    def create_user_event (MPI_process, threadid, event_type, event_value):
       return UserEvent ('"user event"', MPI_process, threadid, event_type, event_value)
    @staticmethod      
+   def create_css_barrier_event (MPI_process):
+      return TraceRecord.create_user_event (MPI_process, 0, SMPSs_user_events.EVENT_TYPE_CSS_BARRIER, 0)      
+   @staticmethod      
    def create_empty_CPU_burst (MPI_process, threadid):
       return CPUBurst ('"CPU burst"', MPI_process, threadid, 0.0)      
    @staticmethod      

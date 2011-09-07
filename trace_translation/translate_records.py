@@ -35,6 +35,13 @@ def store_worker_records(records):
    for record in records:
       store_workers.store_worker_record(record)
 
+def add_final_worker_tasks_join(current_MPI, out_trace):
+   # create a fake barrier record
+   fake_barrier = utils.TraceRecord.create_css_barrier_event(current_MPI)
+   new_main_task_records = translate_main_task.get_caused_main_task_records(fake_barrier)
+   flush_main_task_records(out_trace, new_main_task_records)   
+   
+
 def flush_finalized_worker_task_records(out_trace):
    store_workers.finalize_worker_task_records()
    store_workers.flushout_all_worker_records(out_trace)      
@@ -52,6 +59,9 @@ def translate_all_records(input_file,
    for (record, is_new_MPI_process) in input_trf.trf_file_reader (input_file, begin_phase, end_phase):
       #if starting new MPI process
       if is_new_MPI_process:
+         # in the main task, add the finishing join of all the working tasks -> FAKE ONE BARRIER
+         add_final_worker_tasks_join(current_MPI_process, output_file)
+         
          # organize and flushout all the collected worker records for this MPI process
          flush_finalized_worker_task_records(output_file)
          current_MPI_process = current_MPI_process + 1
@@ -70,7 +80,8 @@ def translate_all_records(input_file,
       store_worker_records(new_worker_task_records)   
       
       
-   # to organize and flushout worker tasks for the last MPI process
+   # to organize and flushout worker tasks for the last MPI process, first make a join in the main task
+   add_final_worker_tasks_join(current_MPI_process, output_file)
    flush_finalized_worker_task_records(output_file)      
       
    sys.stdout.write ("\n")      
