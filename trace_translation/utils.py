@@ -7,7 +7,8 @@ def panic (string):
    #print >> sys.stderr, 'exited with panic'
    sys.exit(1)
   
-STARTING_MPI_PROCESS = -1  
+STARTING_MPI_PROCESS = -1
+TASKS_BLOCKS_OFFSET  = 4000
 
 class SMPSs_user_events:
    EVENT_TYPE_TASKID          =7001   
@@ -59,6 +60,12 @@ class TraceRecord(object):
    @staticmethod      
    def create_empty_CPU_burst (MPI_process, threadid):
       return CPUBurst ('"CPU burst"', MPI_process, threadid, 0.0)      
+   @staticmethod      
+   def create_block_begin (MPI_process, threadid, blockid):
+      return BlockBegin ('"block begin"', MPI_process, threadid, blockid)
+   @staticmethod      
+   def create_block_end (MPI_process, threadid, blockid):
+      return BlockEnd ('"block end"', MPI_process, threadid, blockid)                  
       
       
    def __str__ (self):

@@ -102,16 +102,32 @@ def get_caused_worker_task_records(record_old):
          
          dependency_record = utils.TraceRecord.create_out_dependency(MPI_process, dependency_source, dependency_destination)
          new_records.append(dependency_record)
+
+         # add block_end for this task
+         taskname_coded = translation_state.get_current_task_type()
+         block_id = taskname_coded + utils.TASKS_BLOCKS_OFFSET
+         current_task = translation_state.get_tasks_entered_so_far()  
+         block_end_record = utils.TraceRecord.create_block_end(MPI_process, current_task, block_id)
+         new_records.append(block_end_record)
+         
+         # add the user event signaling the exit from the task
          new_records.append(record_old)
          translation_state.exit_task()
          
       elif (record_old.is_setting_task_name()):
-         # detected exiting a task
+         # detected setting taskname
          assert (translation_state.is_currently_in_task())
          taskname_coded = record_old.get_task_name()
          translation_state.set_current_task_type(taskname_coded)
          
          new_records.append(record_old)
+         
+         # add block_begin for this task
+         block_id = taskname_coded + utils.TASKS_BLOCKS_OFFSET
+         MPI_process = record_old.get_MPI_process()
+         current_task = translation_state.get_tasks_entered_so_far()  
+         block_begin_record = utils.TraceRecord.create_block_begin(MPI_process, current_task, block_id)
+         new_records.append(block_begin_record)
          
       elif (record_old.is_dependency()):
          # this is a dependency among tasks
@@ -119,7 +135,7 @@ def get_caused_worker_task_records(record_old):
          dependent_on = record_old.dependency_from_whom()
 
          dependency_source = dependent_on
-         dependency_destination = translation_state.get_tasks_entered_so_far()  # main task
+         dependency_destination = translation_state.get_tasks_entered_so_far()  
          MPI_process = record_old.get_MPI_process()
          
          dependency_in_record = utils.TraceRecord.create_in_dependency(MPI_process, dependency_source, dependency_destination)
