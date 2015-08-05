@@ -4,6 +4,30 @@
 #include "ssvalgrindcc_interface.h"
 #include "tracing_main.h"
 
+#include "extrae_user_events.h"
+int id = 0;
+
+void replay_start_task() {
+  printf("create and run wd\n");
+  Extrae_event( 1000, 1 + id);
+  ++id;
+}
+
+void replay_end_task() {
+  printf("end task\n");
+  Extrae_event( 1000, 0);
+}
+// void replay_start_task() {
+//   printf("create and run wd\n");
+//   
+// //   event_start_task("fake_name");
+// }
+// 
+// void replay_end_task() {
+//   printf("end task\n");
+// //   event_end_task();
+// }
+
 void start_task_valgrind(void *sp, const char * taskname)
 {
    TEST_PROGRESS("starting task with name %s with stack pointer \n", taskname);

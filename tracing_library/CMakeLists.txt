@@ -23,7 +23,7 @@ set(CMAKE_CXX_COMPILER "mpicc")
 SET(CMAKE_BUILD_TYPE Release)
 
 # flags
-add_definitions("-Wall -rdynamic -fPIC -Wl,-Bstatic")
+add_definitions("-Wall -rdynamic  -fPIC -Wl,-Bstatic")
 
 # include header file from this folder
 include_directories(${mpisstrace_SOURCE_DIR})
@@ -43,7 +43,7 @@ include_directories(${mpisstrace_SOURCE_DIR}/rb_tree)
 # compile the library
 add_library(mpissTrace SHARED  taskname_coder.c dep_calculator.c ssvalgrindcc_interface.c emit_records.c tracing_main.c)
 # Link the executable to the rb_trees library.
-target_link_libraries (mpissTrace rb_trees /home/marc/tools/extrae-3.1.0-linux-x86_64-mvapich2-1.7-cuda/lib/libmpitrace.so) 
+target_link_libraries (mpissTrace rb_trees /home/marc/tools/extrae-3.1.0-linux-x86_64-mvapich2-1.7-cuda/lib/libseqtrace.so) 
 
 
 install (TARGETS mpissTrace

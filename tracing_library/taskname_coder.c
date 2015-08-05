@@ -261,7 +261,7 @@ void flush_tasknames_pcf(char *filename) {
    fclose(file);
 }
 
-inline t_taskcode get_code_of_main_task () {
+inline t_taskcode get_code_of_main_task (void) {
    return code_of_mainTask;
 }
 
