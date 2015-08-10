@@ -5,40 +5,46 @@
 #include "tracing_main.h"
 
 #include "extrae_user_events.h"
-int id = 0;
 
-void replay_start_task() {
-  printf("create and run wd\n");
-  Extrae_event( 1000, 1 + id);
-  ++id;
-}
-
-void replay_end_task() {
-  printf("end task\n");
-  Extrae_event( 1000, 0);
-}
+// int id = 0;
 // void replay_start_task() {
 //   printf("create and run wd\n");
-//   
-// //   event_start_task("fake_name");
+//   Extrae_event( 1000, 1 + id);
+//   ++id;
 // }
 // 
 // void replay_end_task() {
 //   printf("end task\n");
-// //   event_end_task();
+//   Extrae_event( 1000, 0);
 // }
 
-void start_task_valgrind(void *sp, const char * taskname)
-{
-   TEST_PROGRESS("starting task with name %s with stack pointer \n", taskname);
-   event_start_task (taskname);
+unsigned char css_initialized = 0;
+
+void replay_start_task() {
+  if (!css_initialized) {
+    event_start_css();
+    css_initialized = 1;
+  }
+  printf("create and run wd\n");
+  event_start_task("fake_name");
 }
 
-void end_task_valgrind(void)
-{
-   TEST_PROGRESS("ending task \n");
-   event_end_task();
+void replay_end_task() {
+  printf("end task\n");
+  event_end_task();
 }
+
+// void start_task_valgrind(void *sp, const char * taskname)
+// {
+//    TEST_PROGRESS("starting task with name %s with stack pointer \n", taskname);
+//    event_start_task (taskname);
+// }
+// 
+// void end_task_valgrind(void)
+// {
+//    TEST_PROGRESS("ending task \n");
+//    event_end_task();
+// }
 
 void start_css_valgrind (void) {
    TEST_PROGRESS("start_css_valgrind      \n");
