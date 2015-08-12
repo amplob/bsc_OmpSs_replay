@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 
@@ -14,10 +14,10 @@ import glob
 #################################################################################
 
 # helper directories
-from backend.src.utils import util_fncs
+#from backend.src.utils import util_fncs
 
 DIR_INTERMEDIATE_FILES = '.test_intermediate'
-DIR_OUTPUT_FILES = '.test_stds'
+DIR_OUTPUT_FILES = '.'
 DIR_DIMEMAS_SIMULATIONS = '.tmp_folder_dimemas_simulations'
 DIR_PARAMEDIR_PROCESSING = '.tmp_folder_paramedir_processing'
 
@@ -204,8 +204,6 @@ def parse_command_line():
     parser.add_option("-c", action="store_true", dest="do_compile",
                       help="compile the tests", default=False)
     parser.add_option("-i", action="store_true", dest="do_instrument",
-                      help="do Tareador instrumentation (LLVM)", default=False)
-    parser.add_option("-l", action="store_true", dest="do_log_translation",
                       help="do translation of log into fast_deep_log", default=False)
     parser.add_option("-s", action="store_true", dest="do_select_decomposition",
                       help="do translation with selected decomposition", default=False)
@@ -235,55 +233,31 @@ def delete_intermediate_files(directory):
         shutil.rmtree(intermediate_folder)
 
 
-def compile_test_llvm(directory):
-    assure_working_directories()
-
-    compile_command = "{0} test_source.c -o {1}/test_binary.exe ".format(BINARIES['TAREADOR_CLANG'],
-                                                                         DIR_INTERMEDIATE_FILES)
-    if directory.endswith('_lite'):
-        compile_command += " -tareador-lite "
-        compile_command += ' -I/$TAREADOR_LLVM_SRC_ROOT/projects/tareador/include/runtime/ '
-    stdout_filename = DIR_OUTPUT_FILES + "/compilation.out"
-    stderr_filename = DIR_OUTPUT_FILES + "/compilation.err"
-    compile_command += " >{0} 2>{1}".format(stdout_filename, stderr_filename)
-    print_verbosely(compile_command)
-    return_code = call(compile_command, shell=True)
-    print_verbosely(return_code)
-    assert_report(return_code == 0,
-                  "failed compilation in test {0}".format(directory),
-                  stdout_filename, stderr_filename)
-
-def compile_test_valgrind(directory):
-    assure_working_directories()
-    # util_fncs.panic('about to compile with Valgrind')
-
-    compile_command = "{0} test_source.c -g -O0 -o {1}/test_binary.exe ".format(BINARIES['GCC'],
-                                                                         DIR_INTERMEDIATE_FILES)
-    if directory.endswith('_lite'):
-        compile_command += ' -I/$TAREADOR_HOME/src/valgrind_module/tareador/lib_valgrind_annotations '
-        compile_command += ' /$TAREADOR_HOME/src/valgrind_module/tareador/lib_valgrind_annotations/tareador.o '
-    stdout_filename = DIR_OUTPUT_FILES + "/compilation.out"
-    stderr_filename = DIR_OUTPUT_FILES + "/compilation.err"
-    compile_command += " >{0} 2>{1}".format(stdout_filename, stderr_filename)
-    print_verbosely(compile_command)
-    return_code = call(compile_command, shell=True)
-    print_verbosely(return_code)
-    assert_report(return_code == 0,
-                  "failed compilation in test {0}".format(directory),
-                  stdout_filename, stderr_filename)
 
 #### compilation ###
-def compile_test(directory, instrumentation_tool):
-    if instrumentation_tool == 'llvm':
-        compile_test_llvm(directory)
-    elif instrumentation_tool == 'valgrind':
-        compile_test_valgrind(directory)
-    else:
-        util_fncs.panic('cannot decode instrumentation tool: {0}'.format(instrumentation_tool))
-
+def compile_test(directory, do_regenerate_expected_output, test_successful_so_far):
+    assure_working_directories()
+    #util_fncs.panic('about to compile with mcc')
+    print('inside compile_test_mcc')
+    environment_file = "exe.sh"
+    compile_command = "make"
+    stdout_filename = "compilation.out"
+    stderr_filename = "compilation.err"
+    compile_command += " >{0} 2>{1}".format(stdout_filename, stderr_filename)
+    print_verbosely(compile_command)
+    return_code = call(compile_command, shell=True)
+    print_verbosely(return_code)
+    assert_report(return_code == 0,
+                  "failed compilation in test {0}".format(directory),
+                  stdout_filename, stderr_filename)
+    still_successful = compare_update_expected(directory,
+                                               do_regenerate_expected_output,
+                                               test_successful_so_far,
+                                               "compilation")
+    return still_successful
 
 def assure_compiled(directory):
-    if not os.path.isfile('{0}/test_binary.exe'.format(DIR_INTERMEDIATE_FILES)):
+    if not os.path.isfile('all.exe'):
         print("to recompile test: " + directory)
         compile_test(directory)
 
@@ -560,8 +534,7 @@ def driver_runs_multiple(directory, do_regenerate_expected_output, test_successf
 
 
 #### bottlenecks testing -- running paramedir ###
-def dimemas_simulation(directory, test, ncores, dimemas_trace_new_prefix, \
-                       pcf_addition_new_prefix, folder_for_simulation):
+def dimemas_simulation(directory, test, ncores, dimemas_trace_new_prefix, pcf_addition_new_prefix, folder_for_simulation):
     dimemas_trace_old_format = dimemas_trace_new_prefix + '.exp'
     pcf_addition = pcf_addition_new_prefix + '.exp'
     assert (os.path.isfile(dimemas_trace_old_format))
@@ -679,36 +652,34 @@ def run_all_tests(options, args):
     if options.do_all_tests:
         do_compile = True
         do_instrument = True
-        do_log_translation = True
-        do_select_decomposition = True
-        do_driver_testing = True
-        do_bottlenecks_testing = True
     else:
         do_compile = options.do_compile
         do_instrument = options.do_instrument
-        do_log_translation = options.do_log_translation
-        do_select_decomposition = options.do_select_decomposition
-        do_driver_testing = options.do_driver_testing
-        do_bottlenecks_testing = options.do_bottlenecks_testing
 
     do_regenerate_expected_output = options.do_regenerate_expected_output
     do_delete_intermediate_files = options.do_delete_intermediate_files
-    instrumentation_tool = options.instrumentation_tool
     PRINT_VERBOSE = options.print_verbose
 
+
+    #return_code = call("source environment.bash", shell=True)
+    #assert (return_code ==0)
+  
     if (len(args) == 0):
         tests = 'all'
     else:
         tests = args
 
+
     if (tests == 'all'):
         directories = get_immediate_subdirectories('.')
+        print (directories)
     else:
         directories = list(map(lambda x: x.rstrip('/'), tests))
+        print (directories)
         for test_dir in directories:
             assert (test_dir in get_immediate_subdirectories('.')), "test {0} not in the suite".format(test_dir)
 
-    util_fncs.assure_binaries_in_paths(BINARIES)
+    #util_fncs.assure_binaries_in_paths(BINARIES)
 
     # PRINT THE HEADER FOR TESTS
     print('#################################################################')
@@ -716,10 +687,6 @@ def run_all_tests(options, args):
     print("do_delete_intermediate_files:    {0}".format(do_delete_intermediate_files))
     print("do_compile:                      {0}".format(do_compile))
     print("do_instrument:                   {0}".format(do_instrument))
-    print("do_log_translation:              {0}".format(do_log_translation))
-    print("do_select_decomposition:         {0}".format(do_select_decomposition))
-    print("do_driver_testing:               {0}".format(do_driver_testing))
-    print("do_bottlenecks_testing:          {0}".format(do_bottlenecks_testing))
     print("do_regenerate_expected_output:   {0}".format(do_regenerate_expected_output))
     total_tests = len(directories)
     print("TOTAL TESTS:                     {0}".format(total_tests))
@@ -740,35 +707,13 @@ def run_all_tests(options, args):
 
         # compiling
         if do_compile:
-            compile_test(directory, instrumentation_tool)
+            test_successful_so_far = compile_test(directory, do_regenerate_expected_output, test_successful_so_far)
 
-        # instrumentation
-        if do_instrument:
-            test_successful_so_far = llvm_instrument_test(directory, do_regenerate_expected_output,
-                                                          test_successful_so_far)
-
-        # deep_log_traslation
-        if do_log_translation:
-            test_successful_so_far = translate_log_test(directory, do_regenerate_expected_output,
-                                                        test_successful_so_far)
-
-        # selecting_decomposition
-        if test_successful_so_far:
-            if do_select_decomposition:
-                test_successful_so_far = select_decomposition_multiple(directory, do_regenerate_expected_output,
-                                                                       test_successful_so_far)
-
-        # testing driver operations
-        if test_successful_so_far:
-            if do_driver_testing:
-                test_successful_so_far = driver_runs_multiple(directory, do_regenerate_expected_output,
-                                                              test_successful_so_far)
-
-        # testing identification of bottleneck tasks
-        if test_successful_so_far:
-            if do_bottlenecks_testing:
-                test_successful_so_far = bottlenecks_runs_multiple(directory, do_regenerate_expected_output,
-                                                                   test_successful_so_far)
+	## tracing
+        #if do_tracing:
+            #test_successful_so_far = ompss_tracing(directory, do_regenerate_expected_output,
+                                                          #test_successful_so_far)
+	
 
         # was it correct or not
         if test_successful_so_far:
@@ -787,8 +732,10 @@ def run_all_tests(options, args):
 
 
 if __name__ == '__main__':
-
+    print ("parsed cmd")
+  
     (options, args) = parse_command_line()
+    print ("parsed cmd")
     run_all_tests(options, args)
 
 

@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 2.8)
 project (mpisstrace)
 
 # is the testing code ON/OFF
-set (library_TESTING  0)
-set (PARALLEL_LIBRARY 1)
+set (library_TESTING  1)
+set (PARALLEL_LIBRARY 0)
 # configure a header file to pass this testing switch
 # to the source code
 configure_file (

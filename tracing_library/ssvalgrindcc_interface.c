@@ -4,7 +4,20 @@
 #include "ssvalgrindcc_interface.h"
 #include "tracing_main.h"
 
-#include "extrae_user_events.h"
+// #include "extrae_user_events.h"
+
+
+// #include "nanos.h"
+// #include "basethread.hpp"
+// #include "debug.hpp"
+// #include "system.hpp"
+// #include "workdescriptor.hpp"
+// #include "smpdd.hpp"
+// #include "gpudd.hpp"
+// #include "plugin.hpp"
+// #include "instrumentation.hpp"
+// #include "instrumentationmodule_decl.hpp"
+// 
 
 // int id = 0;
 // void replay_start_task() {
@@ -25,12 +38,14 @@ void replay_start_task() {
     event_start_css();
     css_initialized = 1;
   }
-  printf("create and run wd\n");
+  TEST_PROGRESS("starting task with name fake_name\n");
+//   printf("create and run wd\n");
   event_start_task("fake_name");
 }
 
 void replay_end_task() {
-  printf("end task\n");
+//   printf("end task\n");
+  TEST_PROGRESS("ending task \n");
   event_end_task();
 }
 
@@ -55,6 +70,17 @@ void end_css_valgrind (void) {
    TEST_PROGRESS("end_css_valgrind      \n");
    event_end_css();
 }
+
+
+// void evaluate_barrier(nanos_const_wd_definition_t *const_data_ext, nanos_wd_dyn_props_t *dyn_props, 
+// 		      size_t data_size, void * data, size_t num_data_accesses, nanos_data_access_t *data_accesses,
+// 		      nanos_copy_data_t *copies, nanos_region_dimension_internal_t *dimensions, nanos_translate_args_t translate_args,
+// 		      unsigned char & barrier_needed
+// )
+// {
+//    barrier_needed = 0;  
+// }
+
 
 void barrier_css_valgrind (void) {
    TEST_PROGRESS("barrier_css_valgrind      \n");
