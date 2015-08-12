@@ -1,0 +1,27 @@
+./simple_test.exe
+Welcome to Extrae 3.1.0 (revision 3316 based on extrae/trunk)
+Extrae: Application has been linked or preloaded with Extrae, BUT neither EXTRAE_ON nor EXTRAE_CONFIG_FILE are set!
+starting program
+Welcome to Extrae 3.1.0 (revision 3316 based on extrae/trunk)
+Extrae: Application has been linked or preloaded with Extrae, BUT neither EXTRAE_ON nor EXTRAE_CONFIG_FILE are set!
+create wd
+create and run
+Thread 0 have done task a
+create wd
+create and run
+Thread 0 have done task b
+create wd
+create and run
+Thread 0 have done task c
+create wd
+create and run
+Thread 0 have done task d
+create wd
+create and run
+Thread 0 have done task e
+create wd
+create and run
+Thread 0 have done task f
+create wd
+create and run
+Thread 0 have done task g

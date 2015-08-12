@@ -6,9 +6,11 @@ CFLAGS = -O -g -I$(EXTRAE_HOME)/include
 LFLAGS = -L$(EXTRAE_HOME)/lib -lseqtrace -Wl,-rpath=$(EXTRAE_HOME)/lib
 
 
-all:
-	$(DEFAULTCC) $(CFLAGS) simple_test.c -o $@.exe -K --ompss --v $(LFLAGS)
-	#./$@.exe2
+compile:
+	$(DEFAULTCC) $(CFLAGS) simple_test.c -o simple_test.exe -K --ompss --v $(LFLAGS)
+
+execute:
+	./simple_test.exe
 	
 
 clean:

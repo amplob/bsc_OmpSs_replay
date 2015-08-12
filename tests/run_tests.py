@@ -203,6 +203,8 @@ def parse_command_line():
                       help="delete all precomputed files -> next tests do all computation from scratch", default=False)
     parser.add_option("-c", action="store_true", dest="do_compile",
                       help="compile the tests", default=False)
+    parser.add_option("-t", action="store_true", dest="do_tracing",
+                      help="execute the tests", default=False)
     parser.add_option("-i", action="store_true", dest="do_instrument",
                       help="do translation of log into fast_deep_log", default=False)
     parser.add_option("-s", action="store_true", dest="do_select_decomposition",
@@ -239,8 +241,7 @@ def compile_test(directory, do_regenerate_expected_output, test_successful_so_fa
     assure_working_directories()
     #util_fncs.panic('about to compile with mcc')
     print('inside compile_test_mcc')
-    environment_file = "exe.sh"
-    compile_command = "make"
+    compile_command = "make compile"
     stdout_filename = "compilation.out"
     stderr_filename = "compilation.err"
     compile_command += " >{0} 2>{1}".format(stdout_filename, stderr_filename)
@@ -260,102 +261,6 @@ def assure_compiled(directory):
     if not os.path.isfile('all.exe'):
         print("to recompile test: " + directory)
         compile_test(directory)
-
-
-#### llvm instrumentation ###
-def llvm_instrument_test(directory, do_regenerate_expected_output, test_successful_so_far):
-    assure_working_directories()
-    assure_compiled(directory)
-    stdout_filename = DIR_OUTPUT_FILES + "/instrumentation.out"
-    stderr_filename = DIR_OUTPUT_FILES + "/instrumentation.err"
-    instrumentation_log = INSTRUMENTATION_LOG_PREFIX + ".out"
-    instrumentation_command = "TAREADOR_LOG_FILE={3} {0}/test_binary.exe" \
-                              " >{1} 2> {2}".format(DIR_INTERMEDIATE_FILES,
-                                                    stdout_filename, stderr_filename, instrumentation_log)
-    return_code = call(instrumentation_command, shell=True)
-    assert_report(return_code == 0,
-                  "failed instrumentation in test {0}".format(directory),
-                  stdout_filename, stderr_filename)
-    hideAddresses(instrumentation_log)
-    hide_absolute_path(instrumentation_log)
-
-    # check the correctness of the log
-    still_successful = compare_update_expected(directory,
-                                               do_regenerate_expected_output,
-                                               test_successful_so_far,
-                                               INSTRUMENTATION_LOG_PREFIX)
-
-    return still_successful
-
-#### llvm instrumentation ###
-def valgrind_instrument_test(directory, do_regenerate_expected_output, test_successful_so_far):
-    assure_working_directories()
-    assure_compiled(directory)
-    stdout_filename = DIR_OUTPUT_FILES + "/instrumentation.out"
-    stderr_filename = DIR_OUTPUT_FILES + "/instrumentation.err"
-    instrumentation_log = INSTRUMENTATION_LOG_PREFIX + ".out"
-
-
-    instrumentation_command = "{0}  --tool=tareador --task-usage-verbosity=no-reports" \
-                       " --objects-perspective-report=yes {3}/test_binary.exe" \
-                       " >{1} 2> {2}".format(BINARIES['VALGRIND_BIN'],
-                                             stdout_filename, stderr_filename,
-                                             DIR_INTERMEDIATE_FILES)
-    return_code = call(instrumentation_command, shell=True)
-    assert_report(return_code == 0,
-                  "failed instrumentation in test {0}".format(directory),
-                  stdout_filename, stderr_filename)
-    hideAddresses(instrumentation_log)
-    hide_absolute_path(instrumentation_log)
-
-    # check the correctness of the log
-    still_successful = compare_update_expected(directory,
-                                               do_regenerate_expected_output,
-                                               test_successful_so_far,
-                                               INSTRUMENTATION_LOG_PREFIX)
-
-    return still_successful
-
-
-def assure_llvm_instrumented(directory):
-    if not (os.path.isfile(INSTRUMENTATION_LOG_PREFIX + '.exp')):
-        llvm_instrument_test(directory)
-
-
-#### logs translation ###
-def translate_log_test(directory, do_regenerate_expected_output, test_successful_so_far):
-    assure_working_directories()
-    assure_llvm_instrumented(directory)
-    still_successful = test_successful_so_far
-    stdout_translation = DIR_INTERMEDIATE_FILES + '/translation.out'
-    stderr_translation = DIR_INTERMEDIATE_FILES + '/translation.err'
-    log_translation_command = "{0} {1} -l {2} -o {3} >{4} 2>{5}".format(
-        BINARIES['TAREADOR_MAKE_DEEP_LOG'],
-        INSTRUMENTATION_LOG_PREFIX + '.exp',
-        DEEP_LOG_EXECUTION_PREFIX + '.out',
-        DEEP_LOG_OBJECTS_PREFIX + '.out',
-        stdout_translation,
-        stderr_translation)
-    return_code = call(log_translation_command, shell=True)
-    assert_report(return_code == 0,
-                  "failed log translation in test {0}".format(directory),
-                  stdout_translation,
-                  stderr_translation)
-
-    # check the correctness of the log
-    still_successful = compare_update_expected(directory,
-                                               do_regenerate_expected_output,
-                                               test_successful_so_far,
-                                               DEEP_LOG_EXECUTION_PREFIX,
-                                               DEEP_LOG_OBJECTS_PREFIX)
-
-    return still_successful
-
-
-def assure_logs_translated(directory):
-    if not (os.path.isfile(DEEP_LOG_EXECUTION_PREFIX + '.exp') and os.path.isfile(DEEP_LOG_EXECUTION_PREFIX + '.exp')):
-        translate_log_test(directory, True, True)
-
 
 #### selecting decomposition ###
 def select_decomposition(directory, do_regenerate_expected_output, test_successful_so_far, task_list):
@@ -446,22 +351,23 @@ def select_decomposition(directory, do_regenerate_expected_output, test_successf
     return still_successful
 
 
-# run all tests for selecting decomposition that you can find in this directory
-def select_decomposition_multiple(directory, do_regenerate_expected_output, test_successful_so_far):
-    assure_llvm_instrumented(directory)
-
-    tasks_list_examples = glob.glob('./{0}*.txt'.format(TASKS_LIST_PREFIX))
-    print('to execute {0} tests for selecting_decomposition'.format(len(tasks_list_examples)))
-
-    still_successful = test_successful_so_far
-    for task_list in sorted(tasks_list_examples):
-        print_verbosely("select_decomposition test: " + task_list)
-        this_test_successful = select_decomposition(directory, do_regenerate_expected_output, still_successful,
-                                                    task_list)
-        still_successful = still_successful and this_test_successful
-
+#### execution ###
+def ompss_tracing(directory, do_regenerate_expected_output, test_successful_so_far):
+    execute_command = "make execute"
+    stdout_filename = "execution.out"
+    stderr_filename = "execution.err"
+    execute_command += " >{0} 2>{1}".format(stdout_filename, stderr_filename)
+    #print_verbosely(execute_command)
+    return_code = call(execute_command, shell=True)
+    print_verbosely(return_code)
+    assert_report(return_code == 0,
+                  "failed execution in test {0}".format(directory),
+                  stdout_filename, stderr_filename)
+    still_successful = compare_update_expected(directory,
+                                               do_regenerate_expected_output,
+                                               test_successful_so_far,
+                                               "execution")
     return still_successful
-
 
 #### driver running ###
 def run_driver(directory, do_regenerate_expected_output, test_successful_so_far, driver_test):
@@ -651,14 +557,17 @@ def bottlenecks_runs_multiple(directory, do_regenerate_expected_output, test_suc
 def run_all_tests(options, args):
     if options.do_all_tests:
         do_compile = True
+        do_tracing = True
         do_instrument = True
     else:
         do_compile = options.do_compile
+        do_tracing = options.do_tracing
         do_instrument = options.do_instrument
 
     do_regenerate_expected_output = options.do_regenerate_expected_output
     do_delete_intermediate_files = options.do_delete_intermediate_files
     PRINT_VERBOSE = options.print_verbose
+    print (PRINT_VERBOSE)
 
 
     #return_code = call("source environment.bash", shell=True)
@@ -672,10 +581,10 @@ def run_all_tests(options, args):
 
     if (tests == 'all'):
         directories = get_immediate_subdirectories('.')
-        print (directories)
+        print_verbosely (directories)
     else:
         directories = list(map(lambda x: x.rstrip('/'), tests))
-        print (directories)
+        #print (directories)
         for test_dir in directories:
             assert (test_dir in get_immediate_subdirectories('.')), "test {0} not in the suite".format(test_dir)
 
@@ -709,13 +618,12 @@ def run_all_tests(options, args):
         if do_compile:
             test_successful_so_far = compile_test(directory, do_regenerate_expected_output, test_successful_so_far)
 
-	## tracing
-        #if do_tracing:
-            #test_successful_so_far = ompss_tracing(directory, do_regenerate_expected_output,
-                                                          #test_successful_so_far)
+	# tracing
+        if do_tracing:
+            test_successful_so_far = ompss_tracing(directory, do_regenerate_expected_output, test_successful_so_far)
 	
 
-        # was it correct or not
+        #was it correct or not
         if test_successful_so_far:
             successful_tests += 1
         else:
@@ -732,10 +640,10 @@ def run_all_tests(options, args):
 
 
 if __name__ == '__main__':
-    print ("parsed cmd")
+    #print ("parsed cmd")
   
     (options, args) = parse_command_line()
-    print ("parsed cmd")
+    #print ("parsed cmd")
     run_all_tests(options, args)
 
 
