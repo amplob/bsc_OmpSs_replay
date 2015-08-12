@@ -8,7 +8,8 @@ LFLAGS = -L$(EXTRAE_HOME)/lib -lseqtrace -Wl,-rpath=$(EXTRAE_HOME)/lib
 
 all:
 	$(DEFAULTCC) $(CFLAGS) simple_test.c -o $@.exe -K --ompss --v $(LFLAGS)
-	#./$@.exe
+	#./$@.exe2
+	
 
 clean:
 	rm *.row *.prv *.pcf *.o *.exe
