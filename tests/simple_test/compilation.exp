@@ -1,0 +1,2 @@
+/home/marc/OmpSs_Simulation/install/mcxx-default/bin/mcc -O -g -I/home/marc/tools/extrae-3.1.0-linux-x86_64-mvapich2-1.7-cuda/include simple_test.c -o all.exe -K --ompss --v -L/home/marc/tools/extrae-3.1.0-linux-x86_64-mvapich2-1.7-cuda/lib -lseqtrace -Wl,-rpath=/home/marc/tools/extrae-3.1.0-linux-x86_64-mvapich2-1.7-cuda/lib
+#./all.exe
