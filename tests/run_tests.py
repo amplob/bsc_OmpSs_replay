@@ -241,7 +241,7 @@ def compile_test(directory, do_regenerate_expected_output, test_successful_so_fa
     assure_working_directories()
     #util_fncs.panic('about to compile with mcc')
     print('inside compile_test_mcc')
-    compile_command = "make compile"
+    compile_command = "make"
     stdout_filename = "compilation.out"
     stderr_filename = "compilation.err"
     compile_command += " >{0} 2>{1}".format(stdout_filename, stderr_filename)
@@ -249,7 +249,7 @@ def compile_test(directory, do_regenerate_expected_output, test_successful_so_fa
     return_code = call(compile_command, shell=True)
     print_verbosely(return_code)
     assert_report(return_code == 0,
-                  "failed compilation in test {0}".format(directory),
+                  "failed compilation in test {0}".format(directory), 
                   stdout_filename, stderr_filename)
     still_successful = compare_update_expected(directory,
                                                do_regenerate_expected_output,
@@ -262,98 +262,12 @@ def assure_compiled(directory):
         print("to recompile test: " + directory)
         compile_test(directory)
 
-#### selecting decomposition ###
-def select_decomposition(directory, do_regenerate_expected_output, test_successful_so_far, task_list):
-    assure_working_directories()
-    assure_logs_translated(directory)
-    assert_report(os.path.isfile(task_list),
-                  "ERROR: did not provide the tasks_list.txt in directory {0}".format(directory))
-    test_suffix = task_list.split('./' + TASKS_LIST_PREFIX)[1].split('.txt')[0]
-    still_successful = test_successful_so_far
-    objects_selected_types_new_prefix = OBJECTS_SELECTED_TYPES_PREFIX + test_suffix
-    objects_selected_instances_new_prefix = OBJECTS_SELECTED_INSTANCES_PREFIX + test_suffix
-    program_structure_new_prefix = PROGRAM_STRUCTURE_SELECTED_PREFIX + test_suffix
-    tasks_selected_new_prefix = TASKS_SELECTED_PREFIX + test_suffix
-    cum_obj_usage_new_prefix = CUM_OBJ_USAGE_PREFIX + test_suffix
-    obj_usage_tasklist_new_prefix = OBJ_USAGE_TASKLIST_PREFIX + test_suffix
-    obj_usage_deplist_new_prefix = OBJ_USAGE_DEPLIST_PREFIX + test_suffix
-    dependencies_new_prefix = DEPENDENCIES_PREFIX + test_suffix
-    dimemas_trace_new_prefix = DIMEMAS_TRACE_PREFIX + test_suffix
-    pcf_addition_new_prefix = PCF_ADDITION_PREFIX + test_suffix
-    xdot_graph_new_prefix = XDOT_GRAPH_PREFIX + test_suffix
-    realized_tasks_new_prefix = REALIZED_TASKS_PREFIX + test_suffix
-    objects_offsets_new_prefix = OBJECTS_OFFSETS_PREFIX + test_suffix
-    objects_fragmentation_new_prefix = OBJECTS_FRAGMENTATION_PREFIX + test_suffix
 
-    stdout_selection = DIR_INTERMEDIATE_FILES + '/selection.out'
-    stderr_selection = DIR_INTERMEDIATE_FILES + '/selection.err'
-
-    # binary
-    command = "{0} ".format(BINARIES['TAREADOR_SELECT_DECOMP'])
-    # deep logs
-    command += " {0} {1} ".format(DEEP_LOG_EXECUTION_PREFIX + '.exp', DEEP_LOG_OBJECTS_PREFIX + '.exp')
-    # decomposition configuration: tasks
-    command += " {0} ".format(task_list)
-    # log of the selected object types
-    command += " --selected-object-types-log {0} ".format(objects_selected_types_new_prefix + '.out')
-    # log of the selected object instances
-    command += " --selected-object-instances-log {0} ".format(objects_selected_instances_new_prefix + '.out')
-    # log of the program structure
-    command += " --program-structure-log {0} ".format(program_structure_new_prefix + '.out')
-    # log of the selected tasks (memory usage of tasks)
-    command += " --tasks-usage-log {0} ".format(tasks_selected_new_prefix + '.out')
-    # log of the cumulative object usage at the end of execution
-    command += " --cumulative-objects-usage-log {0} ".format(cum_obj_usage_new_prefix + '.out')
-    # log of the objects usage by tasks
-    command += " --objects-usage-tasklist-log {0} ".format(obj_usage_tasklist_new_prefix + '.out')
-    # log of the objects usage by dependencies
-    command += " --objects-usage-deplist-log {0} ".format(obj_usage_deplist_new_prefix + '.out')
-    # log of the identified dependencies
-    command += " --dependencies-log {0} ".format(dependencies_new_prefix + '.out')
-    # the trace to be simulated by Dimemas
-    command += " --dimemas-trace {0} ".format(dimemas_trace_new_prefix + '.out')
-    # the pcf file for Paraver with the names of the tasks
-    command += " --pcf-tasknames {0} ".format(pcf_addition_new_prefix + '.out')
-    # graph of task dependencies in dot format
-    command += " --dependency-graph {0} ".format(xdot_graph_new_prefix + '.out')
-    # list of the tasks realized in this decomposition (with extra info for the driver)
-    command += " --realized-tasks {0} ".format(realized_tasks_new_prefix + '.out')
-    # file with offsets for fast accessing logs
-    command += " --offsets-objects-log {0} ".format(objects_offsets_new_prefix + '.out')
-    # file with objects fragmentation information
-    command += " --objects-fragmentation-log {0} ".format(objects_fragmentation_new_prefix + '.out')
-    # collecting stdout and stderr
-    command += " >{0} 2>{1} ".format(stdout_selection, stderr_selection)
-
-    return_code = call(command, shell=True)
-    assert_report((return_code == 0), "failed select decomposition in test {0}".format(directory),
-                  stdout_selection, stderr_selection)
-
-    # check the correctness of the log
-    still_successful = compare_update_expected(directory,
-                                               do_regenerate_expected_output,
-                                               test_successful_so_far,
-                                               objects_selected_types_new_prefix,
-                                               objects_selected_instances_new_prefix,
-                                               program_structure_new_prefix,
-                                               tasks_selected_new_prefix,
-                                               cum_obj_usage_new_prefix,
-                                               obj_usage_tasklist_new_prefix,
-                                               obj_usage_deplist_new_prefix,
-                                               dependencies_new_prefix,
-                                               dimemas_trace_new_prefix,
-                                               pcf_addition_new_prefix,
-                                               xdot_graph_new_prefix,
-                                               realized_tasks_new_prefix,
-                                               objects_offsets_new_prefix,
-                                               objects_fragmentation_new_prefix
-    )
-    return still_successful
 
 
 #### execution ###
 def ompss_tracing(directory, do_regenerate_expected_output, test_successful_so_far):
-    execute_command = "make execute"
+    execute_command = "./exe.sh"
     stdout_filename = "execution.out"
     stderr_filename = "execution.err"
     execute_command += " >{0} 2>{1}".format(stdout_filename, stderr_filename)
@@ -369,185 +283,14 @@ def ompss_tracing(directory, do_regenerate_expected_output, test_successful_so_f
                                                "execution")
     return still_successful
 
-#### driver running ###
-def run_driver(directory, do_regenerate_expected_output, test_successful_so_far, driver_test):
-    assert_report(os.path.isfile(driver_test),
-                  "ERROR: did not provide the driver_test in directory {0}".format(directory))
-    test_suffix = driver_test.split('./' + DRIVER_INPUT_TESTS_PREFIX)[1].split('.input')[0]
-
-    # get the parameters of the test
-    f = open(driver_test)
-    for line in f.readlines():
-        if line.startswith('driver_script'):
-            driver_script = line.split(':')[1].strip()
-        elif line.startswith('suffix'):
-            suffix = line.split(':')[1].strip()
-        elif line.startswith('args'):
-            args = line.split(':')[1].strip()
-        elif line.startswith('options'):
-            options = line.split(':')[1].strip()
-        elif line.startswith('test_correctness'):
-            test_correctness = line.split(':')[1].strip().split(' ')
-        elif line.startswith('redirected_output'):
-            redirected_output = line.split(':')[1].strip()
-        else:
-            print('Error reading driver_test: {0}'.format(driver_test))
-            print('error in line {0}'.format(line))
-            assert (0)
-
-    stdout_driver = DIR_INTERMEDIATE_FILES + '/driver.out'
-    stderr_driver = DIR_INTERMEDIATE_FILES + '/driver.err'
-
-    # COMPOSE THE COMMAND THAT EXECUTES THE REGTEST
-    command = " {0} ".format(driver_script)
-    # arguments
-    command += " {0} ".format(args)
-    # options
-    command += " {0} ".format(options)
-    # output log
-    command += " >{0} 2>{1} ".format(stdout_driver, stderr_driver)
-
-    print_verbosely(command)
-    return_code = call(command, shell=True)
-    assert_report((return_code == 0), "failed runing driver in test {0}:{1}".format(directory, driver_test),
-                  stdout_driver, stderr_driver)
-
-    if redirected_output != '':
-        shutil.copy2(stdout_driver, redirected_output)
-
-    # are the obtained results (files) the same as the expected
-    tested_files_prefixes = [os.path.splitext(test)[0] for test in test_correctness]
-    # check the correctness of the log
-    still_successful = compare_update_expected(directory,
-                                               do_regenerate_expected_output,
-                                               test_successful_so_far,
-                                               *tested_files_prefixes)
-    return still_successful
 
 
-# run all the driver tests in the directory
-def driver_runs_multiple(directory, do_regenerate_expected_output, test_successful_so_far):
-    driver_tests = glob.glob('./{0}*.input'.format(DRIVER_INPUT_TESTS_PREFIX))
-    print('to execute {0} tests for driver_testing'.format(len(driver_tests)))
-
-    still_successful = test_successful_so_far
-    for driver_test in sorted(driver_tests):
-        print_verbosely("driver test: ", driver_test)
-        this_test_successful = run_driver(directory, do_regenerate_expected_output, test_successful_so_far, driver_test)
-        still_successful = still_successful and this_test_successful
-
-    return still_successful
 
 
-#### bottlenecks testing -- running paramedir ###
-def dimemas_simulation(directory, test, ncores, dimemas_trace_new_prefix, pcf_addition_new_prefix, folder_for_simulation):
-    dimemas_trace_old_format = dimemas_trace_new_prefix + '.exp'
-    pcf_addition = pcf_addition_new_prefix + '.exp'
-    assert (os.path.isfile(dimemas_trace_old_format))
-    assert (os.path.isfile(pcf_addition))
-
-    stdout_trf2trf = DIR_INTERMEDIATE_FILES + '/trf2trf.out'
-    stderr_trf2trf = DIR_INTERMEDIATE_FILES + '/trf2trf.err'
-    # translate to new Dimemas format
-    new_format_command = ' {0} '.format(BINARIES['TRF2TRF_BIN'])
-    new_format_command += ' {0} '.format(dimemas_trace_old_format)
-    new_format_command += ' {0} '.format(DIMEMAS_TRACE_NEW_FORMAT_TMP)
-    new_format_command += " >{0} 2>{1} ".format(stdout_trf2trf, stderr_trf2trf)
-    return_code = call(new_format_command, shell=True)
-    assert_report(return_code == 0,
-                  "failed runing trf2trf translation in bottleneck test {0}:{1}".format(directory, test),
-                  stdout_trf2trf, stderr_trf2trf)
-
-    stdout_simulation = DIR_INTERMEDIATE_FILES + '/simulation.out'
-    stderr_simulation = DIR_INTERMEDIATE_FILES + '/simulation.err'
-    # run Dimemas simulation
-    dimemas_command = ' {0} '.format(BINARIES['DIMEMAS_SIMULATION_SCRIPT'])
-    dimemas_command += ' {0} '.format(DIMEMAS_TRACE_NEW_FORMAT_TMP)
-    dimemas_command += ' {0} '.format(ncores)
-    dimemas_command += ' -t {0} '.format(pcf_addition)
-    dimemas_command += ' -f {0} '.format(folder_for_simulation)
-    dimemas_command += ' -u yes'
-    # collecting stdout and stderr
-    dimemas_command += " >{0} 2>{1} ".format(stdout_simulation, stderr_simulation)
-    # print (dimemas_command)
-    return_code = call(dimemas_command, shell=True)
-    assert_report(return_code == 0,
-                  "failed runing Dimemas simulation in bottleneck test {0}:{1}".format(directory, test),
-                  stdout_simulation, stderr_simulation)
-
-    paraver_trace = '{0}/prv_{1}cores.prv'.format(folder_for_simulation, ncores)
-    # print (paraver_trace)
-    assert (os.path.isfile(paraver_trace))
-    return paraver_trace
 
 
-# identify bottleneck tasks for the selected test, and confirm that the test passed correctly
-def identify_bottleneck_tasks(directory, do_regenerate_expected_output, test_successful_so_far, test):
-    print_verbosely("testing: " + test)
-    assert_report(os.path.isfile(test),
-                  "ERROR: did not provide the tasks_list.txt in directory {0}".format(directory))
-    test_suffix = test.strip('./' + BOTTLENECKS_INPUT_TESTS_PREFIX).strip('.input')
-
-    test_conf = eval(open(test).read())
-    task_list = test_conf['tasks_list']
-    conf_suffix = task_list.strip('./' + TASKS_LIST_PREFIX).strip('.txt')
-    dimemas_trace_new_prefix = DIMEMAS_TRACE_PREFIX + conf_suffix
-    pcf_addition_new_prefix = PCF_ADDITION_PREFIX + conf_suffix
-    paraver_trace = dimemas_simulation(directory, test,
-                                       test_conf['ncores'], \
-                                       dimemas_trace_new_prefix, pcf_addition_new_prefix, \
-                                       DIR_DIMEMAS_SIMULATIONS)
-    tasks_costs_new_prefix = TASKS_COSTS_PREFIX + test_suffix
-
-    # RUN THE BOTTLENECKS SCRIPT
-    stdout_bottlenecks = DIR_INTERMEDIATE_FILES + '/bottlenecks.out'
-    stderr_bottlenecks = DIR_INTERMEDIATE_FILES + '/bottlenecks.err'
-    # binary
-    command = "{0} ".format(BINARIES['TAREADOR_BOTTLENECK_TASKS'])
-    # inputs
-    command += " {0} {1} {2} ".format(pcf_addition_new_prefix + '.exp', \
-                                      paraver_trace, \
-                                      dimemas_trace_new_prefix + '.exp')
-    # temp folder for storing paramedir files
-    command += "--paramedir-output-folder {0} ".format(DIR_PARAMEDIR_PROCESSING)
-    # outputs
-    command += " {0} ".format(tasks_costs_new_prefix + '.out')
-    # options
-    command += " --length-weight {0} ".format(test_conf['pl'])
-    command += " --dependencies-weight {0} ".format(test_conf['pd'])
-    command += " --concurrency-weight {0} ".format(test_conf['pc'])
-    command += " >{0} 2>{1} ".format(stdout_bottlenecks, stderr_bottlenecks)
-    # print (command)
-
-    return_code = call(command, shell=True)
-    assert_report(return_code == 0, "failed runing bottleck script in bottleneck test {0}:{1}".format(directory, test),
-                  stdout_bottlenecks, stderr_bottlenecks)
-
-    # check the correctness of the log
-    is_test_successful = compare_update_expected(directory,
-                                                 do_regenerate_expected_output,
-                                                 test_successful_so_far,
-                                                 tasks_costs_new_prefix)
-    # cleanup the files made when simulating and running paramedir
-    shutil.rmtree(DIR_DIMEMAS_SIMULATIONS)
-    shutil.rmtree(DIR_PARAMEDIR_PROCESSING)
-
-    return is_test_successful
 
 
-# read all bottleneck tests in this directory and run each of them
-def bottlenecks_runs_multiple(directory, do_regenerate_expected_output, test_successful_so_far):
-    bottleneck_tests = glob.glob('./{0}*.input'.format(BOTTLENECKS_INPUT_TESTS_PREFIX))
-    print('to execute {0} tests for bottlenecks_testing'.format(len(bottleneck_tests)))
-
-    still_successful = test_successful_so_far
-    for test in sorted(bottleneck_tests):
-        print_verbosely("bottleneck test: ", test)
-        this_test_successful = identify_bottleneck_tasks(directory, do_regenerate_expected_output, still_successful,
-                                                         test)
-        still_successful = still_successful and this_test_successful
-
-    return still_successful
 
 
 #################################################################################
