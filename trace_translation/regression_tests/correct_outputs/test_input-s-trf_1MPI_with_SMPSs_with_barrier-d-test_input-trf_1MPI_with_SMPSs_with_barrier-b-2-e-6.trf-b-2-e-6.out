@@ -1,0 +1,3 @@
+caught new_MPI_process in translate_all_records
+first record in MPI process is  "user event" { 0, 0, 7005, 2 };;
+

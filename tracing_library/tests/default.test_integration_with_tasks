@@ -1,0 +1,82 @@
+start_css_valgrind      
+add taskname Main_task
+find_taskcode ALREADY SPECIFIED,  Main_task  -->  1
+add taskname task1
+add taskname task2
+add taskname task3
+add taskname task4
+add taskname task5
+add taskname task6
+add taskname task7
+add taskname compute_input
+add taskname compute_output
+emit css start 
+starting task with name compute_input with stack pointer 
+find_taskcode ALREADY SPECIFIED,  compute_input  -->  9
+starting task number 1  name is compute_input which is coded into 9 
+emit task start code 9, number 1
+task_input_valgrind parName A    ptr ,  element_size 4,   elements  1000      
+ending task 
+ending task number 1
+emit task end
+starting task with name compute_output with stack pointer 
+find_taskcode ALREADY SPECIFIED,  compute_output  -->  10
+starting task number 2  name is compute_output which is coded into 10 
+emit task start code 10, number 2
+task_output_valgrind parName A    ptr ,  element_size 4,   elements  1000      
+ending task 
+ending task number 2
+emit task end
+starting task with name compute_input with stack pointer 
+find_taskcode ALREADY SPECIFIED,  compute_input  -->  9
+starting task number 3  name is compute_input which is coded into 9 
+emit task start code 9, number 3
+task_input_valgrind parName A    ptr ,  element_size 4,   elements  1000      
+there is dependency tasks:  2  ->   3 (INPUT) 
+emit dependency from the previous task no: 2
+ending task 
+ending task number 3
+emit task end
+starting task with name compute_output with stack pointer 
+find_taskcode ALREADY SPECIFIED,  compute_output  -->  10
+starting task number 4  name is compute_output which is coded into 10 
+emit task start code 10, number 4
+task_output_valgrind parName A    ptr ,  element_size 4,   elements  1000      
+ending task 
+ending task number 4
+emit task end
+wait_on_valgrind      
+there is dependency tasks:  4  ->   0 (WAIT-ON) 
+emit dependency from the previous task no: 4
+barrier_css_valgrind      
+emit css barrier
+starting task with name compute_input with stack pointer 
+find_taskcode ALREADY SPECIFIED,  compute_input  -->  9
+starting task number 5  name is compute_input which is coded into 9 
+emit task start code 9, number 5
+task_input_valgrind parName A    ptr ,  element_size 4,   elements  1000      
+ending task 
+ending task number 5
+emit task end
+end_css_valgrind      
+
+-----------------------------------------------------------------------------------
+----------------------MPISs tracing completed--------------------------------------
+-----------------------------------------------------------------------------------
+total number of tasks in this rank is 5
+WARNING: you marked no phases?!
+-----------------------------------------------------------------------------------
+
+collection of tasknames and the corresponding codes is 
+  taskname=Main_task  taskname_code=1
+  taskname=compute_input  taskname_code=9
+  taskname=compute_output  taskname_code=10
+  taskname=task1  taskname_code=2
+  taskname=task2  taskname_code=3
+  taskname=task3  taskname_code=4
+  taskname=task4  taskname_code=5
+  taskname=task5  taskname_code=6
+  taskname=task6  taskname_code=7
+  taskname=task7  taskname_code=8
+
+emit css finish 

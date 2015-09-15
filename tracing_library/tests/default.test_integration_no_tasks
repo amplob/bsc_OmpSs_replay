@@ -1,0 +1,38 @@
+start_css_valgrind      
+add taskname Main_task
+find_taskcode ALREADY SPECIFIED,  Main_task  -->  1
+add taskname task1
+add taskname task2
+add taskname task3
+add taskname task4
+add taskname task5
+add taskname task6
+add taskname task7
+add taskname compute_input
+add taskname compute_output
+emit css start 
+barrier_css_valgrind      
+emit css barrier
+wait_on_valgrind      
+end_css_valgrind      
+
+-----------------------------------------------------------------------------------
+----------------------MPISs tracing completed--------------------------------------
+-----------------------------------------------------------------------------------
+WARNING: ending css section, total number of tasks in this rank is 0
+WARNING: you marked no phases?!
+-----------------------------------------------------------------------------------
+
+collection of tasknames and the corresponding codes is 
+  taskname=Main_task  taskname_code=1
+  taskname=compute_input  taskname_code=9
+  taskname=compute_output  taskname_code=10
+  taskname=task1  taskname_code=2
+  taskname=task2  taskname_code=3
+  taskname=task3  taskname_code=4
+  taskname=task4  taskname_code=5
+  taskname=task5  taskname_code=6
+  taskname=task6  taskname_code=7
+  taskname=task7  taskname_code=8
+
+emit css finish 

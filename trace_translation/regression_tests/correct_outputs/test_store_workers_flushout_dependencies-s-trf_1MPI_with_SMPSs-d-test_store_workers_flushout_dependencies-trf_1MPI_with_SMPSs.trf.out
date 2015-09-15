@@ -1,0 +1,39 @@
+caught new_MPI_process in test_store_workers
+dependencies for task 1:
+dependencies for task 2:
+dependencies for task 3:
+2
+dependencies for task 4:
+dependencies for task 5:
+4
+dependencies for task 6:
+dependencies for task 7:
+6
+1
+dependencies for task 8:
+1
+2
+dependencies for task 9:
+8
+3
+dependencies for task 10:
+3
+4
+dependencies for task 11:
+10
+5
+dependencies for task 12:
+5
+6
+dependencies for task 13:
+12
+7
+dependencies for task 14:
+7
+8
+dependencies for task 15:
+14
+9
+dependencies for task 16:
+9
+10

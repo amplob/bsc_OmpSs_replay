@@ -1,0 +1,458 @@
+caught new_MPI_process in translate_all_records
+"CPU burst" { 0, 0, 0.0 };;
+
+"block begin" { 0, 0, 0 };;
+
+"CPU burst" { 0, 0, 0.0 };;
+
+"block end" { 0, 0, 0 };;
+
+"user event" { 0, 0, 40000001, 1 };;
+
+"CPU burst" { 0, 0, 5.1e-05 };;
+
+"user event" { 0, 0, 40000018, 1 };;
+
+"CPU burst" { 0, 0, 0.115583 };;
+
+"block begin" { 0, 0, 56 };;
+
+"block end" { 0, 0, 56 };;
+
+"CPU burst" { 0, 0, 0.000302 };;
+
+"user event" { 0, 0, 3000, 291 };;
+
+"user event" { 0, 0, 3001, 18 };;
+
+"user event" { 0, 0, 3002, 3 };;
+
+"CPU burst" { 0, 0, 8.2e-05 };;
+
+"block begin" { 0, 0, 24 };;
+
+"block end" { 0, 0, 24 };;
+
+"CPU burst" { 0, 0, 4e-06 };;
+
+"block begin" { 0, 0, 27 };;
+
+"block end" { 0, 0, 27 };;
+
+"CPU burst" { 0, 0, 0.026847 };;
+
+"user event" { 0, 0, 7004, 1 };;
+
+"CPU burst" { 0, 0, 4e-06 };;
+
+"user event" { 0, 0, 7005, 0 };;
+
+"CPU burst" { 0, 0, 1.7e-05 };;
+
+"user event" { 0, 0, 7005, 1 };;
+
+"CPU burst" { 0, 0, 0.002984 };;
+
+"user event" { 0, 0, 7005, 2 };;
+
+"CPU burst" { 0, 0, 0.002999 };;
+
+"user event" { 0, 0, 7005, 3 };;
+
+"CPU burst" { 0, 0, 0.002972 };;
+
+"user event" { 0, 0, 7005, 4 };;
+
+"CPU burst" { 0, 0, 0.002924 };;
+
+"user event" { 0, 0, 7005, 5 };;
+
+"CPU burst" { 0, 0, 0.003092 };;
+
+"user event" { 0, 0, 7005, 6 };;
+
+"CPU burst" { 0, 0, 0.00294 };;
+
+"user event" { 0, 0, 7005, 7 };;
+
+"CPU burst" { 0, 0, 0.002957 };;
+
+"user event" { 0, 0, 7005, 8 };;
+
+"CPU burst" { 0, 0, 0.003097 };;
+
+"block begin" { 0, 0, 24 };;
+
+"block end" { 0, 0, 24 };;
+
+"CPU burst" { 0, 0, 0.041157 };;
+
+"user event" { 0, 0, 7001, 0 };;
+
+"user event" { 0, 0, 7003, 0 };;
+
+"user event" { 0, 0, 7004, 0 };;
+
+"user event" { 0, 0, 7001, 0 };;
+
+"user event" { 0, 0, 7003, 1 };;
+
+"CPU burst" { 0, 0, 1.1e-05 };;
+
+"block begin" { 0, 0, 54 };;
+
+"block end" { 0, 0, 54 };;
+
+"user event" { 0, 0, 40000003, 1 };;
+
+"user event" { 0, 0, 40000003, 0 };;
+
+"CPU burst" { 0, 0, 1.8e-05 };;
+
+"user event" { 0, 0, 40000001, 0 };;
+
+caught new_MPI_process in translate_all_records
+"CPU burst" { 1, 0, 0.0 };;
+
+"block begin" { 1, 0, 0 };;
+
+"CPU burst" { 1, 0, 0.0 };;
+
+"block end" { 1, 0, 0 };;
+
+"CPU burst" { 1, 0, 8.2e-05 };;
+
+"user event" { 1, 0, 40000001, 1 };;
+
+"CPU burst" { 1, 0, 4.7e-05 };;
+
+"user event" { 1, 0, 40000018, 1 };;
+
+"CPU burst" { 1, 0, 0.061223 };;
+
+"block begin" { 1, 0, 56 };;
+
+"block end" { 1, 0, 56 };;
+
+"CPU burst" { 1, 0, 0.000255 };;
+
+"user event" { 1, 0, 3000, 291 };;
+
+"user event" { 1, 0, 3001, 18 };;
+
+"user event" { 1, 0, 3002, 3 };;
+
+"CPU burst" { 1, 0, 0.00012 };;
+
+"block begin" { 1, 0, 24 };;
+
+"block end" { 1, 0, 24 };;
+
+"CPU burst" { 1, 0, 4e-06 };;
+
+"block begin" { 1, 0, 27 };;
+
+"block end" { 1, 0, 27 };;
+
+"CPU burst" { 1, 0, 0.026895 };;
+
+"user event" { 1, 0, 7004, 1 };;
+
+"CPU burst" { 1, 0, 3e-06 };;
+
+"user event" { 1, 0, 7005, 0 };;
+
+"CPU burst" { 1, 0, 1.4e-05 };;
+
+"user event" { 1, 0, 7005, 1 };;
+
+"CPU burst" { 1, 0, 0.002964 };;
+
+"user event" { 1, 0, 7005, 2 };;
+
+"CPU burst" { 1, 0, 0.002943 };;
+
+"user event" { 1, 0, 7005, 3 };;
+
+"CPU burst" { 1, 0, 0.002934 };;
+
+"user event" { 1, 0, 7005, 4 };;
+
+"CPU burst" { 1, 0, 0.002973 };;
+
+"user event" { 1, 0, 7005, 5 };;
+
+"CPU burst" { 1, 0, 0.002938 };;
+
+"user event" { 1, 0, 7005, 6 };;
+
+"CPU burst" { 1, 0, 0.002939 };;
+
+"user event" { 1, 0, 7005, 7 };;
+
+"CPU burst" { 1, 0, 0.002943 };;
+
+"user event" { 1, 0, 7005, 8 };;
+
+"CPU burst" { 1, 0, 0.007165 };;
+
+"block begin" { 1, 0, 24 };;
+
+"block end" { 1, 0, 24 };;
+
+"CPU burst" { 1, 0, 1.7e-05 };;
+
+"user event" { 1, 0, 7001, 0 };;
+
+"user event" { 1, 0, 7003, 0 };;
+
+"user event" { 1, 0, 7004, 0 };;
+
+"user event" { 1, 0, 7001, 0 };;
+
+"user event" { 1, 0, 7003, 1 };;
+
+"CPU burst" { 1, 0, 6e-06 };;
+
+"block begin" { 1, 0, 54 };;
+
+"block end" { 1, 0, 54 };;
+
+"user event" { 1, 0, 40000003, 1 };;
+
+"user event" { 1, 0, 40000003, 0 };;
+
+"CPU burst" { 1, 0, 1.6e-05 };;
+
+"user event" { 1, 0, 40000001, 0 };;
+
+caught new_MPI_process in translate_all_records
+"CPU burst" { 2, 0, 0.0 };;
+
+"block begin" { 2, 0, 0 };;
+
+"CPU burst" { 2, 0, 0.0 };;
+
+"block end" { 2, 0, 0 };;
+
+"CPU burst" { 2, 0, 0.000468 };;
+
+"user event" { 2, 0, 40000001, 1 };;
+
+"CPU burst" { 2, 0, 3.3e-05 };;
+
+"user event" { 2, 0, 40000018, 1 };;
+
+"CPU burst" { 2, 0, 0.060883 };;
+
+"block begin" { 2, 0, 56 };;
+
+"block end" { 2, 0, 56 };;
+
+"CPU burst" { 2, 0, 0.000248 };;
+
+"user event" { 2, 0, 3000, 291 };;
+
+"user event" { 2, 0, 3001, 18 };;
+
+"user event" { 2, 0, 3002, 3 };;
+
+"CPU burst" { 2, 0, 0.000122 };;
+
+"block begin" { 2, 0, 24 };;
+
+"block end" { 2, 0, 24 };;
+
+"CPU burst" { 2, 0, 5e-06 };;
+
+"block begin" { 2, 0, 27 };;
+
+"block end" { 2, 0, 27 };;
+
+"CPU burst" { 2, 0, 0.031033 };;
+
+"user event" { 2, 0, 7004, 1 };;
+
+"CPU burst" { 2, 0, 3e-06 };;
+
+"user event" { 2, 0, 7005, 0 };;
+
+"CPU burst" { 2, 0, 1.5e-05 };;
+
+"user event" { 2, 0, 7005, 1 };;
+
+"CPU burst" { 2, 0, 0.002986 };;
+
+"user event" { 2, 0, 7005, 2 };;
+
+"CPU burst" { 2, 0, 0.00296 };;
+
+"user event" { 2, 0, 7005, 3 };;
+
+"CPU burst" { 2, 0, 0.002973 };;
+
+"user event" { 2, 0, 7005, 4 };;
+
+"CPU burst" { 2, 0, 0.00295 };;
+
+"user event" { 2, 0, 7005, 5 };;
+
+"CPU burst" { 2, 0, 0.002941 };;
+
+"user event" { 2, 0, 7005, 6 };;
+
+"CPU burst" { 2, 0, 0.002942 };;
+
+"user event" { 2, 0, 7005, 7 };;
+
+"CPU burst" { 2, 0, 0.003422 };;
+
+"user event" { 2, 0, 7005, 8 };;
+
+"CPU burst" { 2, 0, 0.006311 };;
+
+"block begin" { 2, 0, 24 };;
+
+"block end" { 2, 0, 24 };;
+
+"CPU burst" { 2, 0, 2e-05 };;
+
+"user event" { 2, 0, 7001, 0 };;
+
+"user event" { 2, 0, 7003, 0 };;
+
+"user event" { 2, 0, 7004, 0 };;
+
+"user event" { 2, 0, 7001, 0 };;
+
+"user event" { 2, 0, 7003, 1 };;
+
+"CPU burst" { 2, 0, 6e-06 };;
+
+"block begin" { 2, 0, 54 };;
+
+"block end" { 2, 0, 54 };;
+
+"user event" { 2, 0, 40000003, 1 };;
+
+"user event" { 2, 0, 40000003, 0 };;
+
+"CPU burst" { 2, 0, 1.5e-05 };;
+
+"user event" { 2, 0, 40000001, 0 };;
+
+caught new_MPI_process in translate_all_records
+"CPU burst" { 3, 0, 0.0 };;
+
+"block begin" { 3, 0, 0 };;
+
+"CPU burst" { 3, 0, 0.0 };;
+
+"block end" { 3, 0, 0 };;
+
+"CPU burst" { 3, 0, 4.9e-05 };;
+
+"user event" { 3, 0, 40000001, 1 };;
+
+"CPU burst" { 3, 0, 4.9e-05 };;
+
+"user event" { 3, 0, 40000018, 1 };;
+
+"CPU burst" { 3, 0, 0.061249 };;
+
+"block begin" { 3, 0, 56 };;
+
+"block end" { 3, 0, 56 };;
+
+"CPU burst" { 3, 0, 0.000252 };;
+
+"user event" { 3, 0, 3000, 291 };;
+
+"user event" { 3, 0, 3001, 18 };;
+
+"user event" { 3, 0, 3002, 3 };;
+
+"CPU burst" { 3, 0, 0.000122 };;
+
+"block begin" { 3, 0, 24 };;
+
+"block end" { 3, 0, 24 };;
+
+"CPU burst" { 3, 0, 5e-06 };;
+
+"block begin" { 3, 0, 27 };;
+
+"block end" { 3, 0, 27 };;
+
+"CPU burst" { 3, 0, 0.026871 };;
+
+"user event" { 3, 0, 7004, 1 };;
+
+"CPU burst" { 3, 0, 3e-06 };;
+
+"user event" { 3, 0, 7005, 0 };;
+
+"CPU burst" { 3, 0, 1.6e-05 };;
+
+"user event" { 3, 0, 7005, 1 };;
+
+"CPU burst" { 3, 0, 0.002918 };;
+
+"user event" { 3, 0, 7005, 2 };;
+
+"CPU burst" { 3, 0, 0.002928 };;
+
+"user event" { 3, 0, 7005, 3 };;
+
+"CPU burst" { 3, 0, 0.00293 };;
+
+"user event" { 3, 0, 7005, 4 };;
+
+"CPU burst" { 3, 0, 0.003112 };;
+
+"user event" { 3, 0, 7005, 5 };;
+
+"CPU burst" { 3, 0, 0.002962 };;
+
+"user event" { 3, 0, 7005, 6 };;
+
+"CPU burst" { 3, 0, 0.002951 };;
+
+"user event" { 3, 0, 7005, 7 };;
+
+"CPU burst" { 3, 0, 0.002955 };;
+
+"user event" { 3, 0, 7005, 8 };;
+
+"CPU burst" { 3, 0, 0.006904 };;
+
+"block begin" { 3, 0, 24 };;
+
+"block end" { 3, 0, 24 };;
+
+"CPU burst" { 3, 0, 1.8e-05 };;
+
+"user event" { 3, 0, 7001, 0 };;
+
+"user event" { 3, 0, 7003, 0 };;
+
+"user event" { 3, 0, 7004, 0 };;
+
+"user event" { 3, 0, 7001, 0 };;
+
+"user event" { 3, 0, 7003, 1 };;
+
+"CPU burst" { 3, 0, 7e-06 };;
+
+"block begin" { 3, 0, 54 };;
+
+"block end" { 3, 0, 54 };;
+
+"user event" { 3, 0, 40000003, 1 };;
+
+"user event" { 3, 0, 40000003, 0 };;
+
+"CPU burst" { 3, 0, 1.9e-05 };;
+
+"user event" { 3, 0, 40000001, 0 };;
+

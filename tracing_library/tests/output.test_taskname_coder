@@ -1,0 +1,120 @@
+start empty_name TEST
+find_taskcode NOT YET SPECIFIED,    -->  1
+collection of tasknames and the corresponding codes is 
+  taskname=  taskname_code=1
+
+
+WARNING: there are NONSPECIFIED task names
+the coding for these task names in this MPI process is following
+  taskname=  taskname_code=1
+
+
+WARNING: coding in other MPI processes may differ from this one!!!
+
+collection of tasknames and the corresponding codes is 
+  taskname=  taskname_code=1
+
+
+WARNING: there are NONSPECIFIED task names
+the coding for these task names in this MPI process is following
+  taskname=  taskname_code=1
+
+
+WARNING: coding in other MPI processes may differ from this one!!!
+
+end empty_name TEST
+
+
+start tens_of_transactions TEST
+add taskname task1
+add taskname task2
+add taskname task3
+add taskname task4
+add taskname task5
+add taskname task6
+add taskname task7
+find_taskcode NOT YET SPECIFIED,  task8  -->  8
+find_taskcode NOT YET SPECIFIED,  task9  -->  9
+find_taskcode ALREADY SPECIFIED,  task3  -->  3
+find_taskcode ALREADY SPECIFIED,  task2  -->  2
+find_taskcode ALREADY SPECIFIED,  task1  -->  1
+collection of tasknames and the corresponding codes is 
+  taskname=task1  taskname_code=1
+  taskname=task2  taskname_code=2
+  taskname=task3  taskname_code=3
+  taskname=task4  taskname_code=4
+  taskname=task5  taskname_code=5
+  taskname=task6  taskname_code=6
+  taskname=task7  taskname_code=7
+  taskname=task8  taskname_code=8
+  taskname=task9  taskname_code=9
+
+
+WARNING: there are NONSPECIFIED task names
+the coding for these task names in this MPI process is following
+  taskname=task8  taskname_code=8
+  taskname=task9  taskname_code=9
+
+
+WARNING: coding in other MPI processes may differ from this one!!!
+
+collection of tasknames and the corresponding codes is 
+  taskname=task1  taskname_code=1
+  taskname=task2  taskname_code=2
+  taskname=task3  taskname_code=3
+  taskname=task4  taskname_code=4
+  taskname=task5  taskname_code=5
+  taskname=task6  taskname_code=6
+  taskname=task7  taskname_code=7
+  taskname=task8  taskname_code=8
+  taskname=task9  taskname_code=9
+
+
+WARNING: there are NONSPECIFIED task names
+the coding for these task names in this MPI process is following
+  taskname=task8  taskname_code=8
+  taskname=task9  taskname_code=9
+
+
+WARNING: coding in other MPI processes may differ from this one!!!
+
+end tens_of_transactions TEST
+
+
+start reading file TEST
+
+
+add taskname task1
+add taskname task2
+add taskname task3
+add taskname task4
+add taskname task5
+add taskname task6
+add taskname task7
+add taskname compute_input
+add taskname compute_output
+collection of tasknames and the corresponding codes is 
+  taskname=compute_input  taskname_code=8
+  taskname=compute_output  taskname_code=9
+  taskname=task1  taskname_code=1
+  taskname=task2  taskname_code=2
+  taskname=task3  taskname_code=3
+  taskname=task4  taskname_code=4
+  taskname=task5  taskname_code=5
+  taskname=task6  taskname_code=6
+  taskname=task7  taskname_code=7
+
+collection of tasknames and the corresponding codes is 
+  taskname=compute_input  taskname_code=8
+  taskname=compute_output  taskname_code=9
+  taskname=task1  taskname_code=1
+  taskname=task2  taskname_code=2
+  taskname=task3  taskname_code=3
+  taskname=task4  taskname_code=4
+  taskname=task5  taskname_code=5
+  taskname=task6  taskname_code=6
+  taskname=task7  taskname_code=7
+
+end reading file TEST
+
+
