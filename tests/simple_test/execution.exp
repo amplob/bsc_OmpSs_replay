@@ -12,15 +12,17 @@ Extrae: Tracing mode is set to: Detail.
 Extrae: Successfully initiated with 1 tasks
 
 starting program
-Thread 1 have done task a
-Thread 2 have done task b
-Thread 3 have done task c
-Thread 2 have done task d
-Thread 2 have done task e
-Thread 2 have done task f
-Thread 1 have done task g
-Extrae: Intermediate raw trace file created : /home/bsc/bsc/tools/OmpSs_replay/tests/simple_test/set-0/TRACE.0000029963000000000000.mpit
-Extrae: Intermediate raw sym file created : /home/bsc/bsc/tools/OmpSs_replay/tests/simple_test/set-0/TRACE.0000029963000000000000.sym
+Warning: not specified file with names of the tasks: use export TASKNAMES=<path>
+The names of the tasks may be corrupted!!!!
+Thread 0 have done task a
+Thread 0 have done task b
+Thread 0 have done task c
+Thread 0 have done task d
+Thread 0 have done task e
+Thread 0 have done task f
+Thread 0 have done task g
+Extrae: Intermediate raw trace file created : /home/bsc/bsc/tools/OmpSs_replay/tests/simple_test/set-0/TRACE.0000031634000000000000.mpit
+Extrae: Intermediate raw sym file created : /home/bsc/bsc/tools/OmpSs_replay/tests/simple_test/set-0/TRACE.0000031634000000000000.sym
 Extrae: Deallocating memory.
 Extrae: Application has ended. Tracing has been terminated.
 Extrae: Proceeding with the merge of the intermediate tracefiles.
@@ -28,7 +30,7 @@ Extrae: Executing the merge process (using /home/bsc/bsc/tools/OmpSs_replay/test
 merger: Extrae 3.1.0 (revision 3316 based on extrae/trunk)
 mpi2prv: Assigned nodes < bsc-Latitude-E7440 >
 mpi2prv: Assigned size per processor < <1 Mbyte >
-mpi2prv: File /home/bsc/bsc/tools/OmpSs_replay/tests/simple_test/set-0/TRACE.0000029963000000000000.mpit is object 1.1.1 on node bsc-Latitude-E7440 assigned to processor 0
+mpi2prv: File /home/bsc/bsc/tools/OmpSs_replay/tests/simple_test/set-0/TRACE.0000031634000000000000.mpit is object 1.1.1 on node bsc-Latitude-E7440 assigned to processor 0
 mpi2prv: Time synchronization has been turned off
 mpi2prv: Checking for target directory existance... exists, ok!
 mpi2prv: Ignoring symbols from the application execution because mpi2prv does not support BFD
@@ -38,15 +40,15 @@ mpi2prv: Searching synchronization points... done
 mpi2prv: Enabling Time Synchronization (Node).
 mpi2prv: Circular buffer enabled at tracing time? NO
 mpi2prv: Parsing intermediate files
-mpi2prv: Progress 1 of 2 ... 7.4% 11.1% 18.5% 22.2% 25.9% 33.3% 37.0% 40.7% 48.1% 51.9% 55.6% 63.0% 66.7% 70.4% 77.8% 81.5% 85.2% 92.6% 96.3% done
+mpi2prv: Progress 1 of 2 ... 5.3% 10.5% 15.8% 21.1% 26.3% 31.6% 35.1% 40.4% 45.6% 50.9% 56.1% 61.4% 66.7% 70.2% 75.4% 80.7% 86.0% 91.2% 96.5% done
 mpi2prv: Processor 0 succeeded to translate its assigned files
 mpi2prv: Elapsed time translating files: 0 hours 0 minutes 0 seconds
 mpi2prv: Elapsed time sorting addresses: 0 hours 0 minutes 0 seconds
 mpi2prv: Generating tracefile (intermediate buffers of 6710784 events)
          This process can take a while. Please, be patient.
-mpi2prv: Progress 2 of 2 ... 8.3% 11.1% 16.7% 30.6% 33.3% 38.9% 41.7% 44.4% 47.2% 52.8% 55.6% 61.1% 66.7% 72.2% 77.8% 80.6% 86.1% 94.4% 97.2% done
+mpi2prv: Progress 2 of 2 ... 6.1% 16.7% 18.2% 21.2% 25.8% 30.3% 36.4% 40.9% 45.5% 51.5% 56.1% 60.6% 65.2% 71.2% 75.8% 80.3% 86.4% 92.4% 97.0% done
 mpi2prv: Elapsed time merge step: 0 hours 0 minutes 0 seconds
-mpi2prv: Resulting tracefile occupies 850 bytes
+mpi2prv: Resulting tracefile occupies 1600 bytes
 mpi2prv: Removing temporal files... done
 mpi2prv: Elapsed time removing temporal files: 0 hours 0 minutes 0 seconds
 mpi2prv: Congratulations! EXTRAE_Paraver_trace.prv has been generated.
