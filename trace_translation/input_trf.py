@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import os
 import utils
@@ -86,7 +88,8 @@ def trf_file_reader (input_file, begin_phase, end_phase):
       # translate line into trace record class
       record = TraceRecord.create_input_record(line)
       if record == None:
-         utils.panic('cannot translate line into record,    line is:   %s' % (line))
+         return
+         # utils.panic('cannot translate line into record,    line is:   %s' % (line))
 
 ############################################################################
 ## manage start_new_MPI_process

@@ -1,9 +1,10 @@
-
+#! /usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import sys
 
 def panic (string):
-   print 'PANIC: ' + string
+   print ('PANIC: ' + string)
    #print >> sys.stderr, 'exited with panic'
    sys.exit(1)
   
@@ -27,28 +28,55 @@ class DependencyCommunicationTags:
    
 
 class TraceRecord(object):
+   # @staticmethod
+   # def create_input_record(line):
+   #    tag = line.split('{')[0].strip()
+   #    parameters = line.split('{')[-1].split('}')[0]
+   #    parameters = parameters.split(',')
+   #    if (tag == '"user event"'):
+   #       return UserEvent(tag, *parameters)
+   #    elif (tag == '"CPU burst"'):
+   #       return CPUBurst(tag, *parameters)
+   #    elif (tag == '"block begin"'):
+   #       return BlockBegin(tag, *parameters)
+   #    elif (tag == '"block end"'):
+   #       return BlockEnd(tag, *parameters)
+   #    elif (tag == '"NX send"'):
+   #       return NXSend(tag, *parameters)
+   #    elif (tag == '"NX recv"'):
+   #       return NXRecv(tag, *parameters)
+   #    elif (tag == '"global OP"'):
+   #       return GlobalOp(tag, *parameters)
+   #    else:
+   #       return None
    @staticmethod
    def create_input_record(line):
-      tag = line.split('{')[0].strip()
-      parameters = line.split('{')[-1].split('}')[0]
-      parameters = parameters.split(',')
-      if (tag == '"user event"'):
-         return UserEvent(tag, *parameters)
-      elif (tag == '"CPU burst"'):
-         return CPUBurst(tag, *parameters)
-      elif (tag == '"block begin"'):
-         return BlockBegin(tag, *parameters)
-      elif (tag == '"block end"'):
-         return BlockEnd(tag, *parameters)
-      elif (tag == '"NX send"'):
-         return NXSend(tag, *parameters)
-      elif (tag == '"NX recv"'):
-         return NXRecv(tag, *parameters)
-      elif (tag == '"global OP"'):
-         return GlobalOp(tag, *parameters)                  
+      # print(line)
+      if line.startswith('#DIMEMAS'):
+          return None
+      if line.startswith('s:'):
+          return None
+      tag, *parameters = line.split(':')
+      # tag = line.split('{')[0].strip()
+      # parameters = line.split('{')[-1].split('}')[0]
+      # parameters = parameters.split(',')
+      if (tag == '20'):
+         return UserEvent('"user event"', *parameters)
+      elif (tag == '1'):
+         return CPUBurst('"CPU burst"', *parameters)
+      # elif (tag == '"block begin"'):
+      #    return BlockBegin(tag, *parameters)
+      # elif (tag == '"block end"'):
+      #    return BlockEnd(tag, *parameters)
+      # elif (tag == '"NX send"'):
+      #    return NXSend(tag, *parameters)
+      # elif (tag == '"NX recv"'):
+      #    return NXRecv(tag, *parameters)
+      # elif (tag == '"global OP"'):
+      #    return GlobalOp(tag, *parameters)
       else:
-         return None
-   @staticmethod         
+         panic('cannot decode input event: ' + line)
+   @staticmethod
    def create_in_dependency (MPI_process, src_threadid, dest_threadid):
       return InDependency(MPI_process, src_threadid, dest_threadid)
    @staticmethod      
@@ -196,6 +224,7 @@ class CPUBurst(TraceRecord):
       self.MPI_process = int (parameters[0])
       self.threadid = int (parameters[1])
       self.burst_len = float (parameters[2])
+      # print(self.MPI_process, self.threadid, self.burst_len)
    def _pars_string(self):
       return str(self.MPI_process) + ', ' + str(self.threadid) \
              + ', ' + str(self.burst_len)
