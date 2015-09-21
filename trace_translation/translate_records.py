@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import sys
@@ -67,7 +67,7 @@ def translate_all_records(input_file,
          current_MPI_process = current_MPI_process + 1
          start_new_MPI_process(output_file, current_MPI_process)
          sys.stdout.write ("\r")
-         sys.stdout.write ("translating MPI process number:  %d" % current_MPI_process)
+         sys.stdout.write ("translating MPI process number:  %d\n" % current_MPI_process)
          sys.stdout.flush()
          continue     
       
@@ -85,6 +85,6 @@ def translate_all_records(input_file,
    flush_finalized_worker_task_records(output_file)      
       
    sys.stdout.write ("\n")      
-   print "finished translation"
+   print ("finished translation")
       
       

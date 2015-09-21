@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import utils
@@ -148,24 +148,24 @@ class WorkersStorage:
    def flushout_all_intertask_dependencies(self):
       
       for task in self._worker_tasks:
-         print "dependencies for task %d:" % task.get_taskid()
+         print ("dependencies for task %d:" % task.get_taskid())
          for dep in task.get_previous_dependencies():
-            print dep
+            print (dep)
          
    def flushout_all_tasks_with_MPI(self):
       
-      print "these tasks have MPI activity:"
+      print ("these tasks have MPI activity:")
       for task in self._worker_tasks:
          if (task.get_has_MPI_activity()):
-            print task.get_taskid()
+            print (task.get_taskid())
 
    def flushout_tasks_priorities(self):
       
-      print "TASK PRIORITIES:"
+      print ("TASK PRIORITIES:")
       for task in self._worker_tasks:
          priority = task.get_priority()
          taskid = task.get_taskid()
-         print "task %d -> priority %d " % (taskid, priority)
+         print ("task %d -> priority %d " % (taskid, priority))
 
 
    def calculate_tasks_priorities(self):
