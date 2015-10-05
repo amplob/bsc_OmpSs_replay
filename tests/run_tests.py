@@ -272,7 +272,9 @@ def assure_compiled(directory):
 
 #### execution ###
 def ompss_tracing(directory, do_regenerate_expected_output, test_successful_so_far):
-    execute_command = "../exe.sh"
+    #exe.sh file is common for all the tests so it's placed in tests directory
+    os.chdir('..')
+    execute_command = "./exe.sh {0}".format(directory)
     stdout_filename = "execution.out"
     stderr_filename = "execution.err"
     execute_command += " >{0} 2>{1}".format(stdout_filename, stderr_filename)
@@ -286,6 +288,8 @@ def ompss_tracing(directory, do_regenerate_expected_output, test_successful_so_f
                                                do_regenerate_expected_output,
                                                test_successful_so_far,
                                                "execution")
+    #we return to where we were
+    os.chdir(directory)
     return still_successful
 
 
