@@ -84,14 +84,13 @@ void wrapperxxxxxxx(int first, int second, long N, long BS, double A[BS][BS], do
 
 
 int main(int argc, char* argv[]) {
-	if (argc != 7) {
-		fprintf(stderr, "Usage: %s <N> <N> <block size> <block size> <index> <B|PW|SEQ>\n", argv[0]);
-		return 1;
-	}
-	parseInitializationType(argv[6]);
-	
-	long N = atol(argv[1]);
-	long BS = atol(argv[3]);
+// 	if (argc != 7) {
+// 		fprintf(stderr, "Usage: %s <N> <N> <block size> <block size> <index> <B|PW|SEQ>\n", argv[0]);
+// 		return 1;
+// 	}
+	parseInitializationType("SEQ");
+	long N = 100;
+	long BS = 20;
 	// long L = atol(argv[4]);
 	long L = 16;
 	
