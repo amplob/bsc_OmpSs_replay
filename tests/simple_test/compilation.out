@@ -1,1 +1,0 @@
-/home/bsc/bsc/OmpSs_Simulation/install/mcxx-git/bin/mcc -O -g -I/home/bsc/bsc/tools/extrae-install/include simple_test.c -o executable.exe -K --ompss --v -L/home/bsc/bsc/tools/extrae-install/lib -lseqtrace -L/home/bsc/bsc/tools/OmpSs_replay/install/lib -lmpissTrace -Wl,-rpath=/home/bsc/bsc/tools/extrae-install/lib -Wl,-rpath=/home/bsc/bsc/tools/OmpSs_replay/install/lib

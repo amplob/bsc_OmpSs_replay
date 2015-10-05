@@ -1,6 +1,0 @@
-Extrae: WARNING!
-Extrae: WARNING! XML parser version and property 'xml-parser-id' do not match. Check the XML file. Trying to proceed...
-Extrae: WARNING!
-Extrae: xml-parser-id found 'Id: xml-parse.c 2328 2013-11-22 12:10:09Z harald $' when expecting 'Id: xml-parse.c 3269 2015-04-23 15:12:21Z harald $'.
-Extrae: Warning! API tries to initialize more than once
-Extrae:          Previous initialization was done by API
