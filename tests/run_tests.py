@@ -275,21 +275,21 @@ def ompss_tracing(directory, do_regenerate_expected_output, test_successful_so_f
     #exe.sh file is common for all the tests so it's placed in tests directory
     os.chdir('..')
     execute_command = "./exe.sh {0}".format(directory)
-    stdout_filename = "execution.out"
-    stderr_filename = "execution.err"
+    stdout_filename = "{0}/execution.out".format(directory)
+    stderr_filename = "{0}/execution.err".format(directory)
     execute_command += " >{0} 2>{1}".format(stdout_filename, stderr_filename)
     #print_verbosely(execute_command)
     return_code = call(execute_command, shell=True)
-    print_verbosely(return_code)
     assert_report(return_code == 0,
                   "failed execution in test {0}".format(directory),
                   stdout_filename, stderr_filename)
+
+    #we return to where we were to check if the outout was the expected
+    os.chdir(directory)
     still_successful = compare_update_expected(directory,
                                                do_regenerate_expected_output,
                                                test_successful_so_far,
                                                "execution")
-    #we return to where we were
-    os.chdir(directory)
     return still_successful
 
 
