@@ -131,8 +131,13 @@ def is_one_output_correct(directory, test_name):
     diff_f = open(filename_diff, 'w')
 
     output_correct = True
-    lines_exp = open(filename1).readlines()
-    lines_got = open(filename2).readlines()
+    
+    
+    
+    old_lines_exp = open(filename1).readlines()
+    lines_exp = [line for line in old_lines_exp if "Testing:" in line]
+    old_lines_got = open(filename2).readlines()
+    lines_got = [line for line in old_lines_got if "Testing:" in line]
     for line in difflib.context_diff(lines_exp, lines_got, fromfile='before.py', tofile='after.py'):
         output_correct = False
         diff_f.write(line)
@@ -267,7 +272,7 @@ def assure_compiled(directory):
 
 #### execution ###
 def ompss_tracing(directory, do_regenerate_expected_output, test_successful_so_far):
-    execute_command = "./exe.sh"
+    execute_command = "../exe.sh"
     stdout_filename = "execution.out"
     stderr_filename = "execution.err"
     execute_command += " >{0} 2>{1}".format(stdout_filename, stderr_filename)
