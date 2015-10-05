@@ -10,18 +10,20 @@ extern "C"{
 void replay_start_task(void);
 void replay_end_task(void);
 
-void start_task_valgrind(void *sp, const char *type);
-void end_task_valgrind(void);
+void wait_fake(void *ptr);
+
 void start_css_valgrind (void);
 void end_css_valgrind (void);
 void barrier_css_valgrind (void);
 void wait_on_valgrind(void *ptr);
 
-void task_input_value_valgrind(const char *parName, int value, unsigned long element_size, unsigned long elements);
 
-void task_input_valgrind(const char *parName, void *ptr, unsigned long element_size, unsigned long elements);
-void task_output_valgrind(const char *parName, void *ptr, unsigned long element_size, unsigned long elements);
-void task_inout_valgrind(const char *parName, void *ptr, unsigned long element_size, unsigned long elements);
+//void replay_input_task_value(const char *parName, int value, unsigned long element_size, unsigned long elements);
+
+void replay_input_task(const char *parName, void *ptr, unsigned long element_size, unsigned long elements);
+
+void replay_output_task(const char *parName, void *ptr, unsigned long element_size, unsigned long elements);
+void replay_inout_task(const char *parName, void *ptr, unsigned long element_size, unsigned long elements);
 
 void task_unspecified_dir_valgrind(const char *parName, void *ptr, unsigned long element_size, unsigned long elements);
 
