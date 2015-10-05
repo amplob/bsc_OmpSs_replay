@@ -1,0 +1,12 @@
+if [ $# -ne 1 ]; then
+    echo Example of usage:
+    echo ./script.sh gauss_seidel
+else
+    cd $1
+    prv2dim EXTRAE_Paraver_trace.prv dim-initial.dim
+    /home/bsc/bsc/tools/OmpSs_replay/trace_translation/translate_to_mpismpss_trace.py -s dim-initial.dim -d trf-final.trf
+    trf2trf trf-final.trf dim-final.dim
+    dimemas_simulation_ncores.py dim-final.dim 4
+    cp simulation_results/prv_4cores.prv .
+    cd ..
+fi
