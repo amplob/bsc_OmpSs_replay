@@ -14,6 +14,9 @@ static rb_red_blk_tree* all_dependent_memory_references;
 
 const t_taskId no_dependency_task = -1;
 
+NodeInfo *global_NI;
+
+
 /* -------------------------------------------
  * functions to initialize the trees
  * ------------------------------------------- */
@@ -39,19 +42,20 @@ void addrDest(void* a) {
 }
 
 void taskIdDest(void *a){
-  free((t_taskId*)a);
+  free((NodeInfo*)a);
 }
 
 void* taskID_Get_Info (void* record) {
-   // now dealing with struct
    return  ((rb_red_blk_node*)record)->info; 
 }
 
-void taskID_Set_Info (void* record, void* new_taskId) {
+void taskID_Set_Info (void* record, void* new_info) {
    // now dealing with struct
-   t_taskId *old_taskId;
-   old_taskId = ((rb_red_blk_node*)record)->info;
-   *old_taskId =  *((t_taskId*) new_taskId); 
+   NodeInfo *old_info;
+   old_info = (NodeInfo*)((rb_red_blk_node*)record)->info;
+   old_info->last_write = ((NodeInfo*)new_info)->last_write;
+   old_info->array_size = ((NodeInfo*)new_info)->array_size;
+   //(old_info->array_ptr) = ((NodeInfo*)new_info)->array_ptr;
 }
 
 /* -------------------------------------------
@@ -68,11 +72,12 @@ static t_Addr* make_persistant_addr (t_Addr addr){
 
 
 /* allocate new memory and copy the content there */
-static t_taskId* make_persistant_taskId (t_taskId taskId) {
-   t_taskId *new_taskId;
-   new_taskId = (t_taskId*) malloc (sizeof(t_taskId));
-   *new_taskId = taskId;
-   return new_taskId;
+static NodeInfo* make_persistant_taskId (NodeInfo* ni) {
+   NodeInfo *new_ni;
+   new_ni = (NodeInfo*) malloc (sizeof(NodeInfo));
+   new_ni->last_write = ni->last_write;
+//    printf("make_persistant_taskId: last_write: %d", new_ni->last_write);
+   return new_ni;
 }
 
 
@@ -83,10 +88,10 @@ static rb_red_blk_node* find_previous_write_record(t_Addr addr) {
 }
 
 
-/* add write record [addr, taskId] to the collection    */
-static void record_write (t_Addr addr, t_taskId taskId) {
+/* add write record [addr, ni] to the collection    */
+static void record_write (t_Addr addr, NodeInfo* ni) {
    t_Addr *newAddr;
-   t_taskId *newTaskId;
+   NodeInfo *newNodeInfo;
    
 #if library_TESTING
    /* make sure there is NOT already present taskname  */
@@ -98,12 +103,12 @@ static void record_write (t_Addr addr, t_taskId taskId) {
 #endif   
    
    /* make space for storing taskname and taskcode  */
-   newAddr  = make_persistant_addr(addr);
-   newTaskId  = make_persistant_taskId(taskId);   
+   newAddr  	= make_persistant_addr(addr);
+   newNodeInfo  = make_persistant_taskId(ni);   
      
    /* insert to the tree  */   
    RBTreeInsert(all_dependent_memory_references,
-                newAddr, newTaskId);   
+                newAddr, newNodeInfo);   
 }
 
 
@@ -116,6 +121,11 @@ static void record_write (t_Addr addr, t_taskId taskId) {
 void init_dependencies_collection(void) {
    assert(libraryStatus == uninitialized);
    libraryStatus = initialized;
+   
+   global_NI= (NodeInfo*) malloc(sizeof(NodeInfo));
+   global_NI->array_size = 0;
+   global_NI->spaces_occupied = 0;
+   global_NI->array_ptr = NULL;
    
    all_dependent_memory_references = RBTreeCreate ( "Address", "lastWrite taskId",
                                  addrComp, addrDest, taskIdDest, addrPrint, taskIdPrint,
@@ -141,8 +151,7 @@ t_taskId mark_input(t_taskId actual_task, t_Addr addr) {
    /* find if there is dependency from some previous task */
    previous_write_taskID_node = find_previous_write_record (addr);
    if (previous_write_taskID_node != NO_NODE_FOUND) {
-      caught_dependency =  * ((t_taskId*) RBTreeGetInfo(all_dependent_memory_references, 
-                                                        previous_write_taskID_node));    
+      caught_dependency =  ((NodeInfo*) RBTreeGetInfo(all_dependent_memory_references, previous_write_taskID_node))->last_write;    
    } else {
       /* just know that nothing is found, will return no_dependency_task */
    }
@@ -159,12 +168,13 @@ t_taskId mark_output (t_taskId actual_task, t_Addr addr) {
    
    /* update the last task that has writen to this memory reference */
    previous_write_taskID_node = find_previous_write_record (addr);
+   global_NI->last_write = actual_task;
    if (previous_write_taskID_node != NO_NODE_FOUND) {
       RBTreeSetInfo(all_dependent_memory_references,
                     previous_write_taskID_node,
-                    &actual_task);
+                    global_NI);
    } else {
-      record_write (addr, actual_task);
+      record_write (addr, global_NI);
    }
    
    /* return no dependency, because of buffer renaming */
@@ -172,12 +182,6 @@ t_taskId mark_output (t_taskId actual_task, t_Addr addr) {
 }
 
 
-// struct {
-//    taskID last_write;
-//    int    array_size;
-//    int    spaces_occupied;
-//    *taskID array_ptr;
-// }
 
 /* mark inout access */
 t_taskId mark_inout (t_taskId actual_task, t_Addr addr) {
@@ -188,18 +192,19 @@ t_taskId mark_inout (t_taskId actual_task, t_Addr addr) {
    
    /* find if there is dependency from some previous task */
    previous_write_taskID_node = find_previous_write_record (addr);
+   global_NI->last_write = actual_task;
    if (previous_write_taskID_node != NO_NODE_FOUND) {
       /* record the dependency and update the record in the collection */
       // caught dependencies: 1task_ID + array of taskIDs (size)
-      caught_dependency =  * ((t_taskId*) RBTreeGetInfo(all_dependent_memory_references, 
-                                                        previous_write_taskID_node));    
+      caught_dependency =  ((NodeInfo*) RBTreeGetInfo(all_dependent_memory_references, previous_write_taskID_node))->last_write;    
       RBTreeSetInfo(all_dependent_memory_references,
                     previous_write_taskID_node,
-                    &actual_task);
+                    global_NI);
    } else {
       /* make new record in the collection */
       /* and there is no dependency to report */      
-      record_write (addr, actual_task);
+      //record_write (addr, actual_task);
+      record_write (addr, global_NI);
    }   
       
    /* return the caught dependency*/

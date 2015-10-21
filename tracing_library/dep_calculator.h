@@ -1,6 +1,13 @@
 
 #include "global.h"
 
+typedef struct NodeInfo {
+   t_taskId  last_write;
+   int       array_size;
+   int       spaces_occupied;
+   t_taskId* array_ptr;
+} NodeInfo;
+
 /* initialize dependencies collection */
 void init_dependencies_collection(void);
 
