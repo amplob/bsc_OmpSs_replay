@@ -15,7 +15,7 @@ void init_dependencies_collection(void);
 void dest_dependencies_collection(void);
 
 /* mark input access */
-t_taskId mark_input(t_taskId actual_task, t_Addr addr);
+t_taskId* mark_input(t_taskId actual_task, t_Addr addr, int* n_depending_tasks);
 
 /* mark output access */
 t_taskId mark_output (t_taskId actual_task, t_Addr addr);

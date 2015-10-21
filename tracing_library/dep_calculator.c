@@ -142,16 +142,21 @@ void dest_dependencies_collection(void) {
 
 
 /* mark input access */
-t_taskId mark_input(t_taskId actual_task, t_Addr addr) {
+t_taskId* mark_input(t_taskId actual_task, t_Addr addr, int* n_depending_tasks) {
    rb_red_blk_node *previous_write_taskID_node;
    /* assume there will be no dependency */
-   t_taskId caught_dependency = no_dependency_task;
+   t_taskId ndt = no_dependency_task;
+   t_taskId* caught_dependency = &ndt;
    assert(libraryStatus == initialized);     
    
    /* find if there is dependency from some previous task */
    previous_write_taskID_node = find_previous_write_record (addr);
    if (previous_write_taskID_node != NO_NODE_FOUND) {
-      caught_dependency =  ((NodeInfo*) RBTreeGetInfo(all_dependent_memory_references, previous_write_taskID_node))->last_write;    
+      global_NI = ((NodeInfo*) RBTreeGetInfo(all_dependent_memory_references, previous_write_taskID_node));
+      if (global_NI != NULL) {
+	 caught_dependency = global_NI->array_ptr;
+      }
+      caught_dependency = &global_NI->last_write;    
    } else {
       /* just know that nothing is found, will return no_dependency_task */
    }
