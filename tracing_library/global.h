@@ -12,7 +12,7 @@
 #if library_TESTING
    #define TEST_PROGRESS(x...) \
             {                  \
-               printf(x);      \
+               printf("Testing: "); printf(x);      \
             }
 #else
    #define TEST_PROGRESS(x...)  

@@ -241,11 +241,14 @@ void event_inout_parameter(void *addr) {
    /* mark access   */
    actual_task = get_actual_task_number();
    depending_task = mark_inout(actual_task, addr);
+   // depending_taskS: only list of tasks & size
    
    if (depending_task != no_dependency_task) {
       TEST_PROGRESS("there is dependency tasks:  %d  ->   %d (INOUT) \n",
                      depending_task, actual_task);
-      /* if there is dependency - emit it to the trace */   
+      /* if there is dependency - emit it to the trace */ 
+      
+      // emit_n_dependencies(array_of_taskIDs, size);
       emit_dependency(depending_task); 
    }
 }

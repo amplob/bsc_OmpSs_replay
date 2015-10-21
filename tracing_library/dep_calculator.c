@@ -43,10 +43,12 @@ void taskIdDest(void *a){
 }
 
 void* taskID_Get_Info (void* record) {
+   // now dealing with struct
    return  ((rb_red_blk_node*)record)->info; 
 }
 
 void taskID_Set_Info (void* record, void* new_taskId) {
+   // now dealing with struct
    t_taskId *old_taskId;
    old_taskId = ((rb_red_blk_node*)record)->info;
    *old_taskId =  *((t_taskId*) new_taskId); 
@@ -131,16 +133,16 @@ void dest_dependencies_collection(void) {
 
 /* mark input access */
 t_taskId mark_input(t_taskId actual_task, t_Addr addr) {
-   rb_red_blk_node *previous_write_taskID;
+   rb_red_blk_node *previous_write_taskID_node;
    /* assume there will be no dependency */
    t_taskId caught_dependency = no_dependency_task;
    assert(libraryStatus == initialized);     
    
    /* find if there is dependency from some previous task */
-   previous_write_taskID = find_previous_write_record (addr);
-   if (previous_write_taskID != NO_NODE_FOUND) {
+   previous_write_taskID_node = find_previous_write_record (addr);
+   if (previous_write_taskID_node != NO_NODE_FOUND) {
       caught_dependency =  * ((t_taskId*) RBTreeGetInfo(all_dependent_memory_references, 
-                                                        previous_write_taskID));    
+                                                        previous_write_taskID_node));    
    } else {
       /* just know that nothing is found, will return no_dependency_task */
    }
@@ -152,14 +154,14 @@ t_taskId mark_input(t_taskId actual_task, t_Addr addr) {
 
 /* mark output access */
 t_taskId mark_output (t_taskId actual_task, t_Addr addr) {
-   rb_red_blk_node *previous_write_taskID;
+   rb_red_blk_node *previous_write_taskID_node;
    assert(libraryStatus == initialized);     
    
    /* update the last task that has writen to this memory reference */
-   previous_write_taskID = find_previous_write_record (addr);
-   if (previous_write_taskID != NO_NODE_FOUND) {
+   previous_write_taskID_node = find_previous_write_record (addr);
+   if (previous_write_taskID_node != NO_NODE_FOUND) {
       RBTreeSetInfo(all_dependent_memory_references,
-                    previous_write_taskID,
+                    previous_write_taskID_node,
                     &actual_task);
    } else {
       record_write (addr, actual_task);
@@ -170,21 +172,29 @@ t_taskId mark_output (t_taskId actual_task, t_Addr addr) {
 }
 
 
+// struct {
+//    taskID last_write;
+//    int    array_size;
+//    int    spaces_occupied;
+//    *taskID array_ptr;
+// }
+
 /* mark inout access */
 t_taskId mark_inout (t_taskId actual_task, t_Addr addr) {
-   rb_red_blk_node *previous_write_taskID;
+   rb_red_blk_node *previous_write_taskID_node;
    /* assume there will be no dependency */
    t_taskId caught_dependency = no_dependency_task;
    assert(libraryStatus == initialized);        
    
    /* find if there is dependency from some previous task */
-   previous_write_taskID = find_previous_write_record (addr);
-   if (previous_write_taskID != NO_NODE_FOUND) {
+   previous_write_taskID_node = find_previous_write_record (addr);
+   if (previous_write_taskID_node != NO_NODE_FOUND) {
       /* record the dependency and update the record in the collection */
+      // caught dependencies: 1task_ID + array of taskIDs (size)
       caught_dependency =  * ((t_taskId*) RBTreeGetInfo(all_dependent_memory_references, 
-                                                        previous_write_taskID));    
+                                                        previous_write_taskID_node));    
       RBTreeSetInfo(all_dependent_memory_references,
-                    previous_write_taskID,
+                    previous_write_taskID_node,
                     &actual_task);
    } else {
       /* make new record in the collection */
