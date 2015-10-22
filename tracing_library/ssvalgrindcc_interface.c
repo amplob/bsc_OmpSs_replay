@@ -98,6 +98,12 @@ void replay_inout_task(const char *parName, void *ptr, unsigned long element_siz
    event_inout_parameter(ptr);   
 }
 
+void replay_commutative_task(const char *parName, void *ptr, unsigned long element_size, unsigned long elements){
+   TEST_PROGRESS("replay_commutative_task parName %s  ptr ,  element_size %lu,   elements  %lu      \n",
+                 parName, element_size, elements);
+   event_commutative_parameter(ptr);   
+}
+
 void start_new_phase_valgrind(void) {
    TEST_PROGRESS("new_phase()      \n");
    event_new_phase();   

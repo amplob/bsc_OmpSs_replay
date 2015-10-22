@@ -24,6 +24,7 @@ void replay_input_task(const char *parName, void *ptr, unsigned long element_siz
 
 void replay_output_task(const char *parName, void *ptr, unsigned long element_size, unsigned long elements);
 void replay_inout_task(const char *parName, void *ptr, unsigned long element_size, unsigned long elements);
+void replay_commutative_task(const char *parName, void *ptr, unsigned long element_size, unsigned long elements);
 
 void task_unspecified_dir_valgrind(const char *parName, void *ptr, unsigned long element_size, unsigned long elements);
 

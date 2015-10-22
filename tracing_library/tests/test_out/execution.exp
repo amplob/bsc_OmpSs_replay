@@ -9015,8 +9015,8 @@ Testing: task: fake name
 Testing: Testing: Testing: Testing: Testing: Testing: Testing: ending task 
 Testing: ending task number 1000
 Testing: emit task end
-Extrae: Intermediate raw trace file created : /home/bsc/bsc/tools/OmpSs_replay/tracing_library/tests/test_out/set-0/TRACE.0000017854000000000000.mpit
-Extrae: Intermediate raw sym file created : /home/bsc/bsc/tools/OmpSs_replay/tracing_library/tests/test_out/set-0/TRACE.0000017854000000000000.sym
+Extrae: Intermediate raw trace file created : /home/bsc/bsc/tools/OmpSs_replay/tracing_library/tests/test_out/set-0/TRACE.0000019842000000000000.mpit
+Extrae: Intermediate raw sym file created : /home/bsc/bsc/tools/OmpSs_replay/tracing_library/tests/test_out/set-0/TRACE.0000019842000000000000.sym
 Extrae: Deallocating memory.
 Extrae: Application has ended. Tracing has been terminated.
 Extrae: Proceeding with the merge of the intermediate tracefiles.
@@ -9024,7 +9024,7 @@ Extrae: Executing the merge process (using /home/bsc/bsc/tools/OmpSs_replay/trac
 merger: Extrae 3.1.0 (revision 3316 based on extrae/trunk)
 mpi2prv: Assigned nodes < bsc-Latitude-E7440 >
 mpi2prv: Assigned size per processor < <1 Mbyte >
-mpi2prv: File /home/bsc/bsc/tools/OmpSs_replay/tracing_library/tests/test_out/set-0/TRACE.0000017854000000000000.mpit is object 1.1.1 on node bsc-Latitude-E7440 assigned to processor 0
+mpi2prv: File /home/bsc/bsc/tools/OmpSs_replay/tracing_library/tests/test_out/set-0/TRACE.0000019842000000000000.mpit is object 1.1.1 on node bsc-Latitude-E7440 assigned to processor 0
 mpi2prv: Time synchronization has been turned off
 mpi2prv: Checking for target directory existance... exists, ok!
 mpi2prv: Ignoring symbols from the application execution because mpi2prv does not support BFD
