@@ -149,7 +149,7 @@ t_taskId* mark_input (t_taskId actual_task, t_Addr addr, int* n_depending_tasks)
    NodeInfo* NI = NULL;
    NI= (NodeInfo*) malloc(sizeof(NodeInfo));
    NI->last_write= no_dependency_task;
-   NI->array_size= 0;
+   //NI->array_size= 0;
    NI->array_ptr= NULL;
    rb_red_blk_node *previous_write_taskID_node;
    assert(libraryStatus == initialized);        
@@ -158,7 +158,7 @@ t_taskId* mark_input (t_taskId actual_task, t_Addr addr, int* n_depending_tasks)
       NI = ((NodeInfo*) RBTreeGetInfo(all_dependent_memory_references, previous_write_taskID_node));
    }
    if(NI->array_ptr) {
-      n_depending_tasks = NI->spaces_occupied;
+      *n_depending_tasks = NI->spaces_occupied;
       return NI->array_ptr;
    }
    return (t_taskId*)&NI->last_write;
@@ -201,14 +201,21 @@ t_taskId* mark_inout (t_taskId actual_task, t_Addr addr, int* n_depending_tasks)
    assert(libraryStatus == initialized);
    /* assume there will be no dependency */
    NIaux->last_write = no_dependency_task;
+   NIaux->array_ptr = NULL;
    /* find if there is dependency from some previous task */
    previous_write_taskID_node = find_previous_write_record (addr);
    
    if (previous_write_taskID_node != NO_NODE_FOUND) {
       /* Get the node that contains the data with address addr */
       NI =  ((NodeInfo*) RBTreeGetInfo(all_dependent_memory_references, previous_write_taskID_node));
+      
       /* Copy the data needed at NIaux */
-      NIaux->last_write = NI->last_write; 
+      if (!NI->array_ptr) NIaux->last_write = NI->last_write; 
+      else {
+	 NIaux->array_ptr = NI->array_ptr;
+	 NIaux->spaces_occupied = NI->spaces_occupied;
+      }
+      
       /* Last write is now acual task */
       NI->last_write = actual_task;
       /* Set the changes */
@@ -217,10 +224,16 @@ t_taskId* mark_inout (t_taskId actual_task, t_Addr addr, int* n_depending_tasks)
       /* make new record in the collection */
       /* and there is no dependency to report */      
       NI->last_write = actual_task;
+      NI->array_size= 0;
+      NI->spaces_occupied= 0;
       NI->array_ptr= NULL;
       record_write (addr, NI);
    }   
    /* return the caught dependency*/
+   if (NIaux->array_ptr){
+      *n_depending_tasks = NIaux->spaces_occupied;
+      return NIaux->array_ptr;
+   }
    return (t_taskId*)&NIaux->last_write;
 }
 
