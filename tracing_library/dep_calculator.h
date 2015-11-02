@@ -23,6 +23,9 @@ t_taskId mark_output (t_taskId actual_task, t_Addr addr);
 /* mark inout access */
 t_taskId* mark_inout (t_taskId actual_task, t_Addr addr, int* n_depending_tasks);
 
+/* mark commutative access */
+t_taskId* mark_commutative (t_taskId actual_task, t_Addr addr, int* n_depending_tasks);
+
 void printout_all_dependencies_collection (void);
    
 extern const t_taskId no_dependency_task;

@@ -249,7 +249,7 @@ void event_inout_parameter(void *addr) {
    /* mark access   */
    actual_task = get_actual_task_number();
    depending_task_ptr = mark_inout(actual_task, addr, &n_depending_tasks);
-   n_depending_tasks=1;
+   
    if (*depending_task_ptr != no_dependency_task) {
       for (i=0; i<n_depending_tasks; ++i) {
 	 TEST_PROGRESS("there is dependency tasks:  %d  ->   %d (INOUT) \n",
@@ -261,11 +261,34 @@ void event_inout_parameter(void *addr) {
 }
 
 
+void event_commutative_parameter(void *addr) {
+   int i;
+   t_taskId actual_task;
+   t_taskId* depending_task_ptr;
+   int n_depending_tasks = 1;
+
+   /* check sanity */
+   assert(get_actual_smpss_status() == inWorkingTask);
+   
+   /* mark access   */
+   actual_task = get_actual_task_number();
+   depending_task_ptr = mark_commutative(actual_task, addr, &n_depending_tasks);
+  
+   if (*depending_task_ptr != no_dependency_task) {
+      for (i=0; i<n_depending_tasks; ++i) {
+	 TEST_PROGRESS("there is dependency tasks:  %d  ->   %d (INOUT) \n",
+                     *(depending_task_ptr+i), actual_task);
+      }
+      /* if there is dependency - emit it to the trace */   
+      emit_n_dependencies(depending_task_ptr, n_depending_tasks); 
+   }
+}
+
 void event_wait_on(void *addr) {
    int i;
    t_taskId actual_task;
    t_taskId* depending_task_ptr;
-   int n_depending_tasks;
+   int n_depending_tasks = 1;
    /* check sanity */
    assert(get_actual_smpss_status() == inMainTask);
    

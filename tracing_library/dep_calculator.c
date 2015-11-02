@@ -14,6 +14,8 @@ static rb_red_blk_tree* all_dependent_memory_references;
 
 const t_taskId no_dependency_task = -1;
 
+extern t_taskId* array_aux = NULL;
+
 
 /* -------------------------------------------
  * functions to initialize the trees
@@ -146,6 +148,7 @@ void dest_dependencies_collection(void) {
 
 /* mark input access */
 t_taskId* mark_input (t_taskId actual_task, t_Addr addr, int* n_depending_tasks) {
+   int i;
    NodeInfo* NI = NULL;
    NI= (NodeInfo*) malloc(sizeof(NodeInfo));
    NI->last_write= no_dependency_task;
@@ -159,7 +162,14 @@ t_taskId* mark_input (t_taskId actual_task, t_Addr addr, int* n_depending_tasks)
    }
    if(NI->array_ptr) {
       *n_depending_tasks = NI->spaces_occupied;
-      return NI->array_ptr;
+      if (!array_aux) array_aux= malloc(NI->spaces_occupied * sizeof(t_taskId));
+      if ((sizeof(array_aux)) < (NI->spaces_occupied * sizeof(t_taskId))) 
+	 array_aux= realloc(array_aux, (NI->spaces_occupied * sizeof(t_taskId)));
+      for (i=0; i<NI->spaces_occupied; ++i) array_aux[i] = *(NI->array_ptr + i);
+      free(NI->array_ptr);
+      NI->array_ptr = NULL;
+      RBTreeSetInfo(all_dependent_memory_references, previous_write_taskID_node, NI);
+      return &array_aux[0];
    }
    return (t_taskId*)&NI->last_write;
 }
@@ -193,6 +203,7 @@ t_taskId mark_output (t_taskId actual_task, t_Addr addr) {
 
 /* mark inout access */
 t_taskId* mark_inout (t_taskId actual_task, t_Addr addr, int* n_depending_tasks) {
+   int i;
    NodeInfo* NI = NULL;		//acutal Node_Info
    NodeInfo* NIaux = NULL; 	//auxiliar NodeInfo
    NI= (NodeInfo*) malloc(sizeof(NodeInfo));
@@ -232,9 +243,56 @@ t_taskId* mark_inout (t_taskId actual_task, t_Addr addr, int* n_depending_tasks)
    /* return the caught dependency*/
    if (NIaux->array_ptr){
       *n_depending_tasks = NIaux->spaces_occupied;
+      if (!array_aux) array_aux= malloc(NIaux->spaces_occupied * sizeof(t_taskId));
+      else if ((sizeof(array_aux)) < (NIaux->spaces_occupied * sizeof(t_taskId))) 
+	 array_aux= realloc(array_aux, (NIaux->spaces_occupied * sizeof(t_taskId)));
+      for (i=0; i<NIaux->spaces_occupied; ++i) array_aux[i] = *(NIaux->array_ptr + i);
+      free(NIaux->array_ptr);
+      NIaux->array_ptr = NULL;
+      RBTreeSetInfo(all_dependent_memory_references, previous_write_taskID_node, NI);
+      return &array_aux[0];
+      
+      *n_depending_tasks = NIaux->spaces_occupied;
       return NIaux->array_ptr;
    }
    return (t_taskId*)&NIaux->last_write;
+}
+
+
+/* mark commutative access */
+t_taskId* mark_commutative (t_taskId actual_task, t_Addr addr, int* n_depending_tasks) {
+   NodeInfo* NI = NULL;
+   NI= (NodeInfo*) malloc(sizeof(NodeInfo));
+   NI->last_write= no_dependency_task;
+   NI->array_size= 0;
+   NI->spaces_occupied= 0;
+   NI->array_ptr= NULL;
+   
+   rb_red_blk_node *previous_write_taskID_node;
+   assert(libraryStatus == initialized);        
+   previous_write_taskID_node = find_previous_write_record (addr);
+   
+   if (previous_write_taskID_node == NO_NODE_FOUND) {
+      //NI->last_write= no_dependency_task;
+      record_write (addr, NI);
+   }
+   else {
+      NI = ((NodeInfo*) RBTreeGetInfo(all_dependent_memory_references, previous_write_taskID_node));
+   }
+   /* actualize array->ptr */
+   if (!NI->array_ptr) {
+      NI->array_ptr = malloc (10*sizeof(NodeInfo));
+      NI->array_size = 10;
+   }
+   else if (NI->array_size == NI->spaces_occupied) {
+      NI->array_ptr = realloc(NI->array_ptr, 2*NI->array_size*sizeof(t_taskId));
+      NI->array_size *= 2;
+   }
+   *(NI->array_ptr + NI->spaces_occupied) = actual_task;
+   ++NI->spaces_occupied;
+   RBTreeSetInfo(all_dependent_memory_references, previous_write_taskID_node, NI);
+
+   return (t_taskId*)&NI->last_write;
 }
 
 void printout_all_dependencies_collection (void) {
