@@ -52,6 +52,7 @@ void taskID_Set_Info (void* record, void* new_info) {
    NodeInfo *old_info;
    old_info = (NodeInfo*)((rb_red_blk_node*)record)->info;
    old_info->last_write = ((NodeInfo*)new_info)->last_write;
+   old_info->spaces_occupied = ((NodeInfo*)new_info)->spaces_occupied;
    old_info->array_size = ((NodeInfo*)new_info)->array_size;
    //(old_info->array_ptr) = ((NodeInfo*)new_info)->array_ptr;
 }
@@ -71,9 +72,17 @@ static t_Addr* make_persistant_addr (t_Addr addr){
 
 /* allocate new memory and copy the content there */
 static NodeInfo* make_persistant_taskId (NodeInfo* ni) {
+   int i;
    NodeInfo *new_ni;
    new_ni = (NodeInfo*) malloc (sizeof(NodeInfo));
    new_ni->last_write = ni->last_write;
+   new_ni->array_size = ni->array_size;
+   new_ni->spaces_occupied = ni->spaces_occupied;
+   new_ni->array_ptr = ni->array_ptr; //if ni->array_ptr is NULL then new_ni->array_ptr is NULL
+   if (ni->array_ptr) {
+      new_ni->array_ptr = malloc (ni->array_size * sizeof(t_taskId));
+      for (i=0; i<ni->spaces_occupied; ++i) *(new_ni->array_ptr + i) = *(ni->array_ptr + i);
+   }
 //    printf("make_persistant_taskId: last_write: %d", new_ni->last_write);
    return new_ni;
 }
@@ -140,16 +149,19 @@ t_taskId* mark_input (t_taskId actual_task, t_Addr addr, int* n_depending_tasks)
    NodeInfo* NI = NULL;
    NI= (NodeInfo*) malloc(sizeof(NodeInfo));
    NI->last_write= no_dependency_task;
+   NI->array_size= 0;
+   NI->array_ptr= NULL;
    rb_red_blk_node *previous_write_taskID_node;
-   //t_taskId caught_dependency = no_dependency_task;
    assert(libraryStatus == initialized);        
    previous_write_taskID_node = find_previous_write_record (addr);
    if (previous_write_taskID_node != NO_NODE_FOUND) {
       NI = ((NodeInfo*) RBTreeGetInfo(all_dependent_memory_references, previous_write_taskID_node));
-      //caught_dependency = (t_taskId) ((NodeInfo*) RBTreeGetInfo(all_dependent_memory_references, previous_write_taskID_node))->last_write; 
-   }  
-   //return caught_dependency;
-   return (t_taskId*)NI;
+   }
+   if(NI->array_ptr) {
+      n_depending_tasks = NI->spaces_occupied;
+      return NI->array_ptr;
+   }
+   return (t_taskId*)&NI->last_write;
 }
 
 /* mark output access */
@@ -162,6 +174,9 @@ t_taskId mark_output (t_taskId actual_task, t_Addr addr) {
    /* update the last task that has writen to this memory reference */
    previous_write_taskID_node = find_previous_write_record (addr);
    NI->last_write = actual_task;
+   NI->array_size= 0;
+   NI->spaces_occupied= 0;
+   NI->array_ptr= NULL;
    if (previous_write_taskID_node != NO_NODE_FOUND) {
       RBTreeSetInfo(all_dependent_memory_references,
                     previous_write_taskID_node,
@@ -183,7 +198,7 @@ t_taskId* mark_inout (t_taskId actual_task, t_Addr addr, int* n_depending_tasks)
    NI= (NodeInfo*) malloc(sizeof(NodeInfo));
    NIaux= (NodeInfo*) malloc(sizeof(NodeInfo));
    rb_red_blk_node *previous_write_taskID_node;
-   assert(libraryStatus == initialized);        
+   assert(libraryStatus == initialized);
    /* assume there will be no dependency */
    NIaux->last_write = no_dependency_task;
    /* find if there is dependency from some previous task */
@@ -202,6 +217,7 @@ t_taskId* mark_inout (t_taskId actual_task, t_Addr addr, int* n_depending_tasks)
       /* make new record in the collection */
       /* and there is no dependency to report */      
       NI->last_write = actual_task;
+      NI->array_ptr= NULL;
       record_write (addr, NI);
    }   
    /* return the caught dependency*/
