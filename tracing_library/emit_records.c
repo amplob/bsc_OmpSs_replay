@@ -67,3 +67,10 @@ void emit_dependency(t_taskId depending_task) {
 #endif
 }
    
+void emit_n_dependencies(t_taskId* depending_task_ptr, t_taskId n_depending_tasks) {
+   int i;
+   for (i=0; i<n_depending_tasks; ++i) TEST_PROGRESS("emit dependency from the previous task no: %d\n", *(depending_task_ptr+i));
+#if (!library_TESTING)
+   for (i=0; i<n_depending_tasks; ++i) Extrae_event(COMMON_EVENT_TYPE_DEPENDENCY, *(depending_task_ptr+i));
+#endif
+}

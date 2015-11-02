@@ -12,4 +12,5 @@ void emit_phase_start(t_phaseID phaseID);
 
 void emit_css_barrier(void);
 
-void emit_dependency(t_taskId depending_task); 
+void emit_dependency(t_taskId depending_task);
+void emit_n_dependencies(t_taskId* depending_task_ptr, t_taskId n_depending_tasks);
