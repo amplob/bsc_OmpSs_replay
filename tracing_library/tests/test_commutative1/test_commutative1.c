@@ -38,10 +38,6 @@ int main(int argc, char *argv[])
       #pragma omp taskwait
       
       some_work(X);
-
-      some_work(X);
-      
-      some_work(X);
       
       printf("program end\n");
       #pragma omp taskwait
