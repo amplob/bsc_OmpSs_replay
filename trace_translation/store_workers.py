@@ -103,7 +103,7 @@ class WorkersStorage:
    def add_dependency_among_workers(self, task_before, task_after):
       
       assert (task_before > 0)
-      //print (task_before, task_after)
+      #print (task_before, task_after)
       assert (task_before < task_after)
      
       assert (task_after == self._get_worker_tasks_len())

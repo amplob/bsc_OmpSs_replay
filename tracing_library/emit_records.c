@@ -7,17 +7,13 @@
 
 void emit_css_start(void) {
    TEST_PROGRESS("emit css start \n");
-#if (!library_TESTING)
    Extrae_event(COMMON_EVENT_TYPE_CSS_START, 1);
    Extrae_event(COMMON_EVENT_TYPE_PHASEID, 0);   
-#endif
 }
 
 void emit_css_finish(void) {
    TEST_PROGRESS("emit css finish \n");
-#if (!library_TESTING)
    Extrae_event(COMMON_EVENT_TYPE_CSS_START, 0);
-#endif
 }
 
 
@@ -25,52 +21,40 @@ void emit_task_start(t_taskcode task_code, t_taskId task_number) {
    
    TEST_PROGRESS("emit task start code %d, number %d\n",
                   task_code, task_number);
-#if (!library_TESTING)
    Extrae_event(COMMON_EVENT_TYPE_TASKID, task_number);
    Extrae_event(COMMON_EVENT_TYPE_TASKNAME_CODED, task_code);   
-#endif
 }
 
 void emit_task_end(void) {
    
    TEST_PROGRESS("emit task end\n");
-#if (!library_TESTING)
    Extrae_event(COMMON_EVENT_TYPE_TASKNAME_CODED, 0);
    Extrae_event(COMMON_EVENT_TYPE_TASKID, 0);
-#endif
 }
 
 
 void emit_phase_start(t_phaseID phaseID) {
    
    TEST_PROGRESS("emit start phase no: %d\n", phaseID);
-#if (!library_TESTING)
    Extrae_event(COMMON_EVENT_TYPE_PHASEID, phaseID);
-#endif
 }
 
 
 void emit_css_barrier(void) {
    
    TEST_PROGRESS("emit css barrier\n");
-#if (!library_TESTING)
    Extrae_event(COMMON_EVENT_TYPE_CSS_BARRIER, 0);
-#endif
 }
 
 
 void emit_dependency(t_taskId depending_task) {
    
    TEST_PROGRESS("emit dependency from the previous task no: %d\n", depending_task);
-#if (!library_TESTING)
    Extrae_event(COMMON_EVENT_TYPE_DEPENDENCY, depending_task);
-#endif
 }
    
 void emit_n_dependencies(t_taskId* depending_task_ptr, t_taskId n_depending_tasks) {
    int i;
    for (i=0; i<n_depending_tasks; ++i) TEST_PROGRESS("emit dependency from the previous task no: %d\n", *(depending_task_ptr+i));
-#if (!library_TESTING)
    for (i=0; i<n_depending_tasks; ++i) Extrae_event(COMMON_EVENT_TYPE_DEPENDENCY, *(depending_task_ptr+i));
-#endif
 }

@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
       Extrae_init();
       
       for (i=0; i<100; ++i) {
-	  //some_work(X, 'a');
+	  some_work(X, 'a');
       }
       
       Extrae_fini();
