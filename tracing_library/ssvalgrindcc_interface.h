@@ -7,7 +7,7 @@
 extern "C"{
 #endif
 
-void replay_start_task(void);
+void replay_start_task(int wd_id);
 void replay_end_task(void);
 
 void wait_fake(void *ptr);

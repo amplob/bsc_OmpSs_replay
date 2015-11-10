@@ -33,13 +33,15 @@
 
 unsigned char css_initialized = 0;
 
-void replay_start_task() {
+void replay_start_task(int wd_id) {
+  char task_name[31];
   if (!css_initialized) {
     event_start_css();
     css_initialized = 1;
   }
-  TEST_PROGRESS("starting task with name fake_name\n");
-  event_start_task("fake_name");
+  TEST_PROGRESS("starting task with name: %d\n", wd_id);
+  sprintf(task_name, "%d", wd_id);
+  event_start_task(&task_name[0]);
 }
 
 void replay_end_task() {
