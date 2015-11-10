@@ -290,8 +290,7 @@ t_taskId* mark_commutative (t_taskId actual_task, t_Addr addr, int* n_depending_
    }
    *(NI->array_ptr + NI->spaces_occupied) = actual_task;
    ++NI->spaces_occupied;
-   RBTreeSetInfo(all_dependent_memory_references, previous_write_taskID_node, NI);
-
+   
    return (t_taskId*)&NI->last_write;
 }
 
