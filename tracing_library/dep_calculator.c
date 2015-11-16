@@ -270,15 +270,16 @@ t_taskId* mark_commutative (t_taskId actual_task, t_Addr addr, int* n_depending_
    
    rb_red_blk_node *previous_write_taskID_node;
    assert(libraryStatus == initialized);        
-   previous_write_taskID_node = find_previous_write_record (addr);
    
+   previous_write_taskID_node = find_previous_write_record (addr);
    if (previous_write_taskID_node == NO_NODE_FOUND) {
-      //NI->last_write= no_dependency_task;
       record_write (addr, NI);
+      previous_write_taskID_node = find_previous_write_record (addr);
    }
-   else {
-      NI = ((NodeInfo*) RBTreeGetInfo(all_dependent_memory_references, previous_write_taskID_node));
-   }
+   assert(previous_write_taskID_node != NO_NODE_FOUND);
+   
+   NI = ((NodeInfo*) RBTreeGetInfo(all_dependent_memory_references, previous_write_taskID_node));
+   
    /* actualize array->ptr */
    if (!NI->array_ptr) {
       NI->array_ptr = malloc (10*sizeof(NodeInfo));
@@ -290,6 +291,8 @@ t_taskId* mark_commutative (t_taskId actual_task, t_Addr addr, int* n_depending_
    }
    *(NI->array_ptr + NI->spaces_occupied) = actual_task;
    ++NI->spaces_occupied;
+   
+   RBTreeSetInfo(all_dependent_memory_references, previous_write_taskID_node, NI);
    
    return (t_taskId*)&NI->last_write;
 }

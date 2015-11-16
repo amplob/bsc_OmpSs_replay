@@ -26,6 +26,9 @@ static Execution_state f_execution_state =
                      .tasksExecutedSoFar   = 0,
                      .phaseID = 0,
                   };
+
+static ActualTaskType actualTaskType= NoTask;
+static t_Addr lastAddr;
        
 
 /* access functions for f_execution_state  */                  
@@ -163,6 +166,12 @@ void event_end_task (void) {
    
    /* count of executed tasks remains the same */
    
+   if (actualTaskType == Commutative) {
+      /* emit commutative event end */
+      actualTaskType= NoTask;
+      emit_commutative_end(lastAddr);
+   }
+   
    /* code is switched to the code of the main Task */   
    TEST_PROGRESS("ending task number %d\n", 
                  get_actual_task_number());   
@@ -269,6 +278,11 @@ void event_commutative_parameter(void *addr) {
 
    /* check sanity */
    assert(get_actual_smpss_status() == inWorkingTask);
+   
+   /* emit commutative event start */
+   actualTaskType= Commutative;
+   lastAddr= addr;
+   emit_commutative_start(addr);
    
    /* mark access   */
    actual_task = get_actual_task_number();
