@@ -4,6 +4,8 @@
 #include "dep_calculator.h"
 #include "emit_records.h"
 
+/* tree to store mapped addresses into ints */
+static rb_red_blk_tree* all_mapped_addresses;
 
 /* The global structure of this file is Execution_state f_execution_state
  * it contains the state in which is the potential smpss execution
