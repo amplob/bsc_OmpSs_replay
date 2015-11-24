@@ -4,26 +4,28 @@
 
 void some_work(int *X);
 
+#define SIZE1 1000
+#define SIZE2 SIZE1*10
+
 #pragma omp task inout(X[0;10000]) no_copy_deps
 void some_work(int *X) {
 	int i;
-	for (i=0; i<10000; ++i) X[i]+=i;
+	for (i=0; i<SIZE2; ++i) X[i]+=i;
 	printf("finish some work\n");
 }
 
 #pragma omp task commutative (X[0;10000]) no_copy_deps
 void some_work2(int *X, int part) {
 	int i;
-	for (i=0; i<1000; ++i) 
-	    X[part * 1000 + i]+=i;
-	printf("finish some work2, values from %d to %d\n", part * 1000, part * 1000 +999);
+	for (i=0; i<SIZE1; ++i) 
+	    X[part * SIZE1 + i]+=i;
+	printf("finish some work2, values from %d to %d\n", part * SIZE1, part * SIZE1 +(SIZE1-1));
 }
-
 
 
 int main(int argc, char *argv[])
 {
-      int X[10000];
+      int X[SIZE2];
       int i;
       char *task_name = "task number 1";
       

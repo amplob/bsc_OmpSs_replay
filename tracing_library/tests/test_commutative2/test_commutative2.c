@@ -27,7 +27,7 @@ void some_work3(int *Y, int part) {
 	int i;
 	for (i=0; i<SIZE1; ++i) 
 	    Y[part * SIZE1 + i]+=i;
-	printf("finish some work2, values from %d to %d\n", part * SIZE1, part * SIZE1 +(SIZE1-1));
+	printf("finish some work3, values from %d to %d\n", part * SIZE1, part * SIZE1 +(SIZE1-1));
 }
 
 
