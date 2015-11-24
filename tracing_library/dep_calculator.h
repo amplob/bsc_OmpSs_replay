@@ -29,3 +29,13 @@ t_taskId* mark_commutative (t_taskId actual_task, t_Addr addr, int* n_depending_
 void printout_all_dependencies_collection (void);
    
 extern const t_taskId no_dependency_task;
+
+/* unused but necessary functions for tree creations outside dep_caculator */
+int addrComp(const void* a,const void* b);
+void addrPrint(const void* a);
+void taskIdPrint(void* a);
+void addrDest(void* a);
+void taskIdDest(void *a);
+void* taskID_Get_Info (void* record);
+void taskID_Set_Info (void* record, void* new_info);
+

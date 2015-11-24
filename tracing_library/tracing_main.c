@@ -4,8 +4,6 @@
 #include "dep_calculator.h"
 #include "emit_records.h"
 
-/* tree to store mapped addresses into ints */
-static rb_red_blk_tree* all_mapped_addresses;
 
 /* The global structure of this file is Execution_state f_execution_state
  * it contains the state in which is the potential smpss execution
@@ -29,8 +27,11 @@ static Execution_state f_execution_state =
                      .phaseID = 0,
                   };
 
+/* tree to store mapped addresses into ints */
+static rb_red_blk_tree* all_mapped_addresses;
+static int addr_count = 0;
 static ActualTaskType actualTaskType= NoTask;
-static t_Addr lastAddr;
+static int lastMappedAddr;
        
 
 /* access functions for f_execution_state  */                  
@@ -66,7 +67,6 @@ static inline t_phaseID get_actual_phaseID (void) {
    return f_execution_state.phaseID;
 }
 
-
 /**************************************************************************
  *    FUNCTIONS THAT ARE INTERFACE TO ssvalgrindcc_interface module
  **************************************************************************/
@@ -82,6 +82,10 @@ void event_start_css(void) {
    /* initialize collections */
    init_tasknames_collection();
    init_dependencies_collection();
+   
+   all_mapped_addresses = RBTreeCreate ( "Address", "MappedId",
+                                 addrComp, addrDest, taskIdDest, addrPrint, taskIdPrint,
+                                 taskID_Get_Info, taskID_Set_Info);   
    
    /* if there is a specified file with tasknames, READ IT and put into the collection */
    tasknames_filename = getenv ("TASKNAMES");
@@ -171,7 +175,7 @@ void event_end_task (void) {
    if (actualTaskType == Commutative) {
       /* emit commutative event end */
       actualTaskType= NoTask;
-      emit_commutative_end(lastAddr);
+      emit_commutative_end(lastMappedAddr);
    }
    
    /* code is switched to the code of the main Task */   
@@ -272,19 +276,45 @@ void event_inout_parameter(void *addr) {
 }
 
 
+/* add address to the collection    */
+static void record_address (t_Addr addr, int* ni) {
+   t_Addr *newAddr;
+   int *newNodeInfo;
+   
+   /* make space for storing taskname and taskcode  */
+   newAddr 	= (t_Addr*) malloc (sizeof(t_Addr));
+   *newAddr = addr;
+   newNodeInfo  = malloc(sizeof(int));
+   *newNodeInfo = *ni;
+
+   /* insert to the tree  */   
+   RBTreeInsert(all_mapped_addresses, newAddr, newNodeInfo);
+   //RBTreeSetInfo(all_mapped_addresses, newAddr, newNodeInfo);
+}
+
+
 void event_commutative_parameter(void *addr) {
    int i;
    t_taskId actual_task;
    t_taskId* depending_task_ptr;
    int n_depending_tasks = 1;
+   rb_red_blk_node* AddrId;
 
    /* check sanity */
    assert(get_actual_smpss_status() == inWorkingTask);
    
    /* emit commutative event start */
+   AddrId = RBExactQuery (all_mapped_addresses, &addr);
+   if (AddrId == NO_NODE_FOUND) {
+      record_address(addr, &addr_count);
+      ++addr_count;
+      AddrId = RBExactQuery (all_mapped_addresses, &addr);
+   }
+   
    actualTaskType= Commutative;
-   lastAddr= addr;
-   emit_commutative_start(addr);
+   lastMappedAddr= *((int*)((rb_red_blk_node*)AddrId)->info);
+   emit_commutative_start(lastMappedAddr);
+   
    
    /* mark access   */
    actual_task = get_actual_task_number();

@@ -32,14 +32,14 @@ void emit_task_end(void) {
    Extrae_event(COMMON_EVENT_TYPE_TASKID, 0);
 }
 
-void emit_commutative_start(t_Addr addr) {
-   TEST_PROGRESS("emit commutative task start with address %p\n", addr);
-   Extrae_event(COMMON_EVENT_TYPE_CRITICAL_BEGIN, addr);  
+void emit_commutative_start(int mappedAddr) {
+   TEST_PROGRESS("emit commutative task start with mapped address %d\n", mappedAddr);
+   Extrae_event(COMMON_EVENT_TYPE_CRITICAL_BEGIN, mappedAddr);  
 }
 
-void emit_commutative_end(t_Addr addr) {
-   TEST_PROGRESS("emit commutative task end with address %p\n", addr);
-   Extrae_event(COMMON_EVENT_TYPE_CRITICAL_END, addr);
+void emit_commutative_end(int mappedAddr) {
+   TEST_PROGRESS("emit commutative task end with mapped address %d\n", mappedAddr);
+   Extrae_event(COMMON_EVENT_TYPE_CRITICAL_END, mappedAddr);
 }
 
 void emit_phase_start(t_phaseID phaseID) {
