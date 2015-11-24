@@ -4,7 +4,7 @@
 
 void some_work(int *X);
 
-#define SIZE1 1000
+#define SIZE1 10000
 #define SIZE2 SIZE1*10
 
 #pragma omp task inout(X[0;10000]) no_copy_deps
