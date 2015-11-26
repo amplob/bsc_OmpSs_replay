@@ -21,8 +21,8 @@ Testing: starting task number 1  name is 6 which is coded into 1
 Testing: emit task start code 1, number 1
 Testing: replay_output_task parName 6    ptr ,  element_size 4,   elements  1      
 Testing: task: 6
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 6
 Testing: ending task number 1
 Testing: emit task end
 Testing: starting task with name: 7
@@ -33,8 +33,8 @@ Testing: replay_input_task parName 7    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  1  ->   2 (INPUT) 
 Testing: emit dependency from the previous task no: 1
 Testing: task: 7
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 7
 Testing: ending task number 2
 Testing: emit task end
 Testing: starting task with name: 8
@@ -43,8 +43,8 @@ Testing: starting task number 3  name is 8 which is coded into 3
 Testing: emit task start code 3, number 3
 Testing: replay_output_task parName 8    ptr ,  element_size 4,   elements  1      
 Testing: task: 8
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 8
 Testing: ending task number 3
 Testing: emit task end
 Testing: starting task with name: 9
@@ -55,8 +55,8 @@ Testing: replay_input_task parName 9    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  3  ->   4 (INPUT) 
 Testing: emit dependency from the previous task no: 3
 Testing: task: 9
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 9
 Testing: ending task number 4
 Testing: emit task end
 Testing: starting task with name: 10
@@ -65,8 +65,8 @@ Testing: starting task number 5  name is 10 which is coded into 5
 Testing: emit task start code 5, number 5
 Testing: replay_output_task parName 10    ptr ,  element_size 4,   elements  1      
 Testing: task: 10
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 10
 Testing: ending task number 5
 Testing: emit task end
 Testing: starting task with name: 11
@@ -77,8 +77,8 @@ Testing: replay_input_task parName 11    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  5  ->   6 (INPUT) 
 Testing: emit dependency from the previous task no: 5
 Testing: task: 11
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 11
 Testing: ending task number 6
 Testing: emit task end
 Testing: starting task with name: 12
@@ -87,8 +87,8 @@ Testing: starting task number 7  name is 12 which is coded into 7
 Testing: emit task start code 7, number 7
 Testing: replay_output_task parName 12    ptr ,  element_size 4,   elements  1      
 Testing: task: 12
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 12
 Testing: ending task number 7
 Testing: emit task end
 Testing: starting task with name: 13
@@ -99,8 +99,8 @@ Testing: replay_input_task parName 13    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  7  ->   8 (INPUT) 
 Testing: emit dependency from the previous task no: 7
 Testing: task: 13
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 13
 Testing: ending task number 8
 Testing: emit task end
 Testing: starting task with name: 14
@@ -109,8 +109,8 @@ Testing: starting task number 9  name is 14 which is coded into 9
 Testing: emit task start code 9, number 9
 Testing: replay_output_task parName 14    ptr ,  element_size 4,   elements  1      
 Testing: task: 14
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 14
 Testing: ending task number 9
 Testing: emit task end
 Testing: starting task with name: 15
@@ -121,8 +121,8 @@ Testing: replay_input_task parName 15    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  9  ->   10 (INPUT) 
 Testing: emit dependency from the previous task no: 9
 Testing: task: 15
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 15
 Testing: ending task number 10
 Testing: emit task end
 Testing: starting task with name: 16
@@ -131,8 +131,8 @@ Testing: starting task number 11  name is 16 which is coded into 11
 Testing: emit task start code 11, number 11
 Testing: replay_output_task parName 16    ptr ,  element_size 4,   elements  1      
 Testing: task: 16
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 16
 Testing: ending task number 11
 Testing: emit task end
 Testing: starting task with name: 17
@@ -143,8 +143,8 @@ Testing: replay_input_task parName 17    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  11  ->   12 (INPUT) 
 Testing: emit dependency from the previous task no: 11
 Testing: task: 17
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 17
 Testing: ending task number 12
 Testing: emit task end
 Testing: starting task with name: 18
@@ -153,8 +153,8 @@ Testing: starting task number 13  name is 18 which is coded into 13
 Testing: emit task start code 13, number 13
 Testing: replay_output_task parName 18    ptr ,  element_size 4,   elements  1      
 Testing: task: 18
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 18
 Testing: ending task number 13
 Testing: emit task end
 Testing: starting task with name: 19
@@ -165,8 +165,8 @@ Testing: replay_input_task parName 19    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  13  ->   14 (INPUT) 
 Testing: emit dependency from the previous task no: 13
 Testing: task: 19
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 19
 Testing: ending task number 14
 Testing: emit task end
 Testing: starting task with name: 20
@@ -175,8 +175,8 @@ Testing: starting task number 15  name is 20 which is coded into 15
 Testing: emit task start code 15, number 15
 Testing: replay_output_task parName 20    ptr ,  element_size 4,   elements  1      
 Testing: task: 20
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 20
 Testing: ending task number 15
 Testing: emit task end
 Testing: starting task with name: 21
@@ -187,8 +187,8 @@ Testing: replay_input_task parName 21    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  15  ->   16 (INPUT) 
 Testing: emit dependency from the previous task no: 15
 Testing: task: 21
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 21
 Testing: ending task number 16
 Testing: emit task end
 Testing: starting task with name: 22
@@ -197,8 +197,8 @@ Testing: starting task number 17  name is 22 which is coded into 17
 Testing: emit task start code 17, number 17
 Testing: replay_output_task parName 22    ptr ,  element_size 4,   elements  1      
 Testing: task: 22
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 22
 Testing: ending task number 17
 Testing: emit task end
 Testing: starting task with name: 23
@@ -209,8 +209,8 @@ Testing: replay_input_task parName 23    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  17  ->   18 (INPUT) 
 Testing: emit dependency from the previous task no: 17
 Testing: task: 23
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 23
 Testing: ending task number 18
 Testing: emit task end
 Testing: starting task with name: 24
@@ -219,8 +219,8 @@ Testing: starting task number 19  name is 24 which is coded into 19
 Testing: emit task start code 19, number 19
 Testing: replay_output_task parName 24    ptr ,  element_size 4,   elements  1      
 Testing: task: 24
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 24
 Testing: ending task number 19
 Testing: emit task end
 Testing: starting task with name: 25
@@ -231,8 +231,8 @@ Testing: replay_input_task parName 25    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  19  ->   20 (INPUT) 
 Testing: emit dependency from the previous task no: 19
 Testing: task: 25
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 25
 Testing: ending task number 20
 Testing: emit task end
 Testing: starting task with name: 26
@@ -241,8 +241,8 @@ Testing: starting task number 21  name is 26 which is coded into 21
 Testing: emit task start code 21, number 21
 Testing: replay_output_task parName 26    ptr ,  element_size 4,   elements  1      
 Testing: task: 26
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 26
 Testing: ending task number 21
 Testing: emit task end
 Testing: starting task with name: 27
@@ -251,8 +251,8 @@ Testing: starting task number 22  name is 27 which is coded into 22
 Testing: emit task start code 22, number 22
 Testing: replay_output_task parName 27    ptr ,  element_size 4,   elements  1      
 Testing: task: 27
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 27
 Testing: ending task number 22
 Testing: emit task end
 Testing: starting task with name: 28
@@ -261,8 +261,8 @@ Testing: starting task number 23  name is 28 which is coded into 23
 Testing: emit task start code 23, number 23
 Testing: replay_output_task parName 28    ptr ,  element_size 4,   elements  1      
 Testing: task: 28
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 28
 Testing: ending task number 23
 Testing: emit task end
 Testing: starting task with name: 29
@@ -271,8 +271,8 @@ Testing: starting task number 24  name is 29 which is coded into 24
 Testing: emit task start code 24, number 24
 Testing: replay_output_task parName 29    ptr ,  element_size 4,   elements  1      
 Testing: task: 29
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 29
 Testing: ending task number 24
 Testing: emit task end
 Testing: starting task with name: 30
@@ -281,8 +281,8 @@ Testing: starting task number 25  name is 30 which is coded into 25
 Testing: emit task start code 25, number 25
 Testing: replay_output_task parName 30    ptr ,  element_size 4,   elements  1      
 Testing: task: 30
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 30
 Testing: ending task number 25
 Testing: emit task end
 Testing: starting task with name: 31
@@ -291,8 +291,8 @@ Testing: starting task number 26  name is 31 which is coded into 26
 Testing: emit task start code 26, number 26
 Testing: replay_output_task parName 31    ptr ,  element_size 4,   elements  1      
 Testing: task: 31
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 31
 Testing: ending task number 26
 Testing: emit task end
 Testing: starting task with name: 32
@@ -301,8 +301,8 @@ Testing: starting task number 27  name is 32 which is coded into 27
 Testing: emit task start code 27, number 27
 Testing: replay_output_task parName 32    ptr ,  element_size 4,   elements  1      
 Testing: task: 32
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 32
 Testing: ending task number 27
 Testing: emit task end
 Testing: starting task with name: 33
@@ -311,8 +311,8 @@ Testing: starting task number 28  name is 33 which is coded into 28
 Testing: emit task start code 28, number 28
 Testing: replay_output_task parName 33    ptr ,  element_size 4,   elements  1      
 Testing: task: 33
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 33
 Testing: ending task number 28
 Testing: emit task end
 Testing: starting task with name: 34
@@ -321,8 +321,8 @@ Testing: starting task number 29  name is 34 which is coded into 29
 Testing: emit task start code 29, number 29
 Testing: replay_output_task parName 34    ptr ,  element_size 4,   elements  1      
 Testing: task: 34
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 34
 Testing: ending task number 29
 Testing: emit task end
 Testing: starting task with name: 35
@@ -331,8 +331,8 @@ Testing: starting task number 30  name is 35 which is coded into 30
 Testing: emit task start code 30, number 30
 Testing: replay_output_task parName 35    ptr ,  element_size 4,   elements  1      
 Testing: task: 35
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 35
 Testing: ending task number 30
 Testing: emit task end
 Testing: starting task with name: 36
@@ -341,8 +341,8 @@ Testing: starting task number 31  name is 36 which is coded into 31
 Testing: emit task start code 31, number 31
 Testing: replay_output_task parName 36    ptr ,  element_size 4,   elements  1      
 Testing: task: 36
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 36
 Testing: ending task number 31
 Testing: emit task end
 Testing: starting task with name: 37
@@ -351,8 +351,8 @@ Testing: starting task number 32  name is 37 which is coded into 32
 Testing: emit task start code 32, number 32
 Testing: replay_output_task parName 37    ptr ,  element_size 4,   elements  1      
 Testing: task: 37
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 37
 Testing: ending task number 32
 Testing: emit task end
 Testing: starting task with name: 38
@@ -361,8 +361,8 @@ Testing: starting task number 33  name is 38 which is coded into 33
 Testing: emit task start code 33, number 33
 Testing: replay_output_task parName 38    ptr ,  element_size 4,   elements  1      
 Testing: task: 38
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 38
 Testing: ending task number 33
 Testing: emit task end
 Testing: starting task with name: 39
@@ -371,8 +371,8 @@ Testing: starting task number 34  name is 39 which is coded into 34
 Testing: emit task start code 34, number 34
 Testing: replay_output_task parName 39    ptr ,  element_size 4,   elements  1      
 Testing: task: 39
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 39
 Testing: ending task number 34
 Testing: emit task end
 Testing: starting task with name: 40
@@ -381,8 +381,8 @@ Testing: starting task number 35  name is 40 which is coded into 35
 Testing: emit task start code 35, number 35
 Testing: replay_output_task parName 40    ptr ,  element_size 4,   elements  1      
 Testing: task: 40
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 40
 Testing: ending task number 35
 Testing: emit task end
 Testing: starting task with name: 41
@@ -391,8 +391,8 @@ Testing: starting task number 36  name is 41 which is coded into 36
 Testing: emit task start code 36, number 36
 Testing: replay_output_task parName 41    ptr ,  element_size 4,   elements  1      
 Testing: task: 41
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 41
 Testing: ending task number 36
 Testing: emit task end
 Testing: starting task with name: 42
@@ -401,8 +401,8 @@ Testing: starting task number 37  name is 42 which is coded into 37
 Testing: emit task start code 37, number 37
 Testing: replay_output_task parName 42    ptr ,  element_size 4,   elements  1      
 Testing: task: 42
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 42
 Testing: ending task number 37
 Testing: emit task end
 Testing: starting task with name: 43
@@ -411,8 +411,8 @@ Testing: starting task number 38  name is 43 which is coded into 38
 Testing: emit task start code 38, number 38
 Testing: replay_output_task parName 43    ptr ,  element_size 4,   elements  1      
 Testing: task: 43
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 43
 Testing: ending task number 38
 Testing: emit task end
 Testing: starting task with name: 44
@@ -421,8 +421,8 @@ Testing: starting task number 39  name is 44 which is coded into 39
 Testing: emit task start code 39, number 39
 Testing: replay_output_task parName 44    ptr ,  element_size 4,   elements  1      
 Testing: task: 44
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 44
 Testing: ending task number 39
 Testing: emit task end
 Testing: starting task with name: 45
@@ -431,8 +431,8 @@ Testing: starting task number 40  name is 45 which is coded into 40
 Testing: emit task start code 40, number 40
 Testing: replay_output_task parName 45    ptr ,  element_size 4,   elements  1      
 Testing: task: 45
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 45
 Testing: ending task number 40
 Testing: emit task end
 Testing: starting task with name: 46
@@ -443,8 +443,8 @@ Testing: replay_input_task parName 46    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  40  ->   41 (INPUT) 
 Testing: emit dependency from the previous task no: 40
 Testing: task: 46
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 46
 Testing: ending task number 41
 Testing: emit task end
 Testing: starting task with name: 47
@@ -455,8 +455,8 @@ Testing: replay_input_task parName 47    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  40  ->   42 (INPUT) 
 Testing: emit dependency from the previous task no: 40
 Testing: task: 47
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 47
 Testing: ending task number 42
 Testing: emit task end
 Testing: starting task with name: 48
@@ -467,8 +467,8 @@ Testing: replay_input_task parName 48    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  40  ->   43 (INPUT) 
 Testing: emit dependency from the previous task no: 40
 Testing: task: 48
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 48
 Testing: ending task number 43
 Testing: emit task end
 Testing: starting task with name: 49
@@ -479,8 +479,8 @@ Testing: replay_input_task parName 49    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  40  ->   44 (INPUT) 
 Testing: emit dependency from the previous task no: 40
 Testing: task: 49
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 49
 Testing: ending task number 44
 Testing: emit task end
 Testing: starting task with name: 50
@@ -491,8 +491,8 @@ Testing: replay_input_task parName 50    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  40  ->   45 (INPUT) 
 Testing: emit dependency from the previous task no: 40
 Testing: task: 50
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 50
 Testing: ending task number 45
 Testing: emit task end
 Testing: starting task with name: 51
@@ -503,8 +503,8 @@ Testing: replay_input_task parName 51    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  40  ->   46 (INPUT) 
 Testing: emit dependency from the previous task no: 40
 Testing: task: 51
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 51
 Testing: ending task number 46
 Testing: emit task end
 Testing: starting task with name: 52
@@ -515,8 +515,8 @@ Testing: replay_input_task parName 52    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  40  ->   47 (INPUT) 
 Testing: emit dependency from the previous task no: 40
 Testing: task: 52
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 52
 Testing: ending task number 47
 Testing: emit task end
 Testing: starting task with name: 53
@@ -527,8 +527,8 @@ Testing: replay_input_task parName 53    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  40  ->   48 (INPUT) 
 Testing: emit dependency from the previous task no: 40
 Testing: task: 53
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 53
 Testing: ending task number 48
 Testing: emit task end
 Testing: starting task with name: 54
@@ -539,8 +539,8 @@ Testing: replay_input_task parName 54    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  40  ->   49 (INPUT) 
 Testing: emit dependency from the previous task no: 40
 Testing: task: 54
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 54
 Testing: ending task number 49
 Testing: emit task end
 Testing: starting task with name: 55
@@ -551,8 +551,8 @@ Testing: replay_input_task parName 55    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  40  ->   50 (INPUT) 
 Testing: emit dependency from the previous task no: 40
 Testing: task: 55
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 55
 Testing: ending task number 50
 Testing: emit task end
 Testing: starting task with name: 56
@@ -563,8 +563,8 @@ Testing: replay_input_task parName 56    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  40  ->   51 (INPUT) 
 Testing: emit dependency from the previous task no: 40
 Testing: task: 56
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 56
 Testing: ending task number 51
 Testing: emit task end
 Testing: starting task with name: 57
@@ -575,8 +575,8 @@ Testing: replay_input_task parName 57    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  40  ->   52 (INPUT) 
 Testing: emit dependency from the previous task no: 40
 Testing: task: 57
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 57
 Testing: ending task number 52
 Testing: emit task end
 Testing: starting task with name: 58
@@ -587,8 +587,8 @@ Testing: replay_input_task parName 58    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  40  ->   53 (INPUT) 
 Testing: emit dependency from the previous task no: 40
 Testing: task: 58
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 58
 Testing: ending task number 53
 Testing: emit task end
 Testing: starting task with name: 59
@@ -599,8 +599,8 @@ Testing: replay_input_task parName 59    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  40  ->   54 (INPUT) 
 Testing: emit dependency from the previous task no: 40
 Testing: task: 59
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 59
 Testing: ending task number 54
 Testing: emit task end
 Testing: starting task with name: 60
@@ -611,8 +611,8 @@ Testing: replay_input_task parName 60    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  40  ->   55 (INPUT) 
 Testing: emit dependency from the previous task no: 40
 Testing: task: 60
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 60
 Testing: ending task number 55
 Testing: emit task end
 Testing: starting task with name: 61
@@ -623,8 +623,8 @@ Testing: replay_input_task parName 61    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  40  ->   56 (INPUT) 
 Testing: emit dependency from the previous task no: 40
 Testing: task: 61
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 61
 Testing: ending task number 56
 Testing: emit task end
 Testing: starting task with name: 62
@@ -635,8 +635,8 @@ Testing: replay_input_task parName 62    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  40  ->   57 (INPUT) 
 Testing: emit dependency from the previous task no: 40
 Testing: task: 62
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 62
 Testing: ending task number 57
 Testing: emit task end
 Testing: starting task with name: 63
@@ -647,8 +647,8 @@ Testing: replay_input_task parName 63    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  40  ->   58 (INPUT) 
 Testing: emit dependency from the previous task no: 40
 Testing: task: 63
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 63
 Testing: ending task number 58
 Testing: emit task end
 Testing: starting task with name: 64
@@ -659,8 +659,8 @@ Testing: replay_input_task parName 64    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  40  ->   59 (INPUT) 
 Testing: emit dependency from the previous task no: 40
 Testing: task: 64
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 64
 Testing: ending task number 59
 Testing: emit task end
 Testing: starting task with name: 65
@@ -671,8 +671,8 @@ Testing: replay_input_task parName 65    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  40  ->   60 (INPUT) 
 Testing: emit dependency from the previous task no: 40
 Testing: task: 65
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 65
 Testing: ending task number 60
 Testing: emit task end
 Testing: starting task with name: 66
@@ -683,8 +683,8 @@ Testing: replay_input_task parName 66    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  40  ->   61 (INPUT) 
 Testing: emit dependency from the previous task no: 40
 Testing: task: 66
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 66
 Testing: ending task number 61
 Testing: emit task end
 Testing: starting task with name: 67
@@ -693,8 +693,8 @@ Testing: starting task number 62  name is 67 which is coded into 62
 Testing: emit task start code 62, number 62
 Testing: replay_output_task parName 67    ptr ,  element_size 4,   elements  1      
 Testing: task: 67
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 67
 Testing: ending task number 62
 Testing: emit task end
 Testing: starting task with name: 68
@@ -705,8 +705,8 @@ Testing: replay_input_task parName 68    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  62  ->   63 (INPUT) 
 Testing: emit dependency from the previous task no: 62
 Testing: task: 68
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 68
 Testing: ending task number 63
 Testing: emit task end
 Testing: starting task with name: 69
@@ -715,8 +715,8 @@ Testing: starting task number 64  name is 69 which is coded into 64
 Testing: emit task start code 64, number 64
 Testing: replay_output_task parName 69    ptr ,  element_size 4,   elements  1      
 Testing: task: 69
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 69
 Testing: ending task number 64
 Testing: emit task end
 Testing: starting task with name: 70
@@ -727,8 +727,8 @@ Testing: replay_input_task parName 70    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  64  ->   65 (INPUT) 
 Testing: emit dependency from the previous task no: 64
 Testing: task: 70
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 70
 Testing: ending task number 65
 Testing: emit task end
 Testing: starting task with name: 71
@@ -737,8 +737,8 @@ Testing: starting task number 66  name is 71 which is coded into 66
 Testing: emit task start code 66, number 66
 Testing: replay_output_task parName 71    ptr ,  element_size 4,   elements  1      
 Testing: task: 71
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 71
 Testing: ending task number 66
 Testing: emit task end
 Testing: starting task with name: 72
@@ -749,8 +749,8 @@ Testing: replay_input_task parName 72    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  66  ->   67 (INPUT) 
 Testing: emit dependency from the previous task no: 66
 Testing: task: 72
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 72
 Testing: ending task number 67
 Testing: emit task end
 Testing: starting task with name: 73
@@ -759,8 +759,8 @@ Testing: starting task number 68  name is 73 which is coded into 68
 Testing: emit task start code 68, number 68
 Testing: replay_output_task parName 73    ptr ,  element_size 4,   elements  1      
 Testing: task: 73
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 73
 Testing: ending task number 68
 Testing: emit task end
 Testing: starting task with name: 74
@@ -771,8 +771,8 @@ Testing: replay_input_task parName 74    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  68  ->   69 (INPUT) 
 Testing: emit dependency from the previous task no: 68
 Testing: task: 74
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 74
 Testing: ending task number 69
 Testing: emit task end
 Testing: starting task with name: 75
@@ -781,8 +781,8 @@ Testing: starting task number 70  name is 75 which is coded into 70
 Testing: emit task start code 70, number 70
 Testing: replay_output_task parName 75    ptr ,  element_size 4,   elements  1      
 Testing: task: 75
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 75
 Testing: ending task number 70
 Testing: emit task end
 Testing: starting task with name: 76
@@ -793,8 +793,8 @@ Testing: replay_input_task parName 76    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  70  ->   71 (INPUT) 
 Testing: emit dependency from the previous task no: 70
 Testing: task: 76
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 76
 Testing: ending task number 71
 Testing: emit task end
 Testing: starting task with name: 77
@@ -803,8 +803,8 @@ Testing: starting task number 72  name is 77 which is coded into 72
 Testing: emit task start code 72, number 72
 Testing: replay_output_task parName 77    ptr ,  element_size 4,   elements  1      
 Testing: task: 77
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 77
 Testing: ending task number 72
 Testing: emit task end
 Testing: starting task with name: 78
@@ -815,8 +815,8 @@ Testing: replay_input_task parName 78    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  72  ->   73 (INPUT) 
 Testing: emit dependency from the previous task no: 72
 Testing: task: 78
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 78
 Testing: ending task number 73
 Testing: emit task end
 Testing: starting task with name: 79
@@ -825,8 +825,8 @@ Testing: starting task number 74  name is 79 which is coded into 74
 Testing: emit task start code 74, number 74
 Testing: replay_output_task parName 79    ptr ,  element_size 4,   elements  1      
 Testing: task: 79
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 79
 Testing: ending task number 74
 Testing: emit task end
 Testing: starting task with name: 80
@@ -837,8 +837,8 @@ Testing: replay_input_task parName 80    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  74  ->   75 (INPUT) 
 Testing: emit dependency from the previous task no: 74
 Testing: task: 80
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 80
 Testing: ending task number 75
 Testing: emit task end
 Testing: starting task with name: 81
@@ -847,8 +847,8 @@ Testing: starting task number 76  name is 81 which is coded into 76
 Testing: emit task start code 76, number 76
 Testing: replay_output_task parName 81    ptr ,  element_size 4,   elements  1      
 Testing: task: 81
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 81
 Testing: ending task number 76
 Testing: emit task end
 Testing: starting task with name: 82
@@ -859,8 +859,8 @@ Testing: replay_input_task parName 82    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  76  ->   77 (INPUT) 
 Testing: emit dependency from the previous task no: 76
 Testing: task: 82
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 82
 Testing: ending task number 77
 Testing: emit task end
 Testing: starting task with name: 83
@@ -869,8 +869,8 @@ Testing: starting task number 78  name is 83 which is coded into 78
 Testing: emit task start code 78, number 78
 Testing: replay_output_task parName 83    ptr ,  element_size 4,   elements  1      
 Testing: task: 83
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 83
 Testing: ending task number 78
 Testing: emit task end
 Testing: starting task with name: 84
@@ -881,8 +881,8 @@ Testing: replay_input_task parName 84    ptr ,  element_size 4,   elements  1
 Testing: there is dependency tasks:  78  ->   79 (INPUT) 
 Testing: emit dependency from the previous task no: 78
 Testing: task: 84
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 84
 Testing: ending task number 79
 Testing: emit task end
 Testing: starting task with name: 85
@@ -891,12 +891,12 @@ Testing: starting task number 80  name is 85 which is coded into 80
 Testing: emit task start code 80, number 80
 Testing: replay_output_task parName 85    ptr ,  element_size 4,   elements  1      
 Testing: task: 85
-Testing: Testing: Testing: Testing: Testing: Testing: Done task a
-Testing: ending task 
+Done task a
+Testing: ending task with name: 85
 Testing: ending task number 80
 Testing: emit task end
-Extrae: Intermediate raw trace file created : /home/bsc/bsc/tools/OmpSs_replay/tracing_library/tests/test_interc_in_out/set-0/TRACE.0000017861000000000000.mpit
-Extrae: Intermediate raw sym file created : /home/bsc/bsc/tools/OmpSs_replay/tracing_library/tests/test_interc_in_out/set-0/TRACE.0000017861000000000000.sym
+Extrae: Intermediate raw trace file created : /home/bsc/bsc/tools/OmpSs_replay/tracing_library/tests/test_interc_in_out/set-0/TRACE.0000001217000000000000.mpit
+Extrae: Intermediate raw sym file created : /home/bsc/bsc/tools/OmpSs_replay/tracing_library/tests/test_interc_in_out/set-0/TRACE.0000001217000000000000.sym
 Extrae: Deallocating memory.
 Extrae: Application has ended. Tracing has been terminated.
 Extrae: Proceeding with the merge of the intermediate tracefiles.
@@ -904,7 +904,7 @@ Extrae: Executing the merge process (using /home/bsc/bsc/tools/OmpSs_replay/trac
 merger: Extrae 3.1.0 (revision 3316 based on extrae/trunk)
 mpi2prv: Assigned nodes < bsc-Latitude-E7440 >
 mpi2prv: Assigned size per processor < <1 Mbyte >
-mpi2prv: File /home/bsc/bsc/tools/OmpSs_replay/tracing_library/tests/test_interc_in_out/set-0/TRACE.0000017861000000000000.mpit is object 1.1.1 on node bsc-Latitude-E7440 assigned to processor 0
+mpi2prv: File /home/bsc/bsc/tools/OmpSs_replay/tracing_library/tests/test_interc_in_out/set-0/TRACE.0000001217000000000000.mpit is object 1.1.1 on node bsc-Latitude-E7440 assigned to processor 0
 mpi2prv: Time synchronization has been turned off
 mpi2prv: Checking for target directory existance... exists, ok!
 mpi2prv: Ignoring symbols from the application execution because mpi2prv does not support BFD
@@ -922,7 +922,7 @@ mpi2prv: Generating tracefile (intermediate buffers of 6710784 events)
          This process can take a while. Please, be patient.
 mpi2prv: Progress 2 of 2 ... 5.2% 10.2% 15.1% 20.1% 25.3% 30.2% 35.2% 40.1% 45.1% 50.3% 55.2% 60.2% 65.1% 70.1% 75.3% 80.2% 85.2% 90.1% 95.1% done
 mpi2prv: Elapsed time merge step: 0 hours 0 minutes 0 seconds
-mpi2prv: Resulting tracefile occupies 9723 bytes
+mpi2prv: Resulting tracefile occupies 9722 bytes
 mpi2prv: Removing temporal files... done
 mpi2prv: Elapsed time removing temporal files: 0 hours 0 minutes 0 seconds
 mpi2prv: Congratulations! EXTRAE_Paraver_trace.prv has been generated.

@@ -22,8 +22,8 @@ Testing: emit task start code 1, number 1
 Testing: replay_commutative_task parName 6  ptr ,  element_size 40000,   elements  1      
 Testing: emit commutative task start with mapped address 0
 Testing: task: 6
-Testing: Testing: Testing: Testing: Testing: Testing: finish some_work_comm, values from 0 to 999
-Testing: ending task 
+finish some_work_comm, values from 0 to 999
+Testing: ending task with name: 6
 Testing: emit commutative task end with mapped address 0
 Testing: ending task number 1
 Testing: emit task end
@@ -34,8 +34,8 @@ Testing: emit task start code 2, number 2
 Testing: replay_commutative_task parName 7  ptr ,  element_size 40000,   elements  1      
 Testing: emit commutative task start with mapped address 0
 Testing: task: 7
-Testing: Testing: Testing: Testing: Testing: Testing: finish some_work_comm, values from 10000 to 10999
-Testing: ending task 
+finish some_work_comm, values from 10000 to 10999
+Testing: ending task with name: 7
 Testing: emit commutative task end with mapped address 0
 Testing: ending task number 2
 Testing: emit task end
@@ -46,8 +46,8 @@ Testing: emit task start code 3, number 3
 Testing: replay_commutative_task parName 8  ptr ,  element_size 40000,   elements  1      
 Testing: emit commutative task start with mapped address 1
 Testing: task: 8
-Testing: Testing: Testing: Testing: Testing: Testing: finish some_work_comm, values from 0 to 999
-Testing: ending task 
+finish some_work_comm, values from 0 to 999
+Testing: ending task with name: 8
 Testing: emit commutative task end with mapped address 1
 Testing: ending task number 3
 Testing: emit task end
@@ -58,8 +58,8 @@ Testing: emit task start code 4, number 4
 Testing: replay_commutative_task parName 9  ptr ,  element_size 40000,   elements  1      
 Testing: emit commutative task start with mapped address 1
 Testing: task: 9
-Testing: Testing: Testing: Testing: Testing: Testing: finish some_work_comm, values from 10000 to 10999
-Testing: ending task 
+finish some_work_comm, values from 10000 to 10999
+Testing: ending task with name: 9
 Testing: emit commutative task end with mapped address 1
 Testing: ending task number 4
 Testing: emit task end
@@ -73,8 +73,8 @@ Testing: there is dependency tasks:  4  ->   5 (INOUT)
 Testing: emit dependency from the previous task no: 3
 Testing: emit dependency from the previous task no: 4
 Testing: task: 10
-Testing: Testing: Testing: Testing: Testing: Testing: finish some_work_inout
-Testing: ending task 
+finish some_work_inout
+Testing: ending task with name: 10
 Testing: ending task number 5
 Testing: emit task end
 Testing: starting task with name: 11
@@ -84,8 +84,8 @@ Testing: emit task start code 6, number 6
 Testing: replay_commutative_task parName 11  ptr ,  element_size 40000,   elements  1      
 Testing: emit commutative task start with mapped address 0
 Testing: task: 11
-Testing: Testing: Testing: Testing: Testing: Testing: finish some_work_comm, values from 0 to 999
-Testing: ending task 
+finish some_work_comm, values from 0 to 999
+Testing: ending task with name: 11
 Testing: emit commutative task end with mapped address 0
 Testing: ending task number 6
 Testing: emit task end
@@ -96,8 +96,8 @@ Testing: emit task start code 7, number 7
 Testing: replay_commutative_task parName 12  ptr ,  element_size 40000,   elements  1      
 Testing: emit commutative task start with mapped address 0
 Testing: task: 12
-Testing: Testing: Testing: Testing: Testing: Testing: finish some_work_comm, values from 10000 to 10999
-Testing: ending task 
+finish some_work_comm, values from 10000 to 10999
+Testing: ending task with name: 12
 Testing: emit commutative task end with mapped address 0
 Testing: ending task number 7
 Testing: emit task end
@@ -115,13 +115,13 @@ Testing: emit dependency from the previous task no: 2
 Testing: emit dependency from the previous task no: 6
 Testing: emit dependency from the previous task no: 7
 Testing: task: 13
-Testing: Testing: Testing: Testing: Testing: Testing: finish some_work_inout
-Testing: ending task 
+finish some_work_inout
+Testing: ending task with name: 13
 Testing: ending task number 8
 Testing: emit task end
 program end
-Extrae: Intermediate raw trace file created : /home/bsc/bsc/tools/OmpSs_replay/tracing_library/tests/test_commutative3/set-0/TRACE.0000025758000000000000.mpit
-Extrae: Intermediate raw sym file created : /home/bsc/bsc/tools/OmpSs_replay/tracing_library/tests/test_commutative3/set-0/TRACE.0000025758000000000000.sym
+Extrae: Intermediate raw trace file created : /home/bsc/bsc/tools/OmpSs_replay/tracing_library/tests/test_commutative3/set-0/TRACE.0000001255000000000000.mpit
+Extrae: Intermediate raw sym file created : /home/bsc/bsc/tools/OmpSs_replay/tracing_library/tests/test_commutative3/set-0/TRACE.0000001255000000000000.sym
 Extrae: Deallocating memory.
 Extrae: Application has ended. Tracing has been terminated.
 Extrae: Proceeding with the merge of the intermediate tracefiles.
@@ -129,7 +129,7 @@ Extrae: Executing the merge process (using /home/bsc/bsc/tools/OmpSs_replay/trac
 merger: Extrae 3.1.0 (revision 3316 based on extrae/trunk)
 mpi2prv: Assigned nodes < bsc-Latitude-E7440 >
 mpi2prv: Assigned size per processor < <1 Mbyte >
-mpi2prv: File /home/bsc/bsc/tools/OmpSs_replay/tracing_library/tests/test_commutative3/set-0/TRACE.0000025758000000000000.mpit is object 1.1.1 on node bsc-Latitude-E7440 assigned to processor 0
+mpi2prv: File /home/bsc/bsc/tools/OmpSs_replay/tracing_library/tests/test_commutative3/set-0/TRACE.0000001255000000000000.mpit is object 1.1.1 on node bsc-Latitude-E7440 assigned to processor 0
 mpi2prv: Time synchronization has been turned off
 mpi2prv: Checking for target directory existance... exists, ok!
 mpi2prv: Ignoring symbols from the application execution because mpi2prv does not support BFD
@@ -147,7 +147,7 @@ mpi2prv: Generating tracefile (intermediate buffers of 6710784 events)
          This process can take a while. Please, be patient.
 mpi2prv: Progress 2 of 2 ... 5.4% 14.9% 16.2% 20.3% 25.7% 31.1% 35.1% 40.5% 45.9% 51.4% 55.4% 60.8% 66.2% 70.3% 75.7% 81.1% 85.1% 90.5% 97.3% done
 mpi2prv: Elapsed time merge step: 0 hours 0 minutes 0 seconds
-mpi2prv: Resulting tracefile occupies 1795 bytes
+mpi2prv: Resulting tracefile occupies 1773 bytes
 mpi2prv: Removing temporal files... done
 mpi2prv: Elapsed time removing temporal files: 0 hours 0 minutes 0 seconds
 mpi2prv: Congratulations! EXTRAE_Paraver_trace.prv has been generated.
