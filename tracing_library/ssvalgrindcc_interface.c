@@ -44,8 +44,8 @@ void replay_start_task(int wd_id) {
   event_start_task(&task_name[0]);
 }
 
-void replay_end_task() {
-  TEST_PROGRESS("ending task \n");
+void replay_end_task(int wd_id) {
+  TEST_PROGRESS("ending task with name: %d\n", wd_id);
   event_end_task();
 }
 
@@ -103,7 +103,13 @@ void replay_inout_task(const char *parName, void *ptr, unsigned long element_siz
 void replay_commutative_task(const char *parName, void *ptr, unsigned long element_size, unsigned long elements){
    TEST_PROGRESS("replay_commutative_task parName %s  ptr ,  element_size %lu,   elements  %lu      \n",
                  parName, element_size, elements);
-   event_commutative_parameter(ptr);   
+   event_concurrent_commutative_parameter(ptr, Commutative);   
+}
+
+void replay_concurrent_task(const char *parName, void *ptr, unsigned long element_size, unsigned long elements){
+   TEST_PROGRESS("replay_concurrent_task parName %s  ptr ,  element_size %lu,   elements  %lu      \n",
+                 parName, element_size, elements);
+   event_concurrent_commutative_parameter(ptr, Concurrent);   
 }
 
 void start_new_phase_valgrind(void) {

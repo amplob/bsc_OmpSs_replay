@@ -171,11 +171,11 @@ void event_end_task (void) {
    set_actual_smpss_status(inMainTask);
    
    /* count of executed tasks remains the same */
-   
-   if (actualTaskType == Commutative) {
-      /* emit commutative event end */
+   /* emit actualTaskType event end */
+   if(actualTaskType != NoTask) {
+      if (actualTaskType == Commutative) emit_commutative_end(lastMappedAddr);
+      else if (actualTaskType == Concurrent) emit_concurrent_end(lastMappedAddr);
       actualTaskType= NoTask;
-      emit_commutative_end(lastMappedAddr);
    }
    
    /* code is switched to the code of the main Task */   
@@ -293,7 +293,7 @@ static void record_address (t_Addr addr, int* ni) {
 }
 
 
-void event_commutative_parameter(void *addr) {
+void event_concurrent_commutative_parameter(void *addr, ActualTaskType c) {
    int i;
    t_taskId actual_task;
    t_taskId* depending_task_ptr;
@@ -303,7 +303,7 @@ void event_commutative_parameter(void *addr) {
    /* check sanity */
    assert(get_actual_smpss_status() == inWorkingTask);
    
-   /* emit commutative event start */
+   /* Record access to variable */
    AddrId = RBExactQuery (all_mapped_addresses, &addr);
    if (AddrId == NO_NODE_FOUND) {
       record_address(addr, &addr_count);
@@ -311,14 +311,17 @@ void event_commutative_parameter(void *addr) {
       AddrId = RBExactQuery (all_mapped_addresses, &addr);
    }
    
-   actualTaskType= Commutative;
+   /* emit ActualTaskType event start */
+   actualTaskType= c;
    lastMappedAddr= *((int*)((rb_red_blk_node*)AddrId)->info);
-   emit_commutative_start(lastMappedAddr);
+   if (c == Commutative) emit_commutative_start(lastMappedAddr);
+   else if (c == Concurrent) emit_concurrent_start(lastMappedAddr);
+   else printf("not reading ActualTaskType correctly\n");
    
    
-   /* mark access   */
+   /* mark access */
    actual_task = get_actual_task_number();
-   depending_task_ptr = mark_commutative(actual_task, addr, &n_depending_tasks);
+   depending_task_ptr = mark_concurrent_commutative(actual_task, addr, &n_depending_tasks, c);
   
    if (*depending_task_ptr != no_dependency_task) {
       for (i=0; i<n_depending_tasks; ++i) {
@@ -329,6 +332,7 @@ void event_commutative_parameter(void *addr) {
       emit_n_dependencies(depending_task_ptr, n_depending_tasks); 
    }
 }
+
 
 void event_wait_on(void *addr) {
    int i;

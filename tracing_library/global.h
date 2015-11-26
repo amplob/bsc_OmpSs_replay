@@ -23,7 +23,7 @@ typedef void * t_Addr;
 typedef int t_taskId;
 typedef unsigned int bool;
 typedef enum e_LibraryStatus { initialized, uninitialized } LibraryStatus;
-typedef enum e_ActualTaskType { NoTask, In, Out, InOut, Commutative} ActualTaskType;
+typedef enum e_ActualTaskType { NoTask, In, Out, InOut, Commutative, Concurrent} ActualTaskType;
 typedef int t_phaseID;
 
 #define NO_NODE_FOUND NULL

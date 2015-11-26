@@ -55,6 +55,7 @@ void taskID_Set_Info (void* record, void* new_info) {
    old_info = (NodeInfo*)((rb_red_blk_node*)record)->info;
    old_info->last_write = ((NodeInfo*)new_info)->last_write;
    old_info->spaces_occupied = ((NodeInfo*)new_info)->spaces_occupied;
+   old_info->type= ((NodeInfo*)new_info)->type;
    old_info->array_size = ((NodeInfo*)new_info)->array_size;
    //(old_info->array_ptr) = ((NodeInfo*)new_info)->array_ptr;
 }
@@ -80,6 +81,7 @@ static NodeInfo* make_persistant_taskId (NodeInfo* ni) {
    new_ni->last_write = ni->last_write;
    new_ni->array_size = ni->array_size;
    new_ni->spaces_occupied = ni->spaces_occupied;
+   new_ni->type= NoTask;
    new_ni->array_ptr = ni->array_ptr; //if ni->array_ptr is NULL then new_ni->array_ptr is NULL
    if (ni->array_ptr) {
       new_ni->array_ptr = malloc (ni->array_size * sizeof(t_taskId));
@@ -186,6 +188,7 @@ t_taskId mark_output (t_taskId actual_task, t_Addr addr) {
    NI->last_write = actual_task;
    NI->array_size= 0;
    NI->spaces_occupied= 0;
+   NI->type= NoTask;
    NI->array_ptr= NULL;
    if (previous_write_taskID_node != NO_NODE_FOUND) {
       RBTreeSetInfo(all_dependent_memory_references,
@@ -237,6 +240,7 @@ t_taskId* mark_inout (t_taskId actual_task, t_Addr addr, int* n_depending_tasks)
       NI->last_write = actual_task;
       NI->array_size= 0;
       NI->spaces_occupied= 0;
+      NI->type= NoTask;
       NI->array_ptr= NULL;
       record_write (addr, NI);
    }   
@@ -266,6 +270,7 @@ t_taskId* mark_commutative (t_taskId actual_task, t_Addr addr, int* n_depending_
    NI->last_write= no_dependency_task;
    NI->array_size= 0;
    NI->spaces_occupied= 0;
+   NI->type= NoTask;
    NI->array_ptr= NULL;
    
    rb_red_blk_node *previous_write_taskID_node;
@@ -284,6 +289,63 @@ t_taskId* mark_commutative (t_taskId actual_task, t_Addr addr, int* n_depending_
    if (!NI->array_ptr) {
       NI->array_ptr = malloc (10*sizeof(NodeInfo));
       NI->array_size = 10;
+   }
+   else if (NI->array_size == NI->spaces_occupied) {
+      NI->array_ptr = realloc(NI->array_ptr, 2*NI->array_size*sizeof(t_taskId));
+      NI->array_size *= 2;
+   }
+   *(NI->array_ptr + NI->spaces_occupied) = actual_task;
+   ++NI->spaces_occupied;
+   
+   RBTreeSetInfo(all_dependent_memory_references, previous_write_taskID_node, NI);
+   
+   return (t_taskId*)&NI->last_write;
+}
+
+/* mark concurrent access */
+t_taskId* mark_concurrent_commutative (t_taskId actual_task, t_Addr addr, int* n_depending_tasks, ActualTaskType c) {
+   int i;
+   NodeInfo* NI = NULL;
+   NI= (NodeInfo*) malloc(sizeof(NodeInfo));
+   NI->last_write= no_dependency_task;
+   NI->array_size= 0;
+   NI->spaces_occupied= 0;
+   NI->type= c;
+   NI->array_ptr= NULL;
+   
+   rb_red_blk_node *previous_write_taskID_node;
+   assert(libraryStatus == initialized);        
+   
+   previous_write_taskID_node = find_previous_write_record (addr);
+   if (previous_write_taskID_node == NO_NODE_FOUND) {
+      record_write (addr, NI);
+      previous_write_taskID_node = find_previous_write_record (addr);
+   }
+   assert(previous_write_taskID_node != NO_NODE_FOUND);
+   
+   NI = ((NodeInfo*) RBTreeGetInfo(all_dependent_memory_references, previous_write_taskID_node));
+   
+   /* Report dependencies from previous NI->type task(s) */
+   if(NI->array_ptr) {
+      if (NI->type != c) {
+	 *n_depending_tasks = NI->spaces_occupied;
+	 if (!array_aux) array_aux= malloc(NI->spaces_occupied * sizeof(t_taskId));
+	 if ((sizeof(array_aux)) < (NI->spaces_occupied * sizeof(t_taskId))) 
+	    array_aux= realloc(array_aux, (NI->spaces_occupied * sizeof(t_taskId)));
+	 for (i=0; i<NI->spaces_occupied; ++i) array_aux[i] = *(NI->array_ptr + i);
+	 free(NI->array_ptr);
+	 NI->array_ptr = NULL;
+	 NI->type = c;
+	 RBTreeSetInfo(all_dependent_memory_references, previous_write_taskID_node, NI);
+	 return &array_aux[0];
+      }
+   }
+   
+   /* actualize array->ptr */
+   if (!NI->array_ptr) {
+      NI->array_ptr = malloc (10*sizeof(NodeInfo));
+      NI->array_size = 10;
+      NI->type = c;
    }
    else if (NI->array_size == NI->spaces_occupied) {
       NI->array_ptr = realloc(NI->array_ptr, 2*NI->array_size*sizeof(t_taskId));

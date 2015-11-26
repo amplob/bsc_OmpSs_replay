@@ -42,6 +42,16 @@ void emit_commutative_end(int mappedAddr) {
    Extrae_event(COMMON_EVENT_TYPE_CRITICAL_END, mappedAddr);
 }
 
+void emit_concurrent_start(int mappedAddr) {
+   TEST_PROGRESS("emit concurrent task start with mapped address %d\n", mappedAddr);
+   Extrae_event(COMMON_EVENT_TYPE_CONCURRENT_BEGIN, mappedAddr);  
+}
+
+void emit_concurrent_end(int mappedAddr) {
+   TEST_PROGRESS("emit concurrent task end with mapped address %d\n", mappedAddr);
+   Extrae_event(COMMON_EVENT_TYPE_CONCURRENT_END, mappedAddr);
+}
+
 void emit_phase_start(t_phaseID phaseID) {
    
    TEST_PROGRESS("emit start phase no: %d\n", phaseID);

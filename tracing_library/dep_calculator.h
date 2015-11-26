@@ -2,10 +2,11 @@
 #include "global.h"
 
 typedef struct NodeInfo {
-   t_taskId  last_write;
-   int       array_size;
-   int       spaces_occupied;
-   t_taskId* array_ptr;
+   t_taskId        last_write;
+   int             array_size;
+   int             spaces_occupied;
+   ActualTaskType  type;
+   t_taskId*       array_ptr;
 } NodeInfo;
 
 /* initialize dependencies collection */
@@ -25,6 +26,9 @@ t_taskId* mark_inout (t_taskId actual_task, t_Addr addr, int* n_depending_tasks)
 
 /* mark commutative access */
 t_taskId* mark_commutative (t_taskId actual_task, t_Addr addr, int* n_depending_tasks);
+
+/* mark concurrent and commutative access */
+t_taskId* mark_concurrent_commutative (t_taskId actual_task, t_Addr addr, int* n_depending_tasks, ActualTaskType c);
 
 void printout_all_dependencies_collection (void);
    
