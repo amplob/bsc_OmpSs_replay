@@ -9,6 +9,8 @@ typedef struct NodeInfo {
    t_taskId*       array_ptr;
 } NodeInfo;
 
+extern t_taskId* array_aux;
+
 /* initialize dependencies collection */
 void init_dependencies_collection(void);
 

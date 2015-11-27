@@ -273,6 +273,10 @@ void event_inout_parameter(void *addr) {
       /* if there is dependency - emit it to the trace */   
       emit_n_dependencies(depending_task_ptr, n_depending_tasks); 
    }
+   if (array_aux != NULL) {
+      free(array_aux);
+      array_aux = NULL;
+   }
 }
 
 
